@@ -1,0 +1,17 @@
+{
+  "name": "@eqworks/updates",
+  "version": "0.1.0",
+  "description": "Retrieve updates based on activities happening across the GitHub organization",
+  "main": "index.js",
+  "scripts": {
+    "daily": "env $(print-env) node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "dev@eqworks.com",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/core": "^3.2.1",
+    "date-fns": "^2.16.1"
+  }
+}
