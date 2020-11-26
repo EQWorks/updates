@@ -3,7 +3,7 @@ const { Octokit } = require('@octokit/core')
 const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks' } = process.env
 const client = new Octokit({ auth: GITHUB_TOKEN })
 
-const byRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ start, end, per_page = 100 }) => {
+const searchByRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ start, end, per_page = 100 }) => {
   const range = `${qualifier}:${start}..${end}`
   let r = []
   let page = 1
@@ -28,9 +28,9 @@ const byRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ 
   return r
 }
 
-module.exports.issuesByRange = byRange({ endpoint: 'GET /search/issues', qualifier: 'updated' })
+module.exports.issuesByRange = searchByRange({ endpoint: 'GET /search/issues', qualifier: 'updated' })
 
-module.exports.commitsByRange = byRange({
+module.exports.commitsByRange = searchByRange({
   endpoint: 'GET /search/commits',
   qualifier: 'committer-date',
   options: {
@@ -39,3 +39,23 @@ module.exports.commitsByRange = byRange({
     },
   },
 })
+
+const getIssuesComments = ({
+  issues,
+  start: since,
+  end,
+}) => Promise.all(issues.filter((v) => v.comments).map((v) => client.request({
+  url: v.comments_url,
+  method: 'GET',
+  since, // matching issue search start, plus the below hack to emulate "before"
+}).then(({ data }) => data.filter((v) => +(new Date(v.updated_at) <= +(new Date(end))))))).then((data) => data.flat())
+
+module.exports.enrichIssues = async ({ issues, start, end }) => {
+  // enrich all (issues and PRs) with issue-level comments
+  const comments = await getIssuesComments({ issues, start, end })
+  const commentEnriched = issues.map((issue) => ({
+    ...issue,
+    enriched_comments: comments.filter((v) => v.issue_url === issue.url),
+  }))
+  return commentEnriched
+}
