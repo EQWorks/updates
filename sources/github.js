@@ -50,6 +50,8 @@ const getIssuesComments = ({
   since, // matching issue search start, plus the below hack to emulate "before"
 }).then(({ data }) => data.filter((v) => +(new Date(v.updated_at) <= +(new Date(end))))))).then((data) => data.flat())
 
+const isPR = (v) => Object.keys(v).includes('pull_request')
+
 module.exports.enrichIssues = async ({ issues, start, end }) => {
   // enrich all (issues and PRs) with issue-level comments
   const comments = await getIssuesComments({ issues, start, end })
@@ -57,5 +59,12 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
     ...issue,
     enriched_comments: comments.filter((v) => v.issue_url === issue.url),
   }))
-  return commentEnriched
+  // split out pure issues and PRs
+  const prs = commentEnriched.filter(isPR)
+  // enrich PRs with review comments
+  // enrich PRs with commit updates
+  return {
+    issues: commentEnriched.filter((v) => !isPR(v)),
+    prs,
+  }
 }
