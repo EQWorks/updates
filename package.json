@@ -12,6 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "@octokit/core": "^3.2.1",
-    "date-fns": "^2.16.1"
+    "luxon": "^1.25.0"
   }
 }
