@@ -60,10 +60,10 @@ const getIssuesComments = getIssueEnrichment('comments_url')
 
 const getPRsReviews = getIssueEnrichment('review_comments_url')
 
-const ignoreProjects = ({ html_url }) => !html_url.startsWith('https://github.com/EQWorks/eqworks.github.io')
+module.exports.ignoreProjects = ({ html_url }) => !html_url.startsWith('https://github.com/EQWorks/eqworks.github.io')
   && !html_url.startsWith('https://github.com/EQWorks/cs-')
 
-const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.filter(ignoreProjects).map(
+const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
   (pr) => client.request({
     url: pr.commits_url,
     method: 'GET',
