@@ -1,8 +1,14 @@
 const { DateTime } = require('luxon')
 const { Octokit } = require('@octokit/core')
 
-const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks' } = process.env
+const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks', ORG_TZ = 'America/Toronto' } = process.env
 const client = new Octokit({ auth: GITHUB_TOKEN })
+
+const REGEX_PROJ = new RegExp(`https:\/\/github\.com\/${GITHUB_ORG}\/(.*)\/.*/.*`)
+const pick = (...ps) => (o) => Object.assign({}, ...ps.map((p) => ({ [p]: o[p] })))
+
+const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'enriched_comments']
+const PR_FIELDS = [...ISSUE_FIELDS, 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 const searchByRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ start, end, per_page = 100 }) => {
   let r = []
@@ -60,8 +66,8 @@ const getIssuesComments = getIssueEnrichment('comments_url')
 
 const getPRsReviews = getIssueEnrichment('review_comments_url')
 
-module.exports.ignoreProjects = ({ html_url }) => !html_url.startsWith('https://github.com/EQWorks/eqworks.github.io')
-  && !html_url.startsWith('https://github.com/EQWorks/cs-')
+module.exports.ignoreProjects = ({ html_url }) => !html_url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`)
+  && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/cs-`)
 
 const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
   (pr) => client.request({
@@ -91,6 +97,7 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
   const comments = await getIssuesComments({ issues, start, end })
   const enrichedIssues = issues.map((issue) => ({
     ...issue,
+    project: issue.html_url.match(REGEX_PROJ)[1],
     enriched_comments: comments.filter((v) => v.issue_url === issue.url),
   }))
   // split out pure issues and PRs
@@ -111,7 +118,92 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
     enriched_commits: commits.filter((v) => v.pull_request_url === pr.pull_request_url),
   }))
   return {
-    issues: enrichedIssues.filter((v) => !isPR(v)),
-    prs: enrichedPRs,
+    issues: enrichedIssues.filter((v) => !isPR(v)).map(pick(...PR_FIELDS)),
+    prs: enrichedPRs.map(pick(...PR_FIELDS)),
+    start,
+    end,
   }
+}
+
+const isClosed = (i) => i.state === 'closed'
+
+const formatClosed = (i) => {
+  const closed = i.filter(isClosed).length
+  if (closed) {
+    return ` (${closed === i.length ? 'all ' : ''}${closed} ✔️)`
+  }
+  return ''
+}
+
+const formatDates = ({ start, end }) => {
+  const _start = DateTime.fromISO(start, { zone: 'UTC' }).setZone(ORG_TZ)
+  const _end = DateTime.fromISO(end, { zone: 'UTC' }).setZone(ORG_TZ)
+  if (_start.toMillis() === _end.toMillis()) {
+    return _start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+  }
+  if (_start.startOf('year').toMillis() === _end.startOf('year').toMillis()) {
+    return `from ${_start.toFormat('ccc, MMM dd')} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
+  }
+  return `from ${_start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
+}
+
+// format as markdown
+module.exports.formatDigest = ({ issues, prs, start, end }) => {
+  let content = ''
+  if (issues.length) {
+    content += `# ${issues.length} Issues updated${formatClosed(issues)}`
+    const grouped = {}
+    issues.forEach((issue) => {
+      grouped[issue.project] = grouped[issue.project] || []
+      grouped[issue.project].push(issue)
+    })
+    Object.entries(grouped).forEach(([project, issues]) => {
+      content += `\n\n## ${project}${formatClosed(issues)}\n`
+      issues.forEach((issue) => {
+        const urlParts = issue.html_url.split('/')
+        const number = urlParts[urlParts.length - 1]
+        content += `\n* [#${number}](${issue.html_url}) ${issue.title.trim()}`
+        const user = issue.user.login
+        if (issue.assignees.length) {
+          content += ` (c: ${user}, a: ${issue.assignees.map((i) => i.login).join(', ')})`
+        } else {
+          content += ` (${user})`
+        }
+        if (issue.state === 'closed') {
+          content += ` ✔️`
+        }
+      })
+    })
+    content += '\n\n'
+  }
+
+  if (prs.length) {
+    content += `# ${prs.length} PRs updated${formatClosed(prs)}`
+    const grouped = {}
+    prs.forEach((pr) => {
+      grouped[pr.project] = grouped[pr.project] || []
+      grouped[pr.project].push(pr)
+    })
+    Object.entries(grouped).forEach(([project, prs]) => {
+      content += `\n\n## ${project}${formatClosed(prs)}\n`
+      prs.forEach((pr) => {
+        const urlParts = pr.html_url.split('/')
+        const number = urlParts[urlParts.length - 1]
+        content += `\n* [#${number}](${pr.html_url}) ${pr.title.trim()}`
+        const user = pr.user.login
+        if (pr.assignees.length) {
+          content += ` (c: ${user}, a: ${pr.assignees.map((i) => i.login).join(', ')})`
+        } else {
+          content += ` (${user})`
+        }
+        if (pr.state === 'closed') {
+          content += ` ✔️`
+        } else if (pr.draft || pr.title.toLowerCase().includes('[wip]')) {
+          content += ` ⚠️`
+        }
+      })
+    })
+  }
+
+  return { content, title: `Dev Digest - ${formatDates({ start, end })}` }
 }
