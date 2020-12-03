@@ -1,0 +1,38 @@
+name: Weekly Tuesday
+
+on:
+  schedule:
+    # At UTC 06:00 every Tuesday
+    - cron: '0 6 * * 2'
+
+jobs:
+  routine:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache Node Modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - run: npm i
+
+      - name: Post weekly digest
+        run: node index.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          SLACK_CHANNEL: G01G0BPP536 # dev-updates-
