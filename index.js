@@ -10,7 +10,7 @@ const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
 const weeklyDigest = () => {
   // weekly range in ISO string but drops ms portion
   const yst = DateTime.utc().minus({ day: 1 }).setZone(ORG_TZ, { keepLocalTime: true })
-  const lastYst = yst.minus({ week: 1 })
+  const lastYst = yst.minus({ week: 1 }).plus({ day: 1 })
   const start = stripMS(lastYst.startOf('day').toUTC())
   const end = stripMS(yst.endOf('day').toUTC())
 
