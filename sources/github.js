@@ -184,15 +184,15 @@ const formatAggStates = (i) => {
     return ' (all done ✔️)'
   }
   if (closed) {
-    r += `\n* ✔️ Done: ${closed}`
+    r += `\n✔️ Done: ${closed}`
   }
   const wip = i.filter(isWIP).length
   if (wip) {
-    r += `\n* ⚠️ WIP: ${wip}`
+    r += `\n⚠️ WIP: ${wip}`
   }
   const rest = i.length - closed - wip
   if (rest > 0) {
-    r += `\n* 👀 Needs review: ${rest}`
+    r += `\n👀 Needs review: ${rest}`
   }
   return r
 }
@@ -208,9 +208,19 @@ const formatUser = (issue) => {
 
 const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
 
+const getID = ({ html_url }) => html_url.split(/\/issues\/|\/pull\//)[1]
+
+const composeItem = (item) => [stateIcon(item), `[#${getID(item)}](${item.html_url})`, trimTitle(item), formatUser(item)]
+const formatItem = (item) => composeItem(item).join(' ')
+const formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
+
 // format as markdown
 module.exports.formatDigest = ({ issues, prs, start, end }) => {
-  const all = [...issues, ...prs]
+  const allLinked = prs.map((pr) => pr.linked_issues).flat()
+  const all = [
+    ...issues.filter((issue) => !allLinked.includes(getID(issue))),
+    ...prs,
+  ]
   let content = ''
 
   if (all.length) {
@@ -218,12 +228,16 @@ module.exports.formatDigest = ({ issues, prs, start, end }) => {
     const grouped = all.reduce(groupByCatProj, {})
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
-      Object.entries(byProjects).forEach(([project, issues]) => {
+      Object.entries(byProjects).forEach(([project, items]) => {
         content += `\n## ${project}`
-        issues.forEach((issue) => {
-          const urlParts = issue.html_url.split('/')
-          const number = urlParts[urlParts.length - 1]
-          content += `\n* ${stateIcon(issue)} [#${number}](${issue.html_url}) ${trimTitle(issue)} ${formatUser(issue)}`
+        items.forEach((item) => {
+          content += `\n* ${formatItem(item)}`
+          ;(item.linked_issues || []).forEach((id) => {
+            const sub = issues.find((i) => getID(i) === id)
+            if (sub) {
+              content += `\n    * ${formatSub(sub)}`
+            }
+          })
         })
       })
     })
