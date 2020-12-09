@@ -6,12 +6,13 @@ const client = new Octokit({ auth: GITHUB_TOKEN })
 
 const REGEX_PROJ = new RegExp(`https:\/\/github\.com\/${GITHUB_ORG}\/(.*)\/.*/.*`)
 const REGEX_TITLE = /(\[(g2m|wip)\])?(?<trimmed>.*)/i
+const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const pick = (...ps) => (o) => Object.assign({}, ...ps.map((p) => ({ [p]: o[p] })))
 const isClosed = ({ state }) => state === 'closed'
 const isWIP = ({ draft, title }) => draft || title.toLowerCase().includes('[wip]')
 
 const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'category', 'enriched_comments']
-const PR_FIELDS = [...ISSUE_FIELDS, 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
+const PR_FIELDS = [...ISSUE_FIELDS, 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 const searchByRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ start, end, per_page = 100 }) => {
   let r = []
@@ -122,6 +123,7 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
   // split out pure issues and PRs
   const prs = enrichedIssues.filter(isPR).map((pr) => ({
     ...pr,
+    linked_issues: Array.from(pr.body.matchAll(REGEX_LINKED_ISSUES)).map((v) => v.groups.issue),
     pull_request_url: pr.url.replace('/issues/', '/pulls/'),
     commits_url: `${pr.url.replace('/issues/', '/pulls/')}/commits`,
     review_comments_url: pr.comments_url.replace('/issues/', '/pulls/'),
