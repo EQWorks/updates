@@ -5,9 +5,12 @@ const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks', ORG_TZ = 'America/Toronto' } = pro
 const client = new Octokit({ auth: GITHUB_TOKEN })
 
 const REGEX_PROJ = new RegExp(`https:\/\/github\.com\/${GITHUB_ORG}\/(.*)\/.*/.*`)
+const REGEX_TITLE = /(\[(g2m|wip)\])?(?<trimmed>.*)/i
 const pick = (...ps) => (o) => Object.assign({}, ...ps.map((p) => ({ [p]: o[p] })))
+const isClosed = ({ state }) => state === 'closed'
+const isWIP = ({ draft, title }) => draft || title.toLowerCase().includes('[wip]')
 
-const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'enriched_comments']
+const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'category', 'enriched_comments']
 const PR_FIELDS = [...ISSUE_FIELDS, 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 const searchByRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ start, end, per_page = 100 }) => {
@@ -40,11 +43,7 @@ module.exports.issuesByRange = searchByRange({ endpoint: 'GET /search/issues', q
 module.exports.commitsByRange = searchByRange({
   endpoint: 'GET /search/commits',
   qualifier: 'committer-date',
-  options: {
-    mediaType: {
-      previews: ['cloak']
-    },
-  },
+  options: { mediaType: { previews: ['cloak'] } },
 })
 
 const before = (end) => (v) => Number(new Date(v.updated_at)) <= Number(new Date(end))
@@ -69,6 +68,22 @@ const getPRsReviews = getIssueEnrichment('review_comments_url')
 module.exports.ignoreProjects = ({ html_url }) => !html_url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`)
   && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/cs-`)
 
+const getRepoTopics = (issues) => Promise.all(
+  issues.reduce((acc, { repository_url }) => {
+    if (acc.indexOf(repository_url) < 0) {
+      acc.push(repository_url)
+    }
+    return acc
+  }, []).map((v) => client.request({
+    url: `${v}/topics`,
+    method: 'GET',
+    mediaType: { previews: ['mercy'] },
+  }).then(({ data: { names } = {} }) => ({ v, topics: names.filter((n) => n.startsWith('meta-')) })))
+).then((data) => data.flat().filter((v) => v.topics.length > 0).reduce((acc, { v, topics }) => {
+  acc[v] = [...(acc[v] || []), ...topics]
+  return acc
+}, {}))
+
 const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
   (pr) => client.request({
     url: pr.commits_url,
@@ -86,7 +101,7 @@ const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
     const committed = DateTime.fromISO(r.commit.committer.date, { zone: 'UTC' }).startOf('day')
     return ((committed >= _start) && (committed <= _end)) // committed within range
       || [created, committed].map((o) => o.toMillis()).includes(updated.toMillis()) // updated == (created | committed)
-      || (pr.state === 'closed') && (closed >= updated) // PR closed and not updated after closing
+      || isClosed(pr) && (closed >= updated) // PR closed and not updated after closing
   }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url })))
 )).then((data) => data.flat())
 
@@ -94,10 +109,14 @@ const isPR = (v) => Object.keys(v).includes('pull_request')
 
 module.exports.enrichIssues = async ({ issues, start, end }) => {
   // enrich all (issues and PRs) with issue-level comments
-  const comments = await getIssuesComments({ issues, start, end })
+  const [topics, comments] = await Promise.all([
+    getRepoTopics(issues),
+    getIssuesComments({ issues, start, end }),
+  ])
   const enrichedIssues = issues.map((issue) => ({
     ...issue,
     project: issue.html_url.match(REGEX_PROJ)[1],
+    category: (topics[issue.repository_url] || [])[0], // strip out "meta-""
     enriched_comments: comments.filter((v) => v.issue_url === issue.url),
   }))
   // split out pure issues and PRs
@@ -125,16 +144,6 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
   }
 }
 
-const isClosed = (i) => i.state === 'closed'
-
-const formatClosed = (i) => {
-  const closed = i.filter(isClosed).length
-  if (closed) {
-    return ` (${closed === i.length ? 'all ' : ''}${closed} ✔️)`
-  }
-  return ''
-}
-
 const formatDates = ({ start, end }) => {
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).setZone(ORG_TZ)
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).setZone(ORG_TZ)
@@ -147,60 +156,73 @@ const formatDates = ({ start, end }) => {
   return `from ${_start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
 }
 
+const groupByCatProj = (acc, curr) => {
+  const { category = 'meta-uncategorized', project } = curr
+  const cat = category.substring(5).toUpperCase()
+  acc[cat] = acc[cat] || {}
+  acc[cat][project] = acc[cat][project] || []
+  acc[cat][project].push(curr)
+  return acc
+}
+
+const stateIcon = ({ state, draft, title }) => {
+  if (isClosed({ state })) {
+    return '✔️' // done
+  }
+  if (isWIP({ draft, title })) {
+    return '⚠️' // wip
+  }
+  return '👀' // looking for review/comment
+}
+
+const formatAggStates = (i) => {
+  let r = ''
+  const closed = i.filter(isClosed).length
+  if (i.length === closed.length) {
+    return ' (all done ✔️)'
+  }
+  if (closed) {
+    r += `\n* ✔️ Done: ${closed}`
+  }
+  const wip = i.filter(isWIP).length
+  if (wip) {
+    r += `\n* ⚠️ WIP: ${wip}`
+  }
+  const rest = i.length - closed - wip
+  if (rest > 0) {
+    r += `\n* 👀 Needs review: ${rest}`
+  }
+  return r
+}
+
+const formatUser = (issue) => {
+  const { user: { login: creator } } = issue
+  const assignees = issue.assignees.map((i) => i.login).filter((a) => a !== creator)
+  if (!assignees.length) {
+    return `(${creator})`
+  }
+  return `(c: ${creator}, a: ${issue.assignees.map((i) => i.login).join(', ')})`
+}
+
+const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
+
 // format as markdown
 module.exports.formatDigest = ({ issues, prs, start, end }) => {
+  const all = [...issues, ...prs]
   let content = ''
-  if (issues.length) {
-    content += `# ${issues.length} Issues updated${formatClosed(issues)}`
-    const grouped = {}
-    issues.forEach((issue) => {
-      grouped[issue.project] = grouped[issue.project] || []
-      grouped[issue.project].push(issue)
-    })
-    Object.entries(grouped).forEach(([project, issues]) => {
-      content += `\n\n## ${project}${formatClosed(issues)}\n`
-      issues.forEach((issue) => {
-        const urlParts = issue.html_url.split('/')
-        const number = urlParts[urlParts.length - 1]
-        content += `\n* [#${number}](${issue.html_url}) ${issue.title.trim()}`
-        const user = issue.user.login
-        if (issue.assignees.length) {
-          content += ` (c: ${user}, a: ${issue.assignees.map((i) => i.login).join(', ')})`
-        } else {
-          content += ` (${user})`
-        }
-        if (issue.state === 'closed') {
-          content += ` ✔️`
-        }
-      })
-    })
-    content += '\n\n'
-  }
 
-  if (prs.length) {
-    content += `# ${prs.length} PRs updated${formatClosed(prs)}`
-    const grouped = {}
-    prs.forEach((pr) => {
-      grouped[pr.project] = grouped[pr.project] || []
-      grouped[pr.project].push(pr)
-    })
-    Object.entries(grouped).forEach(([project, prs]) => {
-      content += `\n\n## ${project}${formatClosed(prs)}\n`
-      prs.forEach((pr) => {
-        const urlParts = pr.html_url.split('/')
-        const number = urlParts[urlParts.length - 1]
-        content += `\n* [#${number}](${pr.html_url}) ${pr.title.trim()}`
-        const user = pr.user.login
-        if (pr.assignees.length) {
-          content += ` (c: ${user}, a: ${pr.assignees.map((i) => i.login).join(', ')})`
-        } else {
-          content += ` (${user})`
-        }
-        if (pr.state === 'closed') {
-          content += ` ✔️`
-        } else if (pr.draft || pr.title.toLowerCase().includes('[wip]')) {
-          content += ` ⚠️`
-        }
+  if (all.length) {
+    content += `${all.length} updates${formatAggStates(all)}`
+    const grouped = all.reduce(groupByCatProj, {})
+    Object.entries(grouped).forEach(([category, byProjects]) => {
+      content += `\n\n# ${category}\n`
+      Object.entries(byProjects).forEach(([project, issues]) => {
+        content += `\n## ${project}`
+        issues.forEach((issue) => {
+          const urlParts = issue.html_url.split('/')
+          const number = urlParts[urlParts.length - 1]
+          content += `\n* ${stateIcon(issue)} [#${number}](${issue.html_url}) ${trimTitle(issue)} ${formatUser(issue)}`
+        })
       })
     })
   }
