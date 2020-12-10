@@ -6,12 +6,13 @@ const client = new Octokit({ auth: GITHUB_TOKEN })
 
 const REGEX_PROJ = new RegExp(`https:\/\/github\.com\/${GITHUB_ORG}\/(.*)\/.*/.*`)
 const REGEX_TITLE = /(\[(g2m|wip)\])?(?<trimmed>.*)/i
+const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const pick = (...ps) => (o) => Object.assign({}, ...ps.map((p) => ({ [p]: o[p] })))
 const isClosed = ({ state }) => state === 'closed'
 const isWIP = ({ draft, title }) => draft || title.toLowerCase().includes('[wip]')
 
 const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'category', 'enriched_comments']
-const PR_FIELDS = [...ISSUE_FIELDS, 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
+const PR_FIELDS = [...ISSUE_FIELDS, 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 const searchByRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ start, end, per_page = 100 }) => {
   let r = []
@@ -122,6 +123,7 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
   // split out pure issues and PRs
   const prs = enrichedIssues.filter(isPR).map((pr) => ({
     ...pr,
+    linked_issues: Array.from(pr.body.matchAll(REGEX_LINKED_ISSUES)).map((v) => v.groups.issue),
     pull_request_url: pr.url.replace('/issues/', '/pulls/'),
     commits_url: `${pr.url.replace('/issues/', '/pulls/')}/commits`,
     review_comments_url: pr.comments_url.replace('/issues/', '/pulls/'),
@@ -182,15 +184,15 @@ const formatAggStates = (i) => {
     return ' (all done ✔️)'
   }
   if (closed) {
-    r += `\n* ✔️ Done: ${closed}`
+    r += `\n✔️ Done: ${closed}`
   }
   const wip = i.filter(isWIP).length
   if (wip) {
-    r += `\n* ⚠️ WIP: ${wip}`
+    r += `\n⚠️ WIP: ${wip}`
   }
   const rest = i.length - closed - wip
   if (rest > 0) {
-    r += `\n* 👀 Needs review: ${rest}`
+    r += `\n👀 Needs review: ${rest}`
   }
   return r
 }
@@ -206,9 +208,19 @@ const formatUser = (issue) => {
 
 const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
 
+const getID = ({ html_url }) => html_url.split(/\/issues\/|\/pull\//)[1]
+
+const composeItem = (item) => [stateIcon(item), `[#${getID(item)}](${item.html_url})`, trimTitle(item), formatUser(item)]
+const formatItem = (item) => composeItem(item).join(' ')
+const formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
+
 // format as markdown
 module.exports.formatDigest = ({ issues, prs, start, end }) => {
-  const all = [...issues, ...prs]
+  const allLinked = prs.map((pr) => pr.linked_issues).flat()
+  const all = [
+    ...issues.filter((issue) => !allLinked.includes(getID(issue))),
+    ...prs,
+  ]
   let content = ''
 
   if (all.length) {
@@ -216,12 +228,16 @@ module.exports.formatDigest = ({ issues, prs, start, end }) => {
     const grouped = all.reduce(groupByCatProj, {})
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
-      Object.entries(byProjects).forEach(([project, issues]) => {
+      Object.entries(byProjects).forEach(([project, items]) => {
         content += `\n## ${project}`
-        issues.forEach((issue) => {
-          const urlParts = issue.html_url.split('/')
-          const number = urlParts[urlParts.length - 1]
-          content += `\n* ${stateIcon(issue)} [#${number}](${issue.html_url}) ${trimTitle(issue)} ${formatUser(issue)}`
+        items.forEach((item) => {
+          content += `\n* ${formatItem(item)}`
+          ;(item.linked_issues || []).forEach((id) => {
+            const sub = issues.find((i) => getID(i) === id)
+            if (sub) {
+              content += `\n    * ${formatSub(sub)}`
+            }
+          })
         })
       })
     })
