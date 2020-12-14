@@ -4,7 +4,7 @@ const { Octokit } = require('@octokit/core')
 const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks', ORG_TZ = 'America/Toronto' } = process.env
 const client = new Octokit({ auth: GITHUB_TOKEN })
 
-const REGEX_PROJ = new RegExp(`https:\/\/github\.com\/${GITHUB_ORG}\/(.*)\/.*/.*`)
+const REGEX_PROJ = new RegExp(`https://github.com/${GITHUB_ORG}/(.*)/.*/.*`)
 const REGEX_TITLE = /(\[(g2m|wip)\])?(?<trimmed>.*)/i
 const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const pick = (...ps) => (o) => Object.assign({}, ...ps.map((p) => ({ [p]: o[p] })))
@@ -245,4 +245,66 @@ module.exports.formatDigest = ({ issues, prs, start, end }) => {
   }
 
   return { content, title: `Dev Digest - ${formatDates({ start, end })}` }
+}
+
+const formatAggComments = ({ enriched_comments: items }) => {
+  const type = items.length === 1 ? 'comment' : 'comments'
+  const users = Array.from(new Set(items.map(({ user }) => user.login).filter((v) => v)))
+  const links = items.map(({ html_url }) => `[${html_url.split('#issuecomment-')[1]}](${html_url})`)
+  return `${items.length} ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
+}
+const formatAggCommits = ({ enriched_commits: items }) => {
+  const type = items.length === 1 ? 'commit' : 'commits'
+  const users = Array.from(new Set(items.map(({ author }) => author?.login).filter((v) => v)))
+  const links = items.map(({ html_url, sha }) => `[${sha.slice(0, 7)}](${html_url})`)
+  return `${items.length} ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
+}
+const formatAggReviews = ({ enriched_reviews: items }) => {
+  const type = items.length === 1 ? 'review' : 'reviews'
+  const users = Array.from(new Set(items.map(({ user }) => user.login).filter((v) => v)))
+  const links = items.map(({ html_url }) => `[${html_url.split('#discussion_')[1]}](${html_url})`)
+  return `${items.length} ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
+}
+
+module.exports.formatPreviously = ({ issues, prs, start, end }) => {
+  const allLinked = prs.map((pr) => pr.linked_issues).flat()
+  const all = [
+    ...issues.filter((issue) => !allLinked.includes(getID(issue))),
+    ...prs,
+  ]
+  let content = ''
+
+  if (all.length) {
+    content += `${all.length} updates${formatAggStates(all)}`
+    const grouped = all.reduce(groupByCatProj, {})
+    Object.entries(grouped).forEach(([category, byProjects]) => {
+      content += `\n\n# ${category}\n`
+      Object.entries(byProjects).forEach(([project, items]) => {
+        content += `\n## ${project}`
+        items.forEach((item) => {
+          content += `\n* ${formatItem(item)}`
+          ;(item.linked_issues || []).forEach((id) => {
+            const sub = issues.find((i) => getID(i) === id)
+            if (sub) {
+              content += `\n    * ${formatSub(sub)}`
+              if (sub.enriched_comments.length) {
+                content += `\n        * ${formatAggComments(sub)}`
+              }
+            }
+          })
+          if (item.enriched_comments.length) {
+            content += `\n    * ${formatAggComments(item)}`
+          }
+          if (item.enriched_reviews.length) {
+            content += `\n    * ${formatAggReviews(item)}`
+          }
+          if (item.enriched_commits.length) {
+            content += `\n    * ${formatAggCommits(item)}`
+          }
+        })
+      })
+    })
+  }
+
+  return { content, title: `Previously ${formatDates({ start, end })}` }
 }
