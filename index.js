@@ -1,6 +1,6 @@
 const { DateTime } = require('luxon')
 
-const { issuesByRange, enrichIssues, ignoreProjects, formatDigest } = require('./sources/github')
+const { issuesByRange, enrichIssues, ignoreProjects, ignoreBotUsers, formatDigest } = require('./sources/github')
 const { uploadMD } = require('./targets/slack')
 
 const { ORG_TZ = 'America/Toronto' } = process.env
@@ -16,6 +16,7 @@ const weeklyDigest = () => {
 
   issuesByRange({ start, end })
     .then((issues) => issues.filter(ignoreProjects))
+    .then((issues) => issues.filter(ignoreBotUsers))
     .then((issues) => enrichIssues({ issues, start, end }))
     .then(formatDigest)
     .then(uploadMD())

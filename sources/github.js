@@ -69,6 +69,8 @@ const getPRsReviews = getIssueEnrichment('review_comments_url')
 module.exports.ignoreProjects = ({ html_url }) => !html_url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`)
   && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/cs-`)
 
+module.exports.ignoreBotUsers = ({ user: { login } = {} }) => !login.startsWith('dependabot')
+
 const getRepoTopics = (issues) => Promise.all(
   issues.reduce((acc, { repository_url }) => {
     if (acc.indexOf(repository_url) < 0) {
@@ -149,8 +151,8 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
 const formatDates = ({ start, end }) => {
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).setZone(ORG_TZ)
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).setZone(ORG_TZ)
-  if (_start.toMillis() === _end.toMillis()) {
-    return _start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+  if (_start.startOf('day').toMillis() === _end.startOf('day').toMillis()) {
+    return `on ${_start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
   }
   if (_start.startOf('year').toMillis() === _end.startOf('year').toMillis()) {
     return `from ${_start.toFormat('ccc, MMM dd')} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
@@ -214,7 +216,6 @@ const composeItem = (item) => [stateIcon(item), `[#${getID(item)}](${item.html_u
 const formatItem = (item) => composeItem(item).join(' ')
 const formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
 
-// format as markdown
 module.exports.formatDigest = ({ issues, prs, start, end }) => {
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
