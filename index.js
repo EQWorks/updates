@@ -8,6 +8,7 @@ const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
 
 
 const weeklyDigest = () => {
+  const team = process.argv[2]
   // weekly range in ISO string but drops ms portion
   const yst = DateTime.utc().minus({ day: 1 }).setZone(ORG_TZ, { keepLocalTime: true })
   const lastYst = yst.minus({ week: 1 }).plus({ day: 1 })
@@ -17,7 +18,7 @@ const weeklyDigest = () => {
   issuesByRange({ start, end })
     .then((issues) => issues.filter(ignoreProjects))
     .then((issues) => issues.filter(ignoreBotUsers))
-    .then((issues) => enrichIssues({ issues, start, end }))
+    .then((issues) => enrichIssues({ issues, start, end, team }))
     .then(formatDigest)
     .then(uploadMD())
     .then(console.log)

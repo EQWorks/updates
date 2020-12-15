@@ -1,9 +1,9 @@
-name: Weekly Tuesday
+name: Weekly Data (Monday)
 
 on:
   schedule:
-    # At UTC 06:00 every Tuesday
-    - cron: '0 6 * * 2'
+    # At UTC 06:00 every Monday
+    - cron: '0 6 * * 1'
 
 jobs:
   routine:
@@ -31,7 +31,7 @@ jobs:
       - run: npm i
 
       - name: Post weekly digest
-        run: node index.js
+        run: node index.js data
         env:
           GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
