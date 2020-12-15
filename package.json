@@ -7,9 +7,7 @@
   "files": [
     "index.js",
     "sources",
-    "targets",
-    "README.md",
-    "LICENSE"
+    "targets"
   ],
   "scripts": {
     "weekly": "env $(print-env) node weekly.js",
