@@ -59,7 +59,7 @@ const getIssueEnrichment = (field) => ({
     method: 'GET',
     per_page: 100, // let this be max
     since: start, // matching issue search start, plus the below hack to emulate "in range"
-  }).then(({ data }) => data.filter(before(end)))
+  }).then(({ data }) => data.filter(before(end))),
 )).then((data) => data.flat())
 
 const getIssuesComments = getIssueEnrichment('comments_url')
@@ -81,7 +81,7 @@ const getRepoTopics = (issues) => Promise.all(
     url: `${v}/topics`,
     method: 'GET',
     mediaType: { previews: ['mercy'] },
-  }).then(({ data: { names } = {} }) => ({ v, topics: names.filter((n) => n.startsWith('meta-')) })))
+  }).then(({ data: { names } = {} }) => ({ v, topics: names.filter((n) => n.startsWith('meta-')) }))),
 ).then((data) => data.flat().filter((v) => v.topics.length > 0).reduce((acc, { v, topics }) => {
   acc[v] = [...(acc[v] || []), ...topics]
   return acc
@@ -105,7 +105,7 @@ const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
     return ((committed >= _start) && (committed <= _end)) // committed within range
       || [created, committed].map((o) => o.toMillis()).includes(updated.toMillis()) // updated == (created | committed)
       || isClosed(pr) && (closed >= updated) // PR closed and not updated after closing
-  }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url })))
+  }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url }))),
 )).then((data) => data.flat())
 
 const isPR = (v) => Object.keys(v).includes('pull_request')
