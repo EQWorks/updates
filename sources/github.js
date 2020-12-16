@@ -303,13 +303,13 @@ module.exports.formatPreviously = ({ issues, prs, start, end }) => {
               }
             }
           })
-          if (item.enriched_comments.length) {
+          if (item.enriched_comments?.length) {
             content += `\n    * ${formatAggComments(item)}`
           }
-          if (item.enriched_reviews.length) {
+          if (item.enriched_reviews?.length) {
             content += `\n    * ${formatAggReviews(item)}`
           }
-          if (item.enriched_commits.length) {
+          if (item.enriched_commits?.length) {
             content += `\n    * ${formatAggCommits(item)}`
           }
         })
