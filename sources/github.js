@@ -11,7 +11,7 @@ const pick = (...ps) => (o) => Object.assign({}, ...ps.map((p) => ({ [p]: o[p] }
 const isClosed = ({ state }) => state === 'closed'
 const isWIP = ({ draft, title }) => draft || title.toLowerCase().includes('[wip]')
 
-const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'category', 'enriched_comments']
+const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'team', 'category', 'enriched_comments']
 const PR_FIELDS = [...ISSUE_FIELDS, 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 const searchByRange = ({ endpoint, qualifier = 'updated', options = {} }) => async ({ start, end, per_page = 100 }) => {
@@ -59,7 +59,7 @@ const getIssueEnrichment = (field) => ({
     method: 'GET',
     per_page: 100, // let this be max
     since: start, // matching issue search start, plus the below hack to emulate "in range"
-  }).then(({ data }) => data.filter(before(end)))
+  }).then(({ data }) => data.filter(before(end))),
 )).then((data) => data.flat())
 
 const getIssuesComments = getIssueEnrichment('comments_url')
@@ -81,7 +81,7 @@ const getRepoTopics = (issues) => Promise.all(
     url: `${v}/topics`,
     method: 'GET',
     mediaType: { previews: ['mercy'] },
-  }).then(({ data: { names } = {} }) => ({ v, topics: names.filter((n) => n.startsWith('meta-')) })))
+  }).then(({ data: { names } = {} }) => ({ v, topics: names.filter((n) => n.startsWith('meta-')) }))),
 ).then((data) => data.flat().filter((v) => v.topics.length > 0).reduce((acc, { v, topics }) => {
   acc[v] = [...(acc[v] || []), ...topics]
   return acc
@@ -105,23 +105,33 @@ const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
     return ((committed >= _start) && (committed <= _end)) // committed within range
       || [created, committed].map((o) => o.toMillis()).includes(updated.toMillis()) // updated == (created | committed)
       || isClosed(pr) && (closed >= updated) // PR closed and not updated after closing
-  }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url })))
+  }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url }))),
 )).then((data) => data.flat())
 
 const isPR = (v) => Object.keys(v).includes('pull_request')
 
-module.exports.enrichIssues = async ({ issues, start, end }) => {
+const isTeamTopic = (t) => ['meta-data', 'meta-product'].includes(t)
+
+module.exports.enrichIssues = async ({ issues, start, end, team }) => {
   // enrich all (issues and PRs) with issue-level comments
   const [topics, comments] = await Promise.all([
     getRepoTopics(issues),
     getIssuesComments({ issues, start, end }),
   ])
-  const enrichedIssues = issues.map((issue) => ({
-    ...issue,
-    project: issue.html_url.match(REGEX_PROJ)[1],
-    category: (topics[issue.repository_url] || [])[0], // strip out "meta-""
-    enriched_comments: comments.filter((v) => v.issue_url === issue.url),
-  }))
+  const enrichedIssues = issues.map((issue) => {
+    // parse team and category from repo topics
+    const repoTopics = (topics[issue.repository_url] || [])
+    const teamTopics = repoTopics.filter(isTeamTopic)
+    const team = [0, 2].includes(teamTopics.length) ? undefined : teamTopics[0].substring(5)
+    const category = repoTopics.filter((t) => !isTeamTopic(t))[0]
+    return {
+      ...issue,
+      project: issue.html_url.match(REGEX_PROJ)[1],
+      team,
+      category,
+      enriched_comments: comments.filter((v) => v.issue_url === issue.url),
+    }
+  }).filter(({ team: t }) => !team || !t || (t.toLowerCase() === team.toLowerCase()))
   // split out pure issues and PRs
   const prs = enrichedIssues.filter(isPR).map((pr) => ({
     ...pr,
@@ -145,6 +155,7 @@ module.exports.enrichIssues = async ({ issues, start, end }) => {
     prs: enrichedPRs.map(pick(...PR_FIELDS)),
     start,
     end,
+    team,
   }
 }
 
@@ -216,7 +227,7 @@ const composeItem = (item) => [stateIcon(item), `[#${getID(item)}](${item.html_u
 const formatItem = (item) => composeItem(item).join(' ')
 const formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
 
-module.exports.formatDigest = ({ issues, prs, start, end }) => {
+module.exports.formatDigest = ({ issues, prs, start, end, team }) => {
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
@@ -244,7 +255,7 @@ module.exports.formatDigest = ({ issues, prs, start, end }) => {
     })
   }
 
-  return { content, title: `Dev Digest - ${formatDates({ start, end })}` }
+  return { content, title: `${team ? team.toUpperCase() : 'DEV'} Digest ${formatDates({ start, end })}` }
 }
 
 const formatAggComments = ({ enriched_comments: items }) => {
