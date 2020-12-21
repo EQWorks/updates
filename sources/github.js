@@ -218,12 +218,10 @@ const formatUser = (issue) => {
   }
   return `(c: ${creator}, a: ${issue.assignees.map((i) => i.login).join(', ')})`
 }
-
 const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
-
 const getID = ({ html_url }) => html_url.split(/\/issues\/|\/pull\//)[1]
-
-const composeItem = (item) => [stateIcon(item), `[#${getID(item)}](${item.html_url})`, trimTitle(item), formatUser(item)]
+const itemLink = (item) => `[${item.enriched_commits ? 'PR' : 'Issue'} #${getID(item)}](${item.html_url})`
+const composeItem = (item) => [stateIcon(item), itemLink(item), trimTitle(item), formatUser(item)]
 const formatItem = (item) => composeItem(item).join(' ')
 const formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
 
@@ -268,7 +266,7 @@ const formatAggCommits = ({ enriched_commits: items }) => {
   const type = items.length === 1 ? 'commit' : 'commits'
   const users = Array.from(new Set(items.map(({ author }) => author?.login).filter((v) => v)))
   const links = items.map(({ html_url, sha }) => `[${sha.slice(0, 7)}](${html_url})`)
-  return `${items.length} ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
+  return `${items.length} updated ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
 }
 const formatAggReviews = ({ enriched_reviews: items }) => {
   const type = items.length === 1 ? 'review' : 'reviews'
