@@ -105,7 +105,7 @@ const getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
     return ((committed >= _start) && (committed <= _end)) // committed within range
       || [created, committed].map((o) => o.toMillis()).includes(updated.toMillis()) // updated == (created | committed)
       || isClosed(pr) && (closed >= updated) // PR closed and not updated after closing
-  }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url }))),
+  }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url, pr_html_url: `${pr.html_url}/commits/${r.sha}` }))),
 )).then((data) => data.flat())
 
 const isPR = (v) => Object.keys(v).includes('pull_request')
@@ -265,7 +265,7 @@ const formatAggComments = ({ enriched_comments: items }) => {
 const formatAggCommits = ({ enriched_commits: items }) => {
   const type = items.length === 1 ? 'commit' : 'commits'
   const users = Array.from(new Set(items.map(({ author }) => author?.login).filter((v) => v)))
-  const links = items.map(({ html_url, sha }) => `[${sha.slice(0, 7)}](${html_url})`)
+  const links = items.map(({ html_url, pr_html_url, sha }) => `[${sha.slice(0, 7)}](${pr_html_url || html_url})`)
   return `${items.length} updated ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
 }
 const formatAggReviews = ({ enriched_reviews: items }) => {
