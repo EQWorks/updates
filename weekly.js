@@ -24,7 +24,7 @@ const weeklyDigest = () => {
     .then(formatDigest)
     .then(uploadMD())
     .then(console.log)
-    .then(console.error)
+    .catch(console.error)
 }
 
 if (require.main === module) {
