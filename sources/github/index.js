@@ -9,6 +9,7 @@ const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'commen
 const PR_FIELDS = [...ISSUE_FIELDS, 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 module.exports.issuesByRange = searchByRange({ endpoint: 'GET /search/issues', qualifier: 'updated' })
+module.exports.reposByRange = searchByRange({ endpoint: 'GET /search/repositories', qualifier: 'pushed' })
 
 module.exports.ignoreProjects = ({ html_url }) =>
   !html_url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`) // EQ website repo
@@ -63,16 +64,27 @@ module.exports.enrichIssues = async ({ issues, start, end, team }) => {
   }
 }
 
-module.exports.formatDigest = ({ issues, prs, start, end, team }) => {
+const formatLoneRepos = ({ all, repos }) => {
+  let content = ''
+  const issueProjects = new Set(all.map(({ project }) => project))
+  const loneRepos = repos.filter(({ name }) => !issueProjects.has(name))
+  if (loneRepos.length) {
+    content += `${loneRepos.length} Lone Repo updates`
+    content += `\n* ${loneRepos.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}\n`
+  }
+  return content
+}
+
+module.exports.formatDigest = ({ repos, issues, prs, start, end, team }) => {
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
     ...prs,
   ]
-  let content = ''
+  let content = formatLoneRepos({ all, repos })
 
   if (all.length) {
-    content += `${all.length} updates${formatAggStates(all)}`
+    content += `${all.length} PR/issues updates${formatAggStates(all)}`
     const grouped = all.reduce(groupByCatProj, {})
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
@@ -94,16 +106,16 @@ module.exports.formatDigest = ({ issues, prs, start, end, team }) => {
   return { content, title: `${team ? team.toUpperCase() : 'DEV'} Digest ${formatDates({ start, end })}` }
 }
 
-module.exports.formatPreviously = ({ issues, prs, start, end }) => {
+module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
     ...prs,
   ]
-  let content = ''
+  let content = formatLoneRepos({ all, repos })
 
   if (all.length) {
-    content += `${all.length} updates${formatAggStates(all)}`
+    content += `${all.length} PR/issues updates${formatAggStates(all)}`
     const grouped = all.reduce(groupByCatProj, {})
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`

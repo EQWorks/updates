@@ -1,7 +1,7 @@
 const { DateTime } = require('luxon')
 
 const {
-  sources: { github: { issuesByRange, enrichIssues, ignoreProjects, ignoreBotUsers, formatPreviously } },
+  sources: { github: { issuesByRange, reposByRange, enrichIssues, ignoreProjects, ignoreBotUsers, formatPreviously } },
   targets: { slack: { uploadMD } },
 } = require('.')
 
@@ -17,10 +17,14 @@ const dailyPreviously = () => {
   const start = stripMS(lastYst.startOf('day').toUTC())
   const end = stripMS(yst.endOf('day').toUTC())
 
-  issuesByRange({ start, end })
-    .then((issues) => issues.filter(ignoreProjects))
-    .then((issues) => issues.filter(ignoreBotUsers))
-    .then((issues) => enrichIssues({ issues, start, end }))
+  Promise.all([
+    issuesByRange({ start, end })
+      .then((issues) => issues.filter(ignoreProjects))
+      .then((issues) => issues.filter(ignoreBotUsers))
+      .then((issues) => enrichIssues({ issues, start, end })),
+    reposByRange({ start, end })
+      .then((issues) => issues.filter(ignoreProjects)),
+  ]).then(([issues, repos]) => ({ repos, ...issues }))
     .then(formatPreviously)
     .then(uploadMD())
     .then(console.log)
