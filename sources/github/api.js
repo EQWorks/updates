@@ -49,10 +49,10 @@ module.exports.getIssuesComments = this.getIssueEnrichment('comments_url')
 
 module.exports.getPRsReviews = this.getIssueEnrichment('review_comments_url')
 
-module.exports.getRepoTopics = (issues) => Promise.all(
-  issues.reduce((acc, { repository_url }) => {
-    if (acc.indexOf(repository_url) < 0) {
-      acc.push(repository_url)
+module.exports.getTopics = (key) => (collections) => Promise.all(
+  collections.reduce((acc, curr) => {
+    if (acc.indexOf(curr[key]) < 0) {
+      acc.push(curr[key])
     }
     return acc
   }, []).map((v) => client.request({

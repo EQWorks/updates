@@ -1,5 +1,5 @@
-const { searchByRange, getIssuesComments, getPRsReviews, getRepoTopics, getPRsCommits } = require('./api')
-const { pick, isPR, isTeamTopic, groupByCatProj, formatDates, formatAggStates, getID, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
+const { searchByRange, getIssuesComments, getPRsReviews, getTopics, getPRsCommits } = require('./api')
+const { pick, isPR, isTeamTopic, groupByCatProj, groupByCat, formatDates, formatAggStates, getID, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
 
 const { GITHUB_ORG = 'EQWorks' } = process.env
 
@@ -7,6 +7,9 @@ const REGEX_PROJ = new RegExp(`https://github.com/${GITHUB_ORG}/(.*)/.*/.*`)
 const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'team', 'category', 'enriched_comments']
 const PR_FIELDS = [...ISSUE_FIELDS, 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
+
+const getIssueTopics = getTopics('repository_url')
+const getRepoTopics = getTopics('url')
 
 module.exports.issuesByRange = searchByRange({ endpoint: 'GET /search/issues', qualifier: 'updated' })
 module.exports.reposByRange = searchByRange({ endpoint: 'GET /search/repositories', qualifier: 'pushed' })
@@ -20,7 +23,7 @@ module.exports.ignoreBotUsers = ({ user: { login } = {} }) => !login.startsWith(
 module.exports.enrichIssues = async ({ issues, start, end, team }) => {
   // enrich all (issues and PRs) with issue-level comments
   const [topics, comments] = await Promise.all([
-    getRepoTopics(issues),
+    getIssueTopics(issues),
     getIssuesComments({ issues, start, end }),
   ])
   const enrichedIssues = issues.map((issue) => {
@@ -64,13 +67,32 @@ module.exports.enrichIssues = async ({ issues, start, end, team }) => {
   }
 }
 
+module.exports.enrichRepos = async ({ repos, team }) => {
+  const topics = await getRepoTopics(repos)
+  return repos.map((repo) => {
+    // parse team and category from repo topics
+    const repoTopics = (topics[repo.url] || [])
+    const teamTopics = repoTopics.filter(isTeamTopic)
+    const team = [0, 2].includes(teamTopics.length) ? undefined : teamTopics[0].substring(5)
+    const category = repoTopics.filter((t) => !isTeamTopic(t))[0]
+    return {
+      ...repo,
+      team,
+      category,
+    }
+  }).filter(({ team: t }) => !team || !t || (t.toLowerCase() === team.toLowerCase()))
+}
+
 const formatLoneRepos = ({ all, repos }) => {
   let content = ''
   const issueProjects = new Set(all.map(({ project }) => project))
   const loneRepos = repos.filter(({ name }) => !issueProjects.has(name))
   if (loneRepos.length) {
+    const grouped = loneRepos.reduce(groupByCat, {})
     content += `${loneRepos.length} Lone Repo updates`
-    content += `\n* ${loneRepos.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}\n`
+    Object.entries(grouped).forEach(([category, items]) => {
+      content += `\n* ${category} - ${items.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}\n`
+    })
   }
   return content
 }

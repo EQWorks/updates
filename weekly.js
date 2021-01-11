@@ -1,7 +1,7 @@
 const { DateTime } = require('luxon')
 
 const {
-  sources: { github: { issuesByRange, reposByRange, enrichIssues, ignoreProjects, ignoreBotUsers, formatDigest } },
+  sources: { github: { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, formatDigest } },
   targets: { slack: { uploadMD } },
 } = require('.')
 
@@ -23,8 +23,10 @@ const weeklyDigest = () => {
       .then((issues) => issues.filter(ignoreBotUsers))
       .then((issues) => enrichIssues({ issues, start, end, team })),
     reposByRange({ start, end })
-      .then((issues) => issues.filter(ignoreProjects)),
-  ]).then(([issues, repos]) => ({ repos, ...issues }))
+      .then((repos) => repos.filter(ignoreProjects))
+      .then((repos) => enrichRepos({ repos, team })),
+  ])
+    .then(([issues, repos]) => ({ repos, ...issues }))
     .then(formatDigest)
     .then(uploadMD())
     .then(console.log)
