@@ -24,6 +24,14 @@ module.exports.groupByCatProj = (acc, curr) => {
   return acc
 }
 
+module.exports.groupByCat = (acc, curr) => {
+  const { category = 'meta-uncategorized' } = curr
+  const cat = category.substring(5).toUpperCase()
+  acc[cat] = acc[cat] || []
+  acc[cat].push(curr)
+  return acc
+}
+
 module.exports.formatDates = ({ start, end }) => {
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).setZone(ORG_TZ)
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).setZone(ORG_TZ)
