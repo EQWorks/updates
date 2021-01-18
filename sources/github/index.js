@@ -91,8 +91,9 @@ const formatLoneRepos = ({ all, repos }) => {
     const grouped = loneRepos.reduce(groupByCat, {})
     content += `${loneRepos.length} Lone Repo updates`
     Object.entries(grouped).forEach(([category, items]) => {
-      content += `\n* ${category} - ${items.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}\n`
+      content += `\n* ${category} - ${items.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}`
     })
+    content += '\n'
   }
   return content
 }
