@@ -76,12 +76,14 @@ const stateIcon = ({ state, draft, title }) => {
   return '👀' // looking for review/comment
 }
 const formatUser = (issue) => {
-  const { user: { login: creator } } = issue
+  const { user: { login: creator }, enriched_commits: commits = [] } = issue
+  const committers = (commits || []).map(({ author, committer }) => (author || {}).login || (committer || {}).login).filter((c) => c && c !== creator)
   const assignees = issue.assignees.map((i) => i.login).filter((a) => a !== creator)
+  const creators = [...committers, creator]
   if (!assignees.length) {
-    return `(${creator})`
+    return `(${creators.join(', ')})`
   }
-  return `(c: ${creator}, a: ${issue.assignees.map((i) => i.login).join(', ')})`
+  return `(c: ${creators.join(', ')}, a: ${assignees.join(', ')})`
 }
 const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
 const itemLink = (item) => `[${item.enriched_commits ? 'PR' : 'Issue'} #${this.getID(item)}](${item.html_url})`

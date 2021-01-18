@@ -20,7 +20,10 @@ module.exports.ignoreProjects = ({ html_url }) =>
 
 module.exports.ignoreBotUsers = ({ user: { login } = {} }) => !login.startsWith('dependabot')
 
-module.exports.enrichIssues = async ({ issues, start, end, team }) => {
+module.exports.enrichIssues = async ({ issues: _issues, start, end, team }) => {
+  // filter stale PRs likely being deleted after being closed for a while
+  // TODO: resort to a more reliable way to detect stale PRs
+  const issues = _issues.filter((v) => !v.closed_at || v.closed_at.split('T')[0] >= v.updated_at.split('T')[0])
   // enrich all (issues and PRs) with issue-level comments
   const [topics, comments] = await Promise.all([
     getIssueTopics(issues),
@@ -91,8 +94,9 @@ const formatLoneRepos = ({ all, repos }) => {
     const grouped = loneRepos.reduce(groupByCat, {})
     content += `${loneRepos.length} Lone Repo updates`
     Object.entries(grouped).forEach(([category, items]) => {
-      content += `\n* ${category} - ${items.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}\n`
+      content += `\n* ${category} - ${items.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}`
     })
+    content += '\n'
   }
   return content
 }
