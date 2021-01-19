@@ -20,7 +20,20 @@ module.exports.ignoreProjects = ({ html_url }) =>
 
 module.exports.ignoreBotUsers = ({ user: { login } = {} }) => !login.startsWith('dependabot')
 
-module.exports.enrichIssues = async ({ issues: _issues, start, end, team }) => {
+const enrichPRs = async ({ prs, start, end }) => {
+  // enrich PRs with commits and review comments
+  const [reviews, commits] = await Promise.all([
+    getPRsReviews({ issues: prs, start, end }),
+    getPRsCommits({ prs, start, end }),
+  ])
+  return prs.map((pr) => ({
+    ...pr,
+    enriched_reviews: reviews.filter((v) => v.pull_request_url === pr.pull_request_url),
+    enriched_commits: commits.filter((v) => v.pull_request_url === pr.pull_request_url),
+  }))
+}
+
+module.exports.enrichIssues = async ({ issues: _issues, start, end, team, skipEnrichPRs = true }) => {
   // filter stale PRs likely being deleted after being closed for a while
   // TODO: resort to a more reliable way to detect stale PRs
   const issues = _issues.filter((v) => !v.closed_at || v.closed_at.split('T')[0] >= v.updated_at.split('T')[0])
@@ -51,16 +64,8 @@ module.exports.enrichIssues = async ({ issues: _issues, start, end, team }) => {
     commits_url: `${pr.url.replace('/issues/', '/pulls/')}/commits`,
     review_comments_url: pr.comments_url.replace('/issues/', '/pulls/'),
   }))
-  // enrich PRs with commits and review comments
-  const [reviews, commits] = await Promise.all([
-    getPRsReviews({ issues: prs, start, end }),
-    getPRsCommits({ prs, start, end }),
-  ])
-  const enrichedPRs = prs.map((pr) => ({
-    ...pr,
-    enriched_reviews: reviews.filter((v) => v.pull_request_url === pr.pull_request_url),
-    enriched_commits: commits.filter((v) => v.pull_request_url === pr.pull_request_url),
-  }))
+  // optionally enrich PRs
+  const enrichedPRs = skipEnrichPRs ? prs : await enrichPRs({ prs, start, end })
   return {
     issues: enrichedIssues.filter((v) => !isPR(v)).map(pick(...PR_FIELDS)),
     prs: enrichedPRs.map(pick(...PR_FIELDS)),

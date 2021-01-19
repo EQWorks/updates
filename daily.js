@@ -21,7 +21,7 @@ const dailyPreviously = () => {
     issuesByRange({ start, end })
       .then((issues) => issues.filter(ignoreProjects))
       .then((issues) => issues.filter(ignoreBotUsers))
-      .then((issues) => enrichIssues({ issues, start, end })),
+      .then((issues) => enrichIssues({ issues, start, end, skipEnrichPRs: false })),
     reposByRange({ start, end })
       .then((issues) => issues.filter(ignoreProjects)),
   ]).then(([issues, repos]) => ({ repos, ...issues }))
