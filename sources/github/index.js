@@ -17,6 +17,8 @@ module.exports.reposByRange = searchByRange({ endpoint: 'GET /search/repositorie
 module.exports.ignoreProjects = ({ html_url }) =>
   !html_url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`) // EQ website repo
   && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/cs-`) // CS repos
+  && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/swarm-`) // swarm repos
+  && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/swarm2-`) // swarm repos
 
 module.exports.ignoreBotUsers = ({ user: { login } = {} }) => !login.startsWith('dependabot')
 
@@ -33,15 +35,14 @@ const enrichPRs = async ({ prs, start, end }) => {
   }))
 }
 
-module.exports.enrichIssues = async ({ issues: _issues, start, end, team, skipEnrichPRs = true }) => {
+module.exports.enrichIssues = async ({ issues: _issues, start, end, team, skipEnrichComments = true, skipEnrichPRs = true }) => {
   // filter stale PRs likely being deleted after being closed for a while
   // TODO: resort to a more reliable way to detect stale PRs
   const issues = _issues.filter((v) => !v.closed_at || v.closed_at.split('T')[0] >= v.updated_at.split('T')[0])
-  // enrich all (issues and PRs) with issue-level comments
-  const [topics, comments] = await Promise.all([
-    getIssueTopics(issues),
-    getIssuesComments({ issues, start, end }),
-  ])
+  // enrich topics per issue's repo
+  const topics = await getIssueTopics(issues)
+  // optionally enrich all (issues and PRs) with issue-level comments
+  const comments = skipEnrichComments ? [] : await getIssuesComments({ issues, start, end })
   const enrichedIssues = issues.map((issue) => {
     // parse team and category from repo topics
     const repoTopics = (topics[issue.repository_url] || [])
