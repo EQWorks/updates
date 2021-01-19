@@ -6,7 +6,7 @@ const { GITHUB_ORG = 'EQWorks' } = process.env
 const REGEX_PROJ = new RegExp(`https://github.com/${GITHUB_ORG}/(.*)/.*/.*`)
 const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'team', 'category', 'enriched_comments']
-const PR_FIELDS = [...ISSUE_FIELDS, 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
+const PR_FIELDS = [...ISSUE_FIELDS, 'pull_request', 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 const getIssueTopics = getTopics('repository_url')
 const getRepoTopics = getTopics('url')

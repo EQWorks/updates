@@ -11,7 +11,7 @@ module.exports.before = (end) => (v) => Number(new Date(v.updated_at)) <= Number
 
 module.exports.isClosed = ({ state }) => state === 'closed'
 
-module.exports.isPR = (v) => Object.keys(v).includes('pull_request')
+module.exports.isPR = (v) => Boolean(v.pull_request)
 
 module.exports.isTeamTopic = (t) => ['meta-data', 'meta-product'].includes(t)
 
@@ -86,7 +86,7 @@ const formatUser = (issue) => {
   return `(c: ${creators.join(', ')}, a: ${assignees.join(', ')})`
 }
 const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
-const itemLink = (item) => `[${item.enriched_commits ? 'PR' : 'Issue'} #${this.getID(item)}](${item.html_url})`
+const itemLink = (item) => `[${this.isPR(item) ? 'PR' : 'Issue'} #${this.getID(item)}](${item.html_url})`
 const composeItem = (item) => [stateIcon(item), itemLink(item), trimTitle(item), formatUser(item)]
 module.exports.formatItem = (item) => composeItem(item).join(' ')
 module.exports.formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
