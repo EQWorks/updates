@@ -79,7 +79,7 @@ const formatUser = (issue) => {
   const { user: { login: creator }, enriched_commits: commits = [] } = issue
   const committers = (commits || []).map(({ author, committer }) => (author || {}).login || (committer || {}).login).filter((c) => c && c !== creator)
   const assignees = issue.assignees.map((i) => i.login).filter((a) => a !== creator)
-  const creators = [...committers, creator]
+  const creators = [...new Set(committers), creator]
   if (!assignees.length) {
     return `(${creators.join(', ')})`
   }
