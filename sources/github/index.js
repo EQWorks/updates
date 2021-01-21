@@ -6,7 +6,7 @@ const { GITHUB_ORG = 'EQWorks' } = process.env
 const REGEX_PROJ = new RegExp(`https://github.com/${GITHUB_ORG}/(.*)/.*/.*`)
 const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'team', 'category', 'enriched_comments']
-const PR_FIELDS = [...ISSUE_FIELDS, 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
+const PR_FIELDS = [...ISSUE_FIELDS, 'pull_request', 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
 
 const getIssueTopics = getTopics('repository_url')
 const getRepoTopics = getTopics('url')
@@ -17,18 +17,32 @@ module.exports.reposByRange = searchByRange({ endpoint: 'GET /search/repositorie
 module.exports.ignoreProjects = ({ html_url }) =>
   !html_url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`) // EQ website repo
   && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/cs-`) // CS repos
+  && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/swarm-`) // swarm repos
+  && !html_url.startsWith(`https://github.com/${GITHUB_ORG}/swarm2-`) // swarm repos
 
 module.exports.ignoreBotUsers = ({ user: { login } = {} }) => !login.startsWith('dependabot')
 
-module.exports.enrichIssues = async ({ issues: _issues, start, end, team }) => {
+const enrichPRs = async ({ prs, start, end }) => {
+  // enrich PRs with commits and review comments
+  const [reviews, commits] = await Promise.all([
+    getPRsReviews({ issues: prs, start, end }),
+    getPRsCommits({ prs, start, end }),
+  ])
+  return prs.map((pr) => ({
+    ...pr,
+    enriched_reviews: reviews.filter((v) => v.pull_request_url === pr.pull_request_url),
+    enriched_commits: commits.filter((v) => v.pull_request_url === pr.pull_request_url),
+  }))
+}
+
+module.exports.enrichIssues = async ({ issues: _issues, start, end, team, skipEnrichComments = true, skipEnrichPRs = true }) => {
   // filter stale PRs likely being deleted after being closed for a while
   // TODO: resort to a more reliable way to detect stale PRs
   const issues = _issues.filter((v) => !v.closed_at || v.closed_at.split('T')[0] >= v.updated_at.split('T')[0])
-  // enrich all (issues and PRs) with issue-level comments
-  const [topics, comments] = await Promise.all([
-    getIssueTopics(issues),
-    getIssuesComments({ issues, start, end }),
-  ])
+  // enrich topics per issue's repo
+  const topics = await getIssueTopics(issues)
+  // optionally enrich all (issues and PRs) with issue-level comments
+  const comments = skipEnrichComments ? [] : await getIssuesComments({ issues, start, end })
   const enrichedIssues = issues.map((issue) => {
     // parse team and category from repo topics
     const repoTopics = (topics[issue.repository_url] || [])
@@ -51,16 +65,8 @@ module.exports.enrichIssues = async ({ issues: _issues, start, end, team }) => {
     commits_url: `${pr.url.replace('/issues/', '/pulls/')}/commits`,
     review_comments_url: pr.comments_url.replace('/issues/', '/pulls/'),
   }))
-  // enrich PRs with commits and review comments
-  const [reviews, commits] = await Promise.all([
-    getPRsReviews({ issues: prs, start, end }),
-    getPRsCommits({ prs, start, end }),
-  ])
-  const enrichedPRs = prs.map((pr) => ({
-    ...pr,
-    enriched_reviews: reviews.filter((v) => v.pull_request_url === pr.pull_request_url),
-    enriched_commits: commits.filter((v) => v.pull_request_url === pr.pull_request_url),
-  }))
+  // optionally enrich PRs
+  const enrichedPRs = skipEnrichPRs ? prs : await enrichPRs({ prs, start, end })
   return {
     issues: enrichedIssues.filter((v) => !isPR(v)).map(pick(...PR_FIELDS)),
     prs: enrichedPRs.map(pick(...PR_FIELDS)),
