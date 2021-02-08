@@ -1,5 +1,6 @@
 const { searchByRange, getIssuesComments, getPRsReviews, getTopics, getPRsCommits } = require('./api')
-const { pick, isPR, isTeamTopic, groupByCatProj, groupByCat, formatDates, formatAggStates, getID, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
+const { pick, isPR, isTeamTopic, groupByCatProj, groupByCat, formatAggStates, getID, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
+const { formatDates } = require('../util')
 
 const { GITHUB_ORG = 'EQWorks' } = process.env
 
@@ -135,7 +136,7 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team }) => {
     })
   }
 
-  return { content, title: `${team ? team.toUpperCase() : 'DEV'} Digest ${formatDates({ start, end })}` }
+  return { content, title: `${team ? team.toUpperCase() : 'DEV'} Digest - ${formatDates({ start, end })}` }
 }
 
 module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
@@ -178,5 +179,5 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     })
   }
 
-  return { content, title: `Previously ${formatDates({ start, end })}` }
+  return { content, title: `Previously - ${formatDates({ start, end })}` }
 }

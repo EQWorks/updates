@@ -1,6 +1,3 @@
-const { DateTime } = require('luxon')
-
-const { ORG_TZ = 'America/Toronto' } = process.env
 const REGEX_TITLE = /(\[(g2m|wip)\])?(?<trimmed>.*)/i
 
 const isWIP = ({ draft, title }) => draft || title.toLowerCase().includes('[wip]')
@@ -30,18 +27,6 @@ module.exports.groupByCat = (acc, curr) => {
   acc[cat] = acc[cat] || []
   acc[cat].push(curr)
   return acc
-}
-
-module.exports.formatDates = ({ start, end }) => {
-  const _start = DateTime.fromISO(start, { zone: 'UTC' }).setZone(ORG_TZ)
-  const _end = DateTime.fromISO(end, { zone: 'UTC' }).setZone(ORG_TZ)
-  if (_start.startOf('day').toMillis() === _end.startOf('day').toMillis()) {
-    return `on ${_start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
-  }
-  if (_start.startOf('year').toMillis() === _end.startOf('year').toMillis()) {
-    return `from ${_start.toFormat('ccc, MMM dd')} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
-  }
-  return `from ${_start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
 }
 
 module.exports.formatAggStates = (i) => {

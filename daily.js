@@ -1,9 +1,8 @@
 const { DateTime } = require('luxon')
 
-const {
-  sources: { github: { issuesByRange, reposByRange, enrichIssues, ignoreProjects, ignoreBotUsers, formatPreviously } },
-  targets: { slack: { uploadMD } },
-} = require('.')
+const { issuesByRange, reposByRange, enrichIssues, ignoreProjects, ignoreBotUsers, formatPreviously } = require('./sources/github')
+const { getVacays, formatVacays } = require('./sources/asana')
+const { uploadMD } = require('./targets/slack')
 
 const { ORG_TZ = 'America/Toronto' } = process.env
 const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
@@ -24,11 +23,11 @@ const dailyPreviously = () => {
       .then((issues) => enrichIssues({ issues, start, end, skipEnrichPRs: false, skipEnrichComments: false })),
     reposByRange({ start, end })
       .then((issues) => issues.filter(ignoreProjects)),
-  ]).then(([issues, repos]) => ({ repos, ...issues }))
-    .then(formatPreviously)
-    .then(uploadMD())
-    .then(console.log)
-    .catch(console.error)
+    getVacays({ after: today.toISODate(), before: today.endOf('week').toISODate() }),
+  ]).then(([issues, repos, vacays]) => {
+    const post = formatPreviously({ repos, ...issues })
+    return formatVacays({ post, vacays })
+  }).then(uploadMD()).then(console.log).catch(console.error)
 }
 
 if (require.main === module) {
