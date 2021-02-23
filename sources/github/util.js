@@ -70,9 +70,9 @@ const formatUser = (issue) => {
   }
   return `(c: ${creators.join(', ')}, a: ${assignees.join(', ')})`
 }
-const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
+module.exports.trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
 const itemLink = (item) => `[${this.isPR(item) ? 'PR' : 'Issue'} #${this.getID(item)}](${item.html_url})`
-const composeItem = (item) => [stateIcon(item), itemLink(item), trimTitle(item), formatUser(item)]
+const composeItem = (item) => [stateIcon(item), itemLink(item), this.trimTitle(item), formatUser(item)]
 module.exports.formatItem = (item) => composeItem(item).join(' ')
 module.exports.formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
 
