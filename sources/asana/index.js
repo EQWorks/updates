@@ -10,7 +10,7 @@ const {
   ORG_TZ: zone = 'America/Toronto',
 } = process.env
 
-const VACAY_SECTIONS = '1152701043959236,1153045408573969'
+const VACAY_SECTIONS = '1152701043959236'
 const client = asana.Client.create().useAccessToken(ASANA_TOKEN)
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))

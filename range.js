@@ -1,9 +1,7 @@
 const { DateTime } = require('luxon')
-const {
 
-  sources: { github: { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, formatDigest } },
-  targets: { slack: { uploadMD } },
-} = require('.')
+const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, formatDigest } = require('./sources/github')
+const { uploadMD } = require('./targets/slack')
 
 const { ORG_TZ = 'America/Toronto' } = process.env
 const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`

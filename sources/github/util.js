@@ -70,27 +70,32 @@ const formatUser = (issue) => {
   }
   return `(c: ${creators.join(', ')}, a: ${assignees.join(', ')})`
 }
-const trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
+module.exports.trimTitle = ({ title }) => ((title.match(REGEX_TITLE).groups || {}).trimmed || title).trim()
 const itemLink = (item) => `[${this.isPR(item) ? 'PR' : 'Issue'} #${this.getID(item)}](${item.html_url})`
-const composeItem = (item) => [stateIcon(item), itemLink(item), trimTitle(item), formatUser(item)]
+const composeItem = (item) => [stateIcon(item), itemLink(item), this.trimTitle(item), formatUser(item)]
 module.exports.formatItem = (item) => composeItem(item).join(' ')
 module.exports.formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
 
+const _uniqueUsers = (key) => (items) => Array.from(new Set(items.map((v) => v[key]?.login).filter((v) => v)))
+const uniqueUsers = _uniqueUsers('user')
+const uniqueAuthors = _uniqueUsers('author')
+module.exports.formatUsers = (items) => {
+  const users = Array.from(new Set([...uniqueUsers(items), ...uniqueAuthors(items)]))
+  return users.length ? ` (${users.join(', ')})` : ''
+}
+
 module.exports.formatAggComments = ({ enriched_comments: items }) => {
   const type = items.length === 1 ? 'comment' : 'comments'
-  const users = Array.from(new Set(items.map(({ user }) => user.login).filter((v) => v)))
   const links = items.map(({ html_url }) => `[${html_url.split('#issuecomment-')[1]}](${html_url})`)
-  return `${items.length} ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
+  return `${items.length} ${type}${this.formatUsers(items)} (${links.join(', ')})`
 }
 module.exports.formatAggCommits = ({ enriched_commits: items }) => {
   const type = items.length === 1 ? 'commit' : 'commits'
-  const users = Array.from(new Set(items.map(({ author }) => author?.login).filter((v) => v)))
   const links = items.map(({ html_url, pr_html_url, sha }) => `[${sha.slice(0, 7)}](${pr_html_url || html_url})`)
-  return `${items.length} updated ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
+  return `${items.length} updated ${type}${this.formatUsers(items)} (${links.join(', ')})`
 }
 module.exports.formatAggReviews = ({ enriched_reviews: items }) => {
   const type = items.length === 1 ? 'review' : 'reviews'
-  const users = Array.from(new Set(items.map(({ user }) => user.login).filter((v) => v)))
   const links = items.map(({ html_url }) => `[${html_url.split('#discussion_')[1]}](${html_url})`)
-  return `${items.length} ${type}${users.size ? ` by ${users.join(', ')}` : ''} (${links.join(', ')})`
+  return `${items.length} ${type}${this.formatUsers(items)} (${links.join(', ')})`
 }

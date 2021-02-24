@@ -1,5 +1,7 @@
+const { parseRaw } = require('@eqworks/release')
+
 const { searchByRange, getIssuesComments, getPRsReviews, getTopics, getPRsCommits } = require('./api')
-const { pick, isPR, isTeamTopic, groupByCatProj, groupByCat, formatAggStates, getID, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
+const { pick, trimTitle, isPR, isTeamTopic, groupByCatProj, groupByCat, formatAggStates, getID, formatUsers, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
 const { formatDates } = require('../util')
 
 const { GITHUB_ORG = 'EQWorks' } = process.env
@@ -7,7 +9,7 @@ const { GITHUB_ORG = 'EQWorks' } = process.env
 const REGEX_PROJ = new RegExp(`https://github.com/${GITHUB_ORG}/(.*)/.*/.*`)
 const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'team', 'category', 'enriched_comments']
-const PR_FIELDS = [...ISSUE_FIELDS, 'pull_request', 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits']
+const PR_FIELDS = [...ISSUE_FIELDS, 'pull_request', 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits', 'commit_label']
 
 const getIssueTopics = getTopics('repository_url')
 const getRepoTopics = getTopics('url')
@@ -108,11 +110,17 @@ const formatLoneRepos = ({ all, repos }) => {
   return content
 }
 
-module.exports.formatDigest = ({ repos, issues, prs, start, end, team }) => {
+module.exports.formatDigest = async ({ repos, issues, prs, start, end, team }) => {
+  // enrich PRs with release NLP labels (and T1/T2 categories for future uses)
+  const parsedPRs = await parseRaw(prs.map(trimTitle))
+  const enrichedPRs = prs.map((pr) => ({
+    ...pr,
+    ...parsedPRs.find((p) => pr.title.includes(p.message)),
+  }))
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
-    ...prs,
+    ...enrichedPRs,
   ]
   let content = formatLoneRepos({ all, repos })
 
@@ -122,14 +130,24 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team }) => {
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
       Object.entries(byProjects).forEach(([project, items]) => {
-        content += `\n## ${project}`
-        items.forEach((item) => {
-          content += `\n* ${formatItem(item)}`
-          ;(item.linked_issues || []).forEach((id) => {
-            const sub = issues.find((i) => getID(i) === id)
-            if (sub) {
-              content += `\n    * ${formatSub(sub)}`
-            }
+        content += `\n## ${project}\n${formatUsers(items)}`
+        // group items by first NLP label
+        const byLabels = items.reduce((acc, curr) => {
+          const label = (curr.labels || [])[0] || 'OTHERS'
+          acc[label] = acc[label] || []
+          acc[label].push(curr)
+          return acc
+        }, {})
+        Object.entries(byLabels).forEach(([label, items]) => {
+          content += `\n\`${label}\``
+          items.forEach((item) => {
+            content += `\n* ${formatItem(item)}`
+            ;(item.linked_issues || []).forEach((id) => {
+              const sub = issues.find((i) => getID(i) === id)
+              if (sub) {
+                content += `\n    * ${formatSub(sub)}`
+              }
+            })
           })
         })
       })
@@ -153,7 +171,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
       Object.entries(byProjects).forEach(([project, items]) => {
-        content += `\n## ${project}`
+        content += `\n## ${project}\n${formatUsers(items)}`
         items.forEach((item) => {
           content += `\n* ${formatItem(item)}`
           ;(item.linked_issues || []).forEach((id) => {
