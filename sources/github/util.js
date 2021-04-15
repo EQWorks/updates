@@ -86,16 +86,16 @@ module.exports.formatUsers = (items) => {
 
 module.exports.formatAggComments = ({ enriched_comments: items }) => {
   const type = items.length === 1 ? 'comment' : 'comments'
-  const links = items.map(({ html_url }) => `[${html_url.split('#issuecomment-')[1]}](${html_url})`)
-  return `${items.length} ${type}${this.formatUsers(items)} (${links.join(', ')})`
+  const link = items[0].html_url
+  return `[${items.length} ${type}](${link}) -${this.formatUsers(items)}`
 }
 module.exports.formatAggCommits = ({ enriched_commits: items }) => {
   const type = items.length === 1 ? 'commit' : 'commits'
-  const links = items.map(({ html_url, pr_html_url, sha }) => `[${sha.slice(0, 7)}](${pr_html_url || html_url})`)
-  return `${items.length} updated ${type}${this.formatUsers(items)} (${links.join(', ')})`
+  const link = items[0].pr_html_url || items[0].html_url
+  return `[${items.length} updated ${type}](${link}) -${this.formatUsers(items)}`
 }
 module.exports.formatAggReviews = ({ enriched_reviews: items }) => {
   const type = items.length === 1 ? 'review' : 'reviews'
-  const links = items.map(({ html_url }) => `[${html_url.split('#discussion_')[1]}](${html_url})`)
-  return `${items.length} ${type}${this.formatUsers(items)} (${links.join(', ')})`
+  const link = items[0].html_url
+  return `[${items.length} ${type}](${link}) -${this.formatUsers(items)}`
 }
