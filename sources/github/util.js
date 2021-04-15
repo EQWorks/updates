@@ -62,9 +62,9 @@ const stateIcon = ({ state, draft, title }) => {
 }
 const formatUser = (issue) => {
   const { user: { login: creator }, enriched_commits: commits = [] } = issue
-  const committers = (commits || []).map(({ author, committer }) => (author || {}).login || (committer || {}).login).filter((c) => c && c !== creator)
-  const assignees = issue.assignees.map((i) => i.login).filter((a) => a !== creator)
-  const creators = [...new Set(committers), creator]
+  const committers = (commits || []).map(({ author, committer }) => (author || {}).login || (committer || {}).login).filter((c) => c && c !== creator).sort()
+  const assignees = issue.assignees.map((i) => i.login).filter((a) => a !== creator).sort()
+  const creators = [...new Set(committers), creator].sort()
   if (!assignees.length) {
     return `(${creators.join(', ')})`
   }
@@ -92,7 +92,7 @@ module.exports.formatAggComments = ({ enriched_comments: items }) => {
 module.exports.formatAggCommits = ({ enriched_commits: items }) => {
   const type = items.length === 1 ? 'commit' : 'commits'
   const link = items[0].pr_html_url || items[0].html_url
-  return `[${items.length} updated ${type}](${link}) -${this.formatUsers(items)}`
+  return `[${items.length} updated ${type}](${link})`
 }
 module.exports.formatAggReviews = ({ enriched_reviews: items }) => {
   const type = items.length === 1 ? 'review' : 'reviews'
