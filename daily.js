@@ -1,6 +1,6 @@
 const { DateTime } = require('luxon')
 
-const { issuesByRange, reposByRange, enrichIssues, ignoreProjects, ignoreBotUsers, formatPreviously } = require('./sources/github')
+const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, formatPreviously } = require('./sources/github')
 const { getVacays, formatVacays } = require('./sources/asana')
 const { uploadMD } = require('./targets/slack')
 
@@ -22,7 +22,8 @@ const dailyPreviously = () => {
       .then((issues) => issues.filter(ignoreBotUsers))
       .then((issues) => enrichIssues({ issues, start, end, skipEnrichPRs: false, skipEnrichComments: false })),
     reposByRange({ start, end })
-      .then((issues) => issues.filter(ignoreProjects)),
+      .then((issues) => issues.filter(ignoreProjects))
+      .then((repos) => enrichRepos({ repos })),
     getVacays({ after: today.toISODate(), before: today.endOf('week').toISODate() }),
   ]).then(([issues, repos, vacays]) => {
     const post = formatPreviously({ repos, ...issues })

@@ -130,7 +130,7 @@ module.exports.formatDigest = async ({ repos, issues, prs, start, end, team }) =
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
       Object.entries(byProjects).forEach(([project, items]) => {
-        content += `\n## ${project}\n${formatUsers(items)}`
+        content += `\n## ${project} - ${formatUsers(items)}`
         // group items by first NLP label
         const byLabels = items.reduce((acc, curr) => {
           const label = (curr.labels || [])[0] || 'OTHERS'
@@ -171,7 +171,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
       Object.entries(byProjects).forEach(([project, items]) => {
-        content += `\n## ${project}\n${formatUsers(items)}`
+        content += `\n## ${project} - ${formatUsers(items)}`
         items.forEach((item) => {
           content += `\n* ${formatItem(item)}`
           ;(item.linked_issues || []).forEach((id) => {
