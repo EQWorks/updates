@@ -2,6 +2,7 @@ const { DateTime } = require('luxon')
 
 const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, formatPreviously } = require('./sources/github')
 const { getVacays, formatVacays } = require('./sources/asana')
+const { getJournals, formatJournals } = require('./sources/notion')
 const { uploadMD } = require('./targets/slack')
 
 const { ORG_TZ = 'America/Toronto' } = process.env
@@ -25,9 +26,11 @@ const dailyPreviously = () => {
       .then((issues) => issues.filter(ignoreProjects))
       .then((repos) => enrichRepos({ repos })),
     getVacays({ after: today.toISODate(), before: today.endOf('week').toISODate() }),
-  ]).then(([issues, repos, vacays]) => {
+    getJournals({ start }),
+  ]).then(([issues, repos, vacays, journals]) => {
     const post = formatPreviously({ repos, ...issues })
-    return formatVacays({ post, vacays })
+    const vPost = formatVacays({ post, vacays })
+    return formatJournals({ post: vPost, journals })
   }).then(uploadMD()).then(console.log).catch(console.error)
 }
 
