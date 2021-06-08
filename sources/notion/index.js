@@ -22,14 +22,28 @@ const groupBy = (arr, key) => {
   }, {})
 }
 
-const _getJournals = async ({ database_id, filters: { start } }) => {
+const getJournalTasks = async ({ block_id }) => {
+  const { results = [] } = await notion.blocks.children.list({ block_id })
+  return results
+}
+
+const _getJournals = async ({ database_id, filters: { start, end } }) => {
   const { results = [] } = await notion.databases.query({
     database_id,
     filter: { property: 'Date', date: { on_or_after: start } },
   })
-  return results.map(({ properties }) => {
+
+  return Promise.all(results.map(async ({ id, properties }) => {
     const _lwd = properties['Last Workday'].rich_text[0]
+    let doing = null
+
+    if (properties.Date.date.start === end.split('T')[0]) {
+      const _doing = await getJournalTasks({ block_id: id })
+      doing = _doing.map(({ to_do: { text } }) => text.map(({ plain_text }) => plain_text).join('')).flat()
+    }
+  
     return ({
+      id,
       date: properties.Date.date.start,
       name: properties.Name.title[0].plain_text.split(' ')[0],
       LWD: _lwd ? _lwd.plain_text.split('\n').map((t) => {
@@ -37,8 +51,9 @@ const _getJournals = async ({ database_id, filters: { start } }) => {
         if (match) return match[0]
         return t
       }) : '',
+      doing,
     })
-  })
+  }))
 }
 
 module.exports.getJournals = async ({ start, end }) => {
@@ -52,11 +67,18 @@ module.exports.formatJournals = async ({ post, journals }) => {
   let lwdJournals = '*JOURNALS*\n'
 
   Object.entries(journals).map(([name, journals]) => {
-    return ({ [name]: journals.map(({ LWD }) => LWD).flat().filter((r) => r) })
-  }).map((j) => Object.entries(j).forEach(([name, tasks]) => {
-    if (tasks.length) {
-      lwdJournals += `\n${name}:\n* ${tasks.join('\n* ')}`
-    }
+    return ({ [name]: {
+      did: journals.map(({ LWD }) => LWD).flat().filter((r) => r),
+      doing: journals.map(({ doing }) => doing).flat().filter((r) => r),
+    } })
+  }).map((j) => Object.entries(j).forEach(([name, { did, doing }]) => {
+    let _did = '\nDid:'
+    let _doing = '\nDoing:'
+
+    did.length ? _did += `\n* ${did.join('\n* ')}` : _did = ''
+    doing.length ? _doing += `\n* ${doing.join('\n* ')}` : _doing = ''
+
+    lwdJournals += `\n*${name}*${_did}${_doing}\n`
   }))
 
   const _post = await post

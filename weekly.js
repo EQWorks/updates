@@ -27,7 +27,7 @@ const weeklyDigest = () => {
       .then((repos) => repos.filter(ignoreProjects))
       .then((repos) => enrichRepos({ repos, team })),
     getVacays({ after: lastYst.toISODate(), before: today.endOf('week').toISODate() }),
-    getJournals({ start }),
+    getJournals({ start, end }),
   ]).then(([issues, repos, vacays, journals]) => {
     const post = formatDigest({ repos, ...issues })
     const vPost = formatVacays({ post, vacays })

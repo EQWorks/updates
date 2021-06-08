@@ -26,7 +26,7 @@ const dailyPreviously = () => {
       .then((issues) => issues.filter(ignoreProjects))
       .then((repos) => enrichRepos({ repos })),
     getVacays({ after: today.toISODate(), before: today.endOf('week').toISODate() }),
-    getJournals({ start }),
+    getJournals({ start, end }),
   ]).then(([issues, repos, vacays, journals]) => {
     const post = formatPreviously({ repos, ...issues })
     const vPost = formatVacays({ post, vacays })
