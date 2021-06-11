@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@eqworks/release": "^3.4.0-alpha.0",
+    "@notionhq/client": "^0.1.8",
     "@octokit/core": "^3.2.4",
     "@slack/web-api": "^5.15.0",
     "asana": "^0.18.5",
