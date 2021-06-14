@@ -32,7 +32,10 @@ const weeklyDigest = () => {
     const post = formatDigest({ repos, ...issues })
     const vPost = formatVacays({ post, vacays })
     return formatJournals({ post: vPost, journals })
-  }).then(uploadMD()).then(console.log).catch(console.error)
+  }).then(uploadMD()).then(console.log).catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
 }
 
 if (require.main === module) {

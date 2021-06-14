@@ -36,4 +36,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
           ASANA_TOKEN: ${{ secrets.ASANA_TOKEN }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           SLACK_CHANNEL: G01G0BPP536 # dev-updates-
