@@ -39,9 +39,12 @@ const _getJournals = async ({ database_id, filters: { start, end } }) => {
 
     if (properties.Date.date.start === end.split('T')[0]) {
       const _doing = await getJournalTasks({ block_id: id })
-      doing = _doing.map(({ to_do: { text } }) => text.map(({ plain_text }) => plain_text).join('')).flat()
+      doing = _doing
+        .filter(({ type }) => type === 'to_do')
+        .map(({ to_do: { text } }) => text.map(({ plain_text }) => plain_text).join(''))
+        .flat()
     }
-  
+
     return ({
       id,
       date: properties.Date.date.start,
