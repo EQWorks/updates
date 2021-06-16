@@ -27,10 +27,10 @@ const getJournalTasks = async ({ block_id }) => {
   return results
 }
 
-const _getJournals = async ({ database_id, filters: { start, end } }) => {
+const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) => {
   const { results = [] } = await notion.databases.query({
     database_id,
-    filter: { property: 'Date', date: { on_or_after: start } },
+    filter: { property: 'Date', date: { on_or_after: isDaily ? end : start } },
   })
 
   return Promise.all(results.map(async ({ id, properties }) => {
@@ -59,9 +59,9 @@ const _getJournals = async ({ database_id, filters: { start, end } }) => {
   }))
 }
 
-module.exports.getJournals = async ({ start, end }) => {
+module.exports.getJournals = async ({ start, end, isDaily }) => {
   const journals = await Promise.all(databases.map(async ({ id: database_id }) => (
-    _getJournals({ database_id, filters: { start, end } })
+    _getJournals({ database_id, filters: { start, end }, isDaily })
   )))
   return groupBy(journals.flat(), 'name')
 }
