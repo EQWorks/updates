@@ -1,7 +1,7 @@
 const { Client } = require('@notionhq/client')
 
 
-const { NOTION_TOKEN } = process.env
+const { NOTION_TOKEN, BASE_URL = 'https://www.notion.so/eqproduct' } = process.env
 const notion = new Client({ auth: NOTION_TOKEN })
 
 const databases = [
@@ -27,12 +27,11 @@ const getJournalTasks = async ({ block_id }) => {
   return results
 }
 
-const _getJournals = async ({ database_id, filters: { start, end } }) => {
+const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) => {
   const { results = [] } = await notion.databases.query({
     database_id,
-    filter: { property: 'Date', date: { on_or_after: start } },
+    filter: { property: 'Date', date: { on_or_after: isDaily ? end : start } },
   })
-
   return Promise.all(results.map(async ({ id, properties }) => {
     const _lwd = properties['Last Workday'].rich_text[0]
     let doing = null
@@ -59,9 +58,9 @@ const _getJournals = async ({ database_id, filters: { start, end } }) => {
   }))
 }
 
-module.exports.getJournals = async ({ start, end }) => {
+module.exports.getJournals = async ({ start, end, isDaily }) => {
   const journals = await Promise.all(databases.map(async ({ id: database_id }) => (
-    _getJournals({ database_id, filters: { start, end } })
+    _getJournals({ database_id, filters: { start, end }, isDaily })
   )))
   return groupBy(journals.flat(), 'name')
 }
@@ -71,17 +70,18 @@ module.exports.formatJournals = async ({ post, journals }) => {
 
   Object.entries(journals).map(([name, journals]) => {
     return ({ [name]: {
+      url: `${BASE_URL}/${(journals.map(({ id }) => id.split('-').join('')))[0]}`,
       did: journals.map(({ LWD }) => LWD).flat().filter((r) => r),
       doing: journals.map(({ doing }) => doing).flat().filter((r) => r),
     } })
-  }).map((j) => Object.entries(j).forEach(([name, { did, doing }]) => {
+  }).map((j) => Object.entries(j).forEach(([name, { url, did, doing }]) => {
     let _did = '\nDid:'
     let _doing = '\nDoing:'
 
     did.length ? _did += `\n* ${did.join('\n* ')}` : _did = ''
     doing.length ? _doing += `\n* ${doing.join('\n* ')}` : _doing = ''
 
-    lwdJournals += `\n*${name}*${_did}${_doing}\n`
+    lwdJournals += `\n*[${name}](${url})*${_did}${_doing}\n`
   }))
 
   const _post = await post
