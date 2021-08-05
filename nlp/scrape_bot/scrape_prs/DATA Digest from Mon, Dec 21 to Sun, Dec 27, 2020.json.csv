@@ -1,0 +1,12 @@
+text,link,state,contributors,text_cleaned
+👀 PR #61 Patch calendar (tlowande),https://github.com/EQWorks/legion/pull/61,needs review,tlowande, Patch calendar
+✔️ PR #60 devops - add googleapis secret to serverless (tlowande),https://github.com/EQWorks/legion/pull/60,done,tlowande, devops - add googleapis secret to serverless
+✔️ PR #58 /demo command (tlowande),https://github.com/EQWorks/legion/pull/58,done,tlowande, /demo command
+✔️ PR #56 Diff/calendar (tlowande),https://github.com/EQWorks/legion/pull/56,done,tlowande, Diff/calendar
+"✔️ PR #8 Catch me if you can - refactor, fix lack of error catch (woozyking)",https://github.com/EQWorks/updates/pull/8,done,woozyking," Catch me if you can - refactor, fix lack of error catch"
+✔️ PR #7 Distinguish issues from PRs and better daily updated commit links (woozyking),https://github.com/EQWorks/updates/pull/7,done,woozyking, Distinguish issues from s and better daily updated commit links
+⚠️ PR #17 Demographic enrichment by distance (maluhoss),https://github.com/EQWorks/EnrichData/pull/17,wip,maluhoss, Demographic enrichment by distance
+👀 PR #7 User scope (dilanSuraj),https://github.com/EQWorks/connector-google-analytics/pull/7,needs review,dilanSuraj, User scope
+⚠️ PR #5 02 - control flow (woozyking),https://github.com/EQWorks/python-curriculum/pull/5,wip,woozyking, 02 - control flow
+✔️ PR #53 Confirmed Cases - fetch province french name for UI translation (tlowande),https://github.com/EQWorks/covidata/pull/53,done,tlowande, Confirmed Cases - fetch province french name for UI translation
+✔️ PR #1 add header support for auth (2qU24Tlb),https://github.com/EQWorks/dgraph-js-http/pull/1,done,2qU24Tlb, add header support for auth

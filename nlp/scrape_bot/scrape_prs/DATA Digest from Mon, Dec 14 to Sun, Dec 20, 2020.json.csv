@@ -1,0 +1,30 @@
+text,link,state,contributors,text_cleaned
+👀 #58 /demo command (tlowande),https://github.com/EQWorks/legion/pull/58,needs review,tlowande,/demo command
+✔️ #57 Release - show prompt in channel when release command completed (maluhoss),https://github.com/EQWorks/legion/pull/57,done,maluhoss,Release - show prompt in channel when release command completed
+👀 #56 Diff/calendar (tlowande),https://github.com/EQWorks/legion/pull/56,needs review,tlowande,Diff/calendar
+"✔️ #55 diff - better control, info, and highlights (woozyking)",https://github.com/EQWorks/legion/pull/55,done,woozyking,"diff - better control, info, and highlights"
+✔️ #30 tag - fix directory access to json (tlowande),https://github.com/EQWorks/release/pull/30,done,tlowande,tag - fix directory access to json
+✔️ #29 tag - improve commit matching logic (tlowande),https://github.com/EQWorks/release/pull/29,done,tlowande,tag - improve commit matching logic
+✔️ #6 daily - fix uncertain properties from issues and PRs distinctions (woozyking),https://github.com/EQWorks/updates/pull/6,done,woozyking,daily - fix uncertain properties from issues and s distinctions
+✔️ #5 Digest/group by team (woozyking),https://github.com/EQWorks/updates/pull/5,done,woozyking,Digest/group by team
+✔️ #4 Daily updates (woozyking),https://github.com/EQWorks/updates/pull/4,done,woozyking,Daily updates
+✔️ #14 devops -  update notebook image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/14,done,bsandi1220,devops - update notebook image
+✔️ #13 devops -  update notebook image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/13,done,bsandi1220,devops - update notebook image
+✔️ #41 enrich - add support for direct mapping and presigned s3 (bsandi1220),https://github.com/EQWorks/locussdk/pull/41,done,bsandi1220,enrich - add support for direct mapping and presigned s3
+✔️ #40 Use get_dataset when fetching EQ dataset using get_report (maluhoss),https://github.com/EQWorks/locussdk/pull/40,done,maluhoss,Use get_dataset when fetching EQ dataset using get_report
+✔️ #39 Feature/popular times v2 (bsandi1220),https://github.com/EQWorks/locussdk/pull/39,done,bsandi1220,Feature/popular times v2
+✔️ #24 Fix report method (maluhoss),https://github.com/EQWorks/locussdk/pull/24,done,maluhoss,Fix report method
+✔️ #16 Demographic/add direct mapping (bsandi1220),https://github.com/EQWorks/EnrichData/pull/16,done,bsandi1220,Demographic/add direct mapping
+👀 #7 User scope (dilanSuraj),https://github.com/EQWorks/connector-google-analytics/pull/7,needs review,dilanSuraj,User scope
+✔️ #4 demo - update with aoi and demo (bsandi1220),https://github.com/EQWorks/notebook-files/pull/4,done,bsandi1220,demo - update with aoi and demo
+⚠️ #5 02 - control flow (woozyking),https://github.com/EQWorks/python-curriculum/pull/5,wip,woozyking,02 - control flow
+"✔️ #4 01 - dissect 2/2, revise problem 03 (woozyking)",https://github.com/EQWorks/python-curriculum/pull/4,done,woozyking,"01 - dissect 2/2, revise problem 03"
+✔️ #1 part 00 background (woozyking),https://github.com/EQWorks/python-curriculum/pull/1,done,woozyking,part 00 background
+✔️ #4 Writer - Process all inserts in single transaction (kevlabs),https://github.com/EQWorks/ml-fusion-writer/pull/4,done,kevlabs,Writer - Process all inserts in single transaction
+✔️ #3 Added Slack logger + Split cache cleanup into scheduled lambda (kevlabs),https://github.com/EQWorks/ml-fusion-writer/pull/3,done,kevlabs,Added Slack logger + Split cache cleanup into scheduled lambda
+👀 #28 Shortest path phase2 boxgen (tris-olson),https://github.com/EQWorks/path_builder/pull/28,needs review,tris-olson,Shortest path phase2 boxgen
+✔️ #27 Shortest path phase2 boxgen (tris-olson),https://github.com/EQWorks/path_builder/pull/27,done,tris-olson,Shortest path phase2 boxgen
+✔️ #26 Shortest path phase2 boxgen (tris-olson),https://github.com/EQWorks/path_builder/pull/26,done,tris-olson,Shortest path phase2 boxgen
+✔️ #25 Shortest path phase2 boxgen (tris-olson),https://github.com/EQWorks/path_builder/pull/25,done,tris-olson,Shortest path phase2 boxgen
+✔️ #23 Shortest path phase2 iterative starting point (ansel-rangers11),https://github.com/EQWorks/path_builder/pull/23,done,ansel-rangers11,Shortest path phase2 iterative starting point
+👀 #2 Airflow/clustering pipeline (bsandi1220),https://github.com/EQWorks/POIClustering/pull/2,needs review,bsandi1220,Airflow/clustering pipeline

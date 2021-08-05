@@ -1,0 +1,27 @@
+text,link,state,contributors,text_cleaned
+⚠️ PR #15 Testing filter and sort state persistance (kc-leung),https://github.com/EQWorks/lumen-table/pull/15,wip,kc-leung, Testing filter and sort state persistance
+⚠️ PR #81 query builder - error handling for agg columns order (tlowande),https://github.com/EQWorks/ml-ui/pull/81,wip,tlowande, query builder - error handling for agg columns order
+✔️ PR #80 Tweaks UI - bug fixes and style (tlowande),https://github.com/EQWorks/ml-ui/pull/80,done,tlowande, Tweaks UI - bug fixes and style
+⚠️ PR #79 State Management with Easy-Peasy (woozyking),https://github.com/EQWorks/ml-ui/pull/79,wip,woozyking, State Management with Easy-Peasy
+⚠️ PR #70 Saved queries (hyx131),https://github.com/EQWorks/ml-ui/pull/70,wip,hyx131, Saved queries
+👀 PR #158 Modal (DoParkEQ),https://github.com/EQWorks/react-labs/pull/158,needs review,DoParkEQ, Modal
+✔️ PR #15 07 - interactive visualization (bsandi1220),https://github.com/EQWorks/python-curriculum/pull/15,done,bsandi1220, 07 - interactive visualization
+👀 PR #65 POIMap - combine geocoder and drawing to create POIs; performance optimization of layers using 'visible' prop; move all poi-manage-related files in stories (geoerika),https://github.com/EQWorks/react-maps/pull/65,needs review,geoerika, POIMap - combine geocoder and drawing to create POIs; performance optimization of layers using 'visible' prop; move all poi-manage-related files in stories
+✔️ PR #59 POIMap - add Geocoder; fsa-features; logic to create and display geocoder resulting POIs (geoerika),https://github.com/EQWorks/react-maps/pull/59,done,geoerika, POIMap - add Geocoder; fsa-features; logic to create and display geocoder resulting POIs
+👀 PR #503 AOI - include requests from notebook when exporting AOI (maluhoss),https://github.com/EQWorks/firstorder/pull/503,needs review,maluhoss, AOI - include requests from notebook when exporting AOI
+👀 PR #502 dataset - /tz for world timezone geometry (woozyking),https://github.com/EQWorks/firstorder/pull/502,needs review,woozyking, dataset - /tz for world timezone geometry
+👀 PR #501 Devops - update serverless (maluhoss),https://github.com/EQWorks/firstorder/pull/501,needs review,maluhoss, Devops - update serverless
+👀 PR #32 AOI - refactor endpoint from /layer to /export/aoi (maluhoss),https://github.com/EQWorks/EnrichData/pull/32,needs review,maluhoss, AOI - refactor endpoint from /layer to /export/aoi
+👀 PR #942 map - adjust controllers position (tlowande),https://github.com/EQWorks/snoke/pull/942,needs review,tlowande, map - adjust controllers position
+👀 PR #11 Shopify - Endpoints for Online Store section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/11,needs review,supuntennakoon, Shopify - Endpoints for Online Store section
+"👀 PR #5 Added endpoints for Sales channel, MarketingEvent sections (supuntennakoon)",https://github.com/EQWorks/connector-shopify/pull/5,needs review,supuntennakoon," Added endpoints for Sales channel, MarketingEvent sections"
+"👀 PR #10 Shopify - Endpoints for TenderTransaction, Metafield, Plus sections (supuntennakoon)",https://github.com/EQWorks/connector-shopify/pull/10,needs review,supuntennakoon," Shopify - Endpoints for TenderTransaction, Metafield, Plus sections"
+👀 PR #9 Shopify - Endpoints for Discounts section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/9,needs review,supuntennakoon, Shopify - Endpoints for Discounts section
+👀 PR #8 Shopify - Endpoints for shopify payments (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/8,needs review,supuntennakoon, Shopify - Endpoints for shopify payments
+👀 PR #7 Shopify - Endpoints for Store Properties (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/7,needs review,supuntennakoon, Shopify - Endpoints for Store Properties
+👀 PR #6 Shopify - Endpoints for Shipping and fulfillment Section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/6,needs review,supuntennakoon, Shopify - Endpoints for Shipping and fulfillment Section
+✔️ PR #8 demo aoi - update with improve  get_geojson (bsandi1220),https://github.com/EQWorks/notebook-files/pull/8,done,bsandi1220, demo aoi - update with improve get_geojson
+✔️ PR #64 get_audience_from_poi_list - align checks with new get_pois (bsandi1220),https://github.com/EQWorks/locussdk/pull/64,done,bsandi1220, get_audience_from_poi_list - align checks with new get_pois
+✔️ PR #23 popular-times-v1 - remove API backend (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/23,done,bsandi1220, popular-times-v1 - remove API backend
+👀 PR #13 Google analytics 4 connector (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/13,needs review,supuntennakoon, Google analytics 4 connector
+⚠️ PR #1 Port - tensorflow playground ts (woozyking),https://github.com/EQWorks/nn-viz/pull/1,wip,woozyking, Port - tensorflow playground ts

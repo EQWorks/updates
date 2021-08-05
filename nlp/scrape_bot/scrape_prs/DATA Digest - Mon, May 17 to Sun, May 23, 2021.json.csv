@@ -1,0 +1,19 @@
+text,link,state,contributors,text_cleaned
+👀 PR #1 Hubspot - Endpoints for the CRM (supuntennakoon),https://github.com/EQWorks/connector-hubspot/pull/1,needs review,supuntennakoon, Hubspot - Endpoints for the CRM
+👀 PR #12 Bugfix/exception detection (wwwmonsterlam),https://github.com/EQWorks/connector-shopify/pull/12,needs review,wwwmonsterlam, Bugfix/exception detection
+👀 PR #2 Shopify - Endpoints for the Orders section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/2,needs review,supuntennakoon, Shopify - Endpoints for the Orders section
+✔️ PR #81 Dataset - get Marketplace layers (maluhoss),https://github.com/EQWorks/locussdk/pull/81,done,maluhoss, Dataset - get Marketplace layers
+👀 PR #80 Devops - add automated testing for demo notebooks on release (waynezhu6),https://github.com/EQWorks/locussdk/pull/80,needs review,waynezhu6, Devops - add automated testing for demo notebooks on release
+✔️ PR #47 Get Marketplace Layers (maluhoss),https://github.com/EQWorks/EnrichData/pull/47,done,maluhoss, Get Marketplace Layers
+✔️ PR #21 11 - work with SQL(ite) (woozyking),https://github.com/EQWorks/python-curriculum/pull/21,done,woozyking, 11 - work with SQL(ite)
+✔️ PR #2 projects - add Geo Cohort project/team (woozyking),https://github.com/EQWorks/kb/pull/2,done,woozyking, projects - add Geo Cohort project/team
+👀 PR #2 Cohort matrix creation (safayet08),https://github.com/EQWorks/cohort_analysis2/pull/2,needs review,safayet08, Cohort matrix creation
+👀 PR #1 idfa tracking - prototype (christam96),https://github.com/EQWorks/cohort_analysis2/pull/1,needs review,christam96, idfa tracking - prototype
+"✔️ PR #2 add color and prefix to verbose msgs, proper CLI option descriptions, add various CI workflows, prepare for init v0.1.0 release (woozyking)",https://github.com/EQWorks/commit-watch/pull/2,done,woozyking," add color and prefix to verbose msgs, proper CLI option descriptions, add various CI workflows, prepare for init v0.1.0 release"
+✔️ PR #1 commit-watch - for commit msg gatekeeping w/ @eqworks/release convention (woozyking),https://github.com/EQWorks/commit-watch/pull/1,done,woozyking, commit-watch - for commit msg gatekeeping w/ @eqworks/release convention
+👀 PR #4 losses visualization (woozyking),https://github.com/EQWorks/nn-viz/pull/4,needs review,woozyking, losses visualization
+✔️ PR #1 port - tensorflow playground simulation logic/controls (woozyking)Issue #2 NN Model simulation and controls in React,https://github.com/EQWorks/nn-viz/pull/1,done,woozyking, port - tensorflow playground simulation logic/controls (woozyking)Issue NN Model simulation and controls in
+✔️ PR #655 Geocohort insights fsa agg (kevlabs),https://github.com/EQWorks/overseer/pull/655,done,kevlabs, Geocohort insights fsa agg
+✔️ PR #52 GeoCohort/Fix - Export handler (kevlabs),https://github.com/EQWorks/chronos-lambda/pull/52,done,kevlabs, GeoCohort/Fix - Export handler
+⚠️ PR #3 ip hh dev (steven-mindswire),https://github.com/EQWorks/hhv2_prod/pull/3,wip,steven-mindswire, ip hh dev
+✔️ PR #35 small fix to journey builder to lower case userIDs (dshparyk),https://github.com/EQWorks/path_builder/pull/35,done,dshparyk, small fix to journey builder to lower case userIDs

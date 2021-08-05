@@ -1,0 +1,34 @@
+text,link,state,contributors,text_cleaned
+👀 PR #7 dashboard management interactions (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/7,needs review,DoParkEQ, dashboard management interactions
+👀 PR #1 ML Log updates + Query executions orchestration (kevlabs),https://github.com/EQWorks/ml-airflow/pull/1,needs review,kevlabs, ML Log updates + Query executions orchestration
+👀 PR #505 ML Overhaul - Executions + saved queries (kevlabs),https://github.com/EQWorks/firstorder/pull/505,needs review,kevlabs, ML Overhaul - Executions + saved queries
+✔️ PR #503 AOI - include requests from notebook when exporting AOI (maluhoss),https://github.com/EQWorks/firstorder/pull/503,done,maluhoss, AOI - include requests from notebook when exporting AOI
+✔️ PR #502 dataset - /tz for world timezone geometry (woozyking),https://github.com/EQWorks/firstorder/pull/502,done,woozyking, dataset - /tz for world timezone geometry
+✔️ PR #501 Devops - update serverless (maluhoss),https://github.com/EQWorks/firstorder/pull/501,done,maluhoss, Devops - update serverless
+✔️ PR #504 hub - google analytics connectors support (woozyking),https://github.com/EQWorks/firstorder/pull/504,done,woozyking, hub - google analytics connectors support
+✔️ PR #944 hub - Google Analytics V4 connector (eq-ianecc),https://github.com/EQWorks/snoke/pull/944,done,eq-ianecc, hub - Google Analytics V4 connector
+✔️ PR #943 hub - new connection split button for more types (woozyking),https://github.com/EQWorks/snoke/pull/943,done,woozyking, hub - new connection split button for more types
+✔️ PR #942 map - adjust controllers position (tlowande),https://github.com/EQWorks/snoke/pull/942,done,tlowande, map - adjust controllers position
+⚠️ PR #939 ml - upgrade ml version + react-query version (hyx131),https://github.com/EQWorks/snoke/pull/939,wip,hyx131, ml - upgrade ml version + react-query version
+⚠️ PR #895 ML connect (tlowande),https://github.com/EQWorks/snoke/pull/895,wip,tlowande, ML connect
+✔️ PR #66 dokerfile - define steps for dockerfile (bsandi1220),https://github.com/EQWorks/locussdk/pull/66,done,bsandi1220, dokerfile - define steps for dockerfile
+✔️ PR #65 AOI - Use aoi export endpoint instead of layer (maluhoss),https://github.com/EQWorks/locussdk/pull/65,done,maluhoss, AOI - Use aoi export endpoint instead of layer
+⚠️ PR #33 popular times -  update decryption method (bsandi1220),https://github.com/EQWorks/EnrichData/pull/33,wip,bsandi1220, popular times - update decryption method
+✔️ PR #32 AOI - refactor endpoint from /layer to /export/aoi (maluhoss),https://github.com/EQWorks/EnrichData/pull/32,done,maluhoss, AOI - refactor endpoint from /layer to /export/aoi
+⚠️ PR #24 encryption - update encrypt method to achieve consistency over time (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/24,wip,bsandi1220, encryption - update encrypt method to achieve consistency over time
+✔️ PR #13 Google analytics 4 connector (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/13,done,supuntennakoon, Google analytics 4 connector
+✔️ PR #81 query builder - error handling and defaultView (tlowande),https://github.com/EQWorks/ml-ui/pull/81,done,tlowande, query builder - error handling and defaultView
+✔️ PR #25 view/default-state - scroll to last opened view (tlowande),https://github.com/EQWorks/ml-ui/pull/25,done,tlowande, view/default-state - scroll to last opened view
+⚠️ PR #70 Saved queries (hyx131),https://github.com/EQWorks/ml-ui/pull/70,wip,hyx131, Saved queries
+⚠️ PR #66 Adjust code to work with poi-manage create poi workflow (geoerika),https://github.com/EQWorks/react-maps/pull/66,wip,geoerika, Adjust code to work with poi-manage create poi workflow
+✔️ PR #65 POIMap - combine geocoder and drawing to create POIs; performance optimization of layers using 'visible' prop; move all poi-manage-related files in stories; change functions to Object style param (geoerika),https://github.com/EQWorks/react-maps/pull/65,done,geoerika, POIMap - combine geocoder and drawing to create POIs; performance optimization of layers using 'visible' prop; move all poi-manage-related files in stories; change functions to Object style param
+👀 PR #5 Handle individual log views + Support for direct invocation (kevlabs),https://github.com/EQWorks/ml-fusion-writer/pull/5,needs review,kevlabs, Handle individual log views + Support for direct invocation
+⚠️ PR #7 Add color variants to button (kc-leung),https://github.com/EQWorks/lumen-ui/pull/7,wip,kc-leung, Add color variants to button
+👀 PR #159 Vertical navbar (DoParkEQ),https://github.com/EQWorks/react-labs/pull/159,needs review,DoParkEQ, Vertical navbar
+👀 PR #158 Modal (DoParkEQ),https://github.com/EQWorks/react-labs/pull/158,needs review,DoParkEQ, Modal
+⚠️ PR #57 Implement create POIs with new POIMap create and draw modes (geoerika),https://github.com/EQWorks/poi-manage/pull/57,wip,geoerika, Implement create POIs with new POIMap create and draw modes
+✔️ PR #16 08 - workspace automation (woozyking),https://github.com/EQWorks/python-curriculum/pull/16,done,woozyking, 08 - workspace automation
+⚠️ PR #1 Port - tensorflow playground ts (woozyking),https://github.com/EQWorks/nn-viz/pull/1,wip,woozyking, Port - tensorflow playground ts
+"👀 PR #14 Upgrade version, add error handling & docstirng (maluhoss)",https://github.com/EQWorks/facebook-segments/pull/14,needs review,maluhoss," Upgrade version, add error handling & docstirng"
+✔️ PR #1 companion project for python-curriculum/08 (woozyking),https://github.com/EQWorks/where/pull/1,done,woozyking, companion project for python-curriculum/08
+⚠️ PR #37 nlp/label - 2021-Mar batch (woozyking),https://github.com/EQWorks/release/pull/37,wip,woozyking, nlp/label - 2021-Mar batch

@@ -1,0 +1,30 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #17 09 - set operations (bsandi1220),https://github.com/EQWorks/python-curriculum/pull/17,done,bsandi1220, 09 - set operations
+⚠️ PR #70 Geo Cohort Map - create geojson map; data-based colour fill & elevation; tooltip; multiple legends; highlightObj (geoerika),https://github.com/EQWorks/react-maps/pull/70,wip,geoerika, Geo Cohort Map - create geojson map; data-based colour fill & elevation; tooltip; multiple legends; highlightObj
+✔️ PR #17 fix overlapped table borders (kc-leung)Issue #16 Table borderline style overlapped,https://github.com/EQWorks/lumen-table/pull/17,done,kc-leung, fix overlapped table borders (kc-leung)Issue Table borderline style
+⚠️ PR #126 VISX/Plotly exp (DoParkEQ),https://github.com/EQWorks/chart-system/pull/126,wip,DoParkEQ, VISX/Plotly exp
+✔️ PR #948 marketplace filter selection (DoParkEQ),https://github.com/EQWorks/snoke/pull/948,done,DoParkEQ, marketplace filter selection
+"👀 PR #10 Stripe - Endpoints for the Sigma, Reporting, webhooks sections (supuntennakoon)",https://github.com/EQWorks/connector-stripe/pull/10,needs review,supuntennakoon," Stripe - Endpoints for the Sigma, Reporting, webhooks sections"
+👀 PR #5 Stripe - Endpoints for the Connect (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/5,needs review,supuntennakoon, Stripe - Endpoints for the Connect
+👀 PR #9 Stripe - Endpoints for the Orders section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/9,needs review,supuntennakoon, Stripe - Endpoints for the Orders section
+👀 PR #8 Stripe - Endpoints for the Terminal section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/8,needs review,supuntennakoon, Stripe - Endpoints for the Terminal section
+👀 PR #7 Stripe - Endpoints for the Issuing section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/7,needs review,supuntennakoon, Stripe - Endpoints for the Issuing section
+👀 PR #6 Stripe - Endpoints for the Fraud section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/6,needs review,supuntennakoon, Stripe - Endpoints for the Fraud section
+👀 PR #4 Stripe - Endpoints for the Billing (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/4,needs review,supuntennakoon, Stripe - Endpoints for the Billing
+✔️ PR #3 Stripe- Endpoints for the payment methods and checkouts (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/3,done,supuntennakoon, Stripe- Endpoints for the payment methods and checkouts
+✔️ PR #2 Stripe - Endpoints for the core resources (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/2,done,supuntennakoon, Stripe - Endpoints for the core resources
+✔️ PR #41 segment - import new crypt class (bsandi1220),https://github.com/EQWorks/EnrichData/pull/41,done,bsandi1220, segment - import new crypt class
+✔️ PR #40 Devops - fix serverless (maluhoss),https://github.com/EQWorks/EnrichData/pull/40,done,maluhoss, Devops - fix serverless
+✔️ PR #522 QL/Layers - Fix PG default schema (kevlabs),https://github.com/EQWorks/firstorder/pull/522,done,kevlabs, QL/Layers - Fix PG default schema
+👀 PR #78 get_audience,https://github.com/EQWorks/locussdk/pull/78,needs review,,
+✔️ PR #77 docker image - update steps (bsandi1220),https://github.com/EQWorks/locussdk/pull/77,done,bsandi1220, docker image - update steps
+✔️ PR #76 cli - add locus get command for LOCUS API requests (woozyking),https://github.com/EQWorks/locussdk/pull/76,done,woozyking, cli - add locus get command for LOCUS API requests
+✔️ PR #22 devops - add dockerfile of hub image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/22,done,bsandi1220, devops - add dockerfile of hub image
+✔️ PR #21 devops - update notebook image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/21,done,bsandi1220, devops - update notebook image
+⚠️ PR #49 Heatmap (tlowande),https://github.com/EQWorks/flaat-dash/pull/49,wip,tlowande, Heatmap
+✔️ PR #1811 geo cohort pacing (eq-ianecc),https://github.com/EQWorks/overlord/pull/1811,done,eq-ianecc, geo cohort pacing
+✔️ PR #1809 camp manage - geo cohort (eq-ianecc),https://github.com/EQWorks/overlord/pull/1809,done,eq-ianecc, camp manage - geo cohort
+✔️ PR #847 publisher simple blocking (eq-ianecc),https://github.com/EQWorks/flash/pull/847,done,eq-ianecc, publisher simple blocking
+✔️ PR #846 feature/geo-cohort (eq-ianecc),https://github.com/EQWorks/flash/pull/846,done,eq-ianecc, feature/geo-cohort
+✔️ PR #648 geo cohort pacing (eq-ianecc),https://github.com/EQWorks/overseer/pull/648,done,eq-ianecc, geo cohort pacing
+⚠️ PR #1 Port - tensorflow playground ts (woozyking),https://github.com/EQWorks/nn-viz/pull/1,wip,woozyking, Port - tensorflow playground ts

@@ -1,0 +1,36 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #1 Port/react labs (tlowande),https://github.com/EQWorks/lumen-ui/pull/1,done,tlowande, Port/react labs
+👀 PR #155 Extracted (tlowande),https://github.com/EQWorks/react-labs/pull/155,needs review,tlowande, Extracted
+👀 PR #62 Test release (tlowande),https://github.com/EQWorks/ml-ui/pull/62,needs review,tlowande, Test release
+👀 PR #61 Widgets playground setup (tlowande),https://github.com/EQWorks/ml-ui/pull/61,needs review,tlowande, Widgets playground setup
+⚠️ PR #60 Query/saved (hyx131),https://github.com/EQWorks/ml-ui/pull/60,wip,hyx131, Query/saved
+👀 PR #59 bump version to0.3.0-alpha (eq-ianecc),https://github.com/EQWorks/ml-ui/pull/59,needs review,eq-ianecc, bump version to0.3.0-alpha
+✔️ PR #58 House cleaning (tlowande),https://github.com/EQWorks/ml-ui/pull/58,done,tlowande, House cleaning
+✔️ PR #57 query-builder - fix top drawer position (tlowande),https://github.com/EQWorks/ml-ui/pull/57,done,tlowande, query-builder - fix top drawer position
+"⚠️ PR #8 03 dict, set, while, loop controls, time-complexity (woozyking)",https://github.com/EQWorks/python-curriculum/pull/8,wip,woozyking," 03 dict, set, while, loop controls, time-complexity"
+✔️ PR #7 03 - data containers and repetitions (1/3) (woozyking),https://github.com/EQWorks/python-curriculum/pull/7,done,woozyking, 03 - data containers and repetitions (1/3)
+⚠️ PR #1 Query mechanism and daily finance aggregation (woozyking),https://github.com/EQWorks/smaug/pull/1,wip,woozyking, Query mechanism and daily finance aggregation
+✔️ PR #7 devops - replace react-labs with lumen-ui (tlowande),https://github.com/EQWorks/lumen-table/pull/7,done,tlowande, devops - replace react-labs with lumen-ui
+✔️ PR #49 Add productHeightRemove prop to GlobalPOIs; refactor common props (geoerika),https://github.com/EQWorks/poi-manage/pull/49,done,geoerika, Add productHeightRemove prop to GlobalPOIs; refactor common props
+✔️ PR #48 Error display change in POICard; cherry-pick commits for GlobalPOIs fix (geoerika),https://github.com/EQWorks/poi-manage/pull/48,done,geoerika, Error display change in POICard; cherry-pick commits for GlobalPOIs fix
+✔️ PR #47 Fix SearchList in GlobalPOIs (geoerika),https://github.com/EQWorks/poi-manage/pull/47,done,geoerika, Fix SearchList in GlobalPOIs
+✔️ PR #55 Map render conditions; upgrade deck.gl (geoerika),https://github.com/EQWorks/react-maps/pull/55,done,geoerika, Map render conditions; upgrade deck.gl
+👀 PR #4 dashboard & widget base structure (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/4,needs review,DoParkEQ, dashboard & widget base structure
+✔️ PR #3 dashboard widget structure (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/3,done,DoParkEQ, dashboard widget structure
+✔️ PR #50 get_dataset - fix aoi storage including resolution (bsandi1220),https://github.com/EQWorks/locussdk/pull/50,done,bsandi1220, get_dataset - fix aoi storage including resolution
+✔️ PR #49 get_audience_from_poi_list - add method to create audience from poi list (bsandi1220),https://github.com/EQWorks/locussdk/pull/49,done,bsandi1220, get_audience_from_poi_list - add method to create audience from poi list
+✔️ PR #48 poi - add get_avail_poi_lists and get_pois (bsandi1220),https://github.com/EQWorks/locussdk/pull/48,done,bsandi1220, poi - add get_avail_poi_lists and get_pois
+👀 PR #919 design - change illustrations in home and notebook (YizhiCatherineZhang),https://github.com/EQWorks/snoke/pull/919,needs review,YizhiCatherineZhang, design - change illustrations in home and notebook
+✔️ PR #918 Upgrade @eqworks/poi-manage to v0.4.1 (geoerika),https://github.com/EQWorks/snoke/pull/918,done,geoerika, Upgrade @eqworks/poi-manage to v0.4.1
+👀 PR #914 hub - new google sheets flow (woozyking),https://github.com/EQWorks/snoke/pull/914,needs review,woozyking, hub - new google sheets flow
+✔️ PR #22 audience build - update dynamodb table (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/22,done,bsandi1220, audience build - update dynamodb table
+✔️ PR #25 hh - update fernet key (bsandi1220),https://github.com/EQWorks/EnrichData/pull/25,done,bsandi1220, hh - update fernet key
+👀 PR #489 hub - google sheet connector (eq-ianecc),https://github.com/EQWorks/firstorder/pull/489,needs review,eq-ianecc, hub - google sheet connector
+👀 PR #9 Google analytics supun (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/9,needs review,wwwmonsterlam, Google analytics supun
+✔️ PR #17 dev-journal - filter undefined values for vacay tasks (hyx131),https://github.com/EQWorks/avail-bot/pull/17,done,hyx131, dev-journal - filter undefined values for vacay tasks
+✔️ PR #13 github - dedupe PR co-committers list (woozyking),https://github.com/EQWorks/updates/pull/13,done,woozyking, github - dedupe  co-committers list
+"✔️ PR #12 Range for monthly and annual digest, with API usage optimizations (woozyking)",https://github.com/EQWorks/updates/pull/12,done,woozyking," Range for monthly and annual digest, with API usage optimizations"
+✔️ PR #1802 Add mapbox-gl-draw.css stylesheet (geoerika),https://github.com/EQWorks/overlord/pull/1802,done,geoerika, Add mapbox-gl-draw.css stylesheet
+✔️ PR #1801 Upgrade @eqworks/poi-manage to v0.4.1 (geoerika),https://github.com/EQWorks/overlord/pull/1801,done,geoerika, Upgrade @eqworks/poi-manage to v0.4.1
+👀 PR #1796 Integrate new poi-manage; replace semantic-ui comps with material-ui comps (geoerika),https://github.com/EQWorks/overlord/pull/1796,needs review,geoerika, Integrate new poi-manage; replace semantic-ui comps with material-ui comps
+✔️ PR #49 Fix/Vast - Fix banner code (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/49,done,kevlabs, Fix/Vast - Fix banner code

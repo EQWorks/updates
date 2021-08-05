@@ -1,0 +1,41 @@
+text,link,state,contributors,text_cleaned
+⚠️ PR #17 fix overlapped table borders (kc-leung)Issue #16 Table borderline style overlapped,https://github.com/EQWorks/lumen-table/pull/17,wip,kc-leung, fix overlapped table borders (kc-leung)Issue Table borderline style
+⚠️ PR #69 ML Report Map -add legend (geoerika),https://github.com/EQWorks/react-maps/pull/69,wip,geoerika, ML Report Map -add legend
+⚠️ PR #68 heatmap example (DoParkEQ),https://github.com/EQWorks/react-maps/pull/68,wip,DoParkEQ, heatmap example
+"✔️ PR #67 MlReportMap - add/fix configurations (cursor, tooltip, data-based colour) (geoerika)",https://github.com/EQWorks/react-maps/pull/67,done,geoerika," MlReportMap - add/fix configurations (cursor, tooltip, data-based colour)"
+✔️ PR #66 Adjust code to work with poi-manage create poi workflow (geoerika),https://github.com/EQWorks/react-maps/pull/66,done,geoerika, Adjust code to work with poi-manage create poi workflow
+✔️ PR #7 Add color variants to button (kc-leung)Issue #6 [REQUEST] Add color variants to button,https://github.com/EQWorks/lumen-ui/pull/7,done,kc-leung, Add color variants to button (kc-leung)Issue Add color variants to
+✔️ PR #158 Modal (DoParkEQ),https://github.com/EQWorks/react-labs/pull/158,done,DoParkEQ, Modal
+⚠️ PR #126 VISX/Plotly exp (DoParkEQ),https://github.com/EQWorks/chart-system/pull/126,wip,DoParkEQ, VISX/Plotly exp
+"👀 PR #74 devops - deps, README, and top-level export revisions (woozyking)",https://github.com/EQWorks/locussdk/pull/74,needs review,woozyking," devops - deps, README, and top-level export revisions"
+✔️ PR #68 get_dataset - update get connection hub data (bsandi1220),https://github.com/EQWorks/locussdk/pull/68,done,bsandi1220, get_dataset - update get connection hub data
+⚠️ PR #73 dataset/extra - get time zone geometries (woozyking),https://github.com/EQWorks/locussdk/pull/73,wip,woozyking, dataset/extra - get time zone geometries
+✔️ PR #72 devops - fix dockerfile (bsandi1220),https://github.com/EQWorks/locussdk/pull/72,done,bsandi1220, devops - fix dockerfile
+👀 PR #70 Use export endpoints when getting LOCUS reports (maluhoss),https://github.com/EQWorks/locussdk/pull/70,needs review,maluhoss, Use export endpoints when getting LOCUS reports
+✔️ PR #71 AOI - add version when saving file (maluhoss),https://github.com/EQWorks/locussdk/pull/71,done,maluhoss, AOI - add version when saving file
+👀 PR #69 Dataset - modify ML routes in getting list of datasets (maluhoss),https://github.com/EQWorks/locussdk/pull/69,needs review,maluhoss, Dataset - modify ML routes in getting list of datasets
+✔️ PR #67 get_audience - add limit to number of pois (bsandi1220),https://github.com/EQWorks/locussdk/pull/67,done,bsandi1220, get_audience - add limit to number of pois
+👀 PR #946 hub - new s3 connector based direct upload (woozyking),https://github.com/EQWorks/snoke/pull/946,needs review,woozyking, hub - new s3 connector based direct upload
+⚠️ PR #939 ml - upgrade ml version + react-query version (hyx131),https://github.com/EQWorks/snoke/pull/939,wip,hyx131, ml - upgrade ml version + react-query version
+👀 PR #919 design - change illustrations in home and notebook (YizhiCatherineZhang),https://github.com/EQWorks/snoke/pull/919,needs review,YizhiCatherineZhang, design - change illustrations in home and notebook
+✔️ PR #514 docs - deployment slash command (woozyking),https://github.com/EQWorks/firstorder/pull/514,done,woozyking, docs - deployment slash command
+✔️ PR #512 devops - docker compose (woozyking),https://github.com/EQWorks/firstorder/pull/512,done,woozyking, devops - docker compose
+👀 PR #505 ML Overhaul - Executions + saved queries (kevlabs),https://github.com/EQWorks/firstorder/pull/505,needs review,kevlabs, ML Overhaul - Executions + saved queries
+👀 PR #513 Dataset - create new endpoint to get LOCUS report directly (maluhoss),https://github.com/EQWorks/firstorder/pull/513,needs review,maluhoss, Dataset - create new endpoint to get LOCUS report directly
+⚠️ PR #511 Create quick query endpoint for notebook (maluhoss),https://github.com/EQWorks/firstorder/pull/511,wip,maluhoss, Create quick query endpoint for notebook
+✔️ PR #510 Modify report export endpoints to include reqs from notebook (maluhoss),https://github.com/EQWorks/firstorder/pull/510,done,maluhoss, Modify report export endpoints to include reqs from notebook
+✔️ PR #509 Report - List reports based on access + new withData,https://github.com/EQWorks/firstorder/pull/509,done,, Report - List reports based on access + new
+✔️ PR #508 dataset - add route to get connection hub datasets (bsandi1220),https://github.com/EQWorks/firstorder/pull/508,done,bsandi1220, dataset - add route to get connection hub datasets
+⚠️ PR #38 Report - create new handler to get LOCUS report directly (maluhoss),https://github.com/EQWorks/EnrichData/pull/38,wip,maluhoss, Report - create new handler to get LOCUS report directly
+✔️ PR #35 connectionHub - add get connection method (bsandi1220),https://github.com/EQWorks/EnrichData/pull/35,done,bsandi1220, connectionHub - add get connection method
+✔️ PR #37 AOI - use geo_id instead of resolution column names (maluhoss),https://github.com/EQWorks/EnrichData/pull/37,done,maluhoss, AOI - use geo_id instead of resolution column names
+⚠️ PR #36 Quick Query util (maluhoss),https://github.com/EQWorks/EnrichData/pull/36,wip,maluhoss, Quick Query util
+✔️ PR #9 AOI file - adjust column names when getting AOI data (maluhoss),https://github.com/EQWorks/notebook-files/pull/9,done,maluhoss, AOI file - adjust column names when getting AOI data
+✔️ PR #643 Insights/GeoCohort - Add new geocohort type (kevlabs),https://github.com/EQWorks/overseer/pull/643,done,kevlabs, Insights/GeoCohort - Add new geocohort type
+👀 PR #642 docs - add tunnel instruction for docker local dev option (woozyking),https://github.com/EQWorks/overseer/pull/642,needs review,woozyking, docs - add tunnel instruction for docker local dev option
+✔️ PR #641 devops - add containerization with docker-compose (woozyking),https://github.com/EQWorks/overseer/pull/641,done,woozyking, devops - add containerization with docker-compose
+✔️ PR #51 Bids History - Support for geo cohorts + refactor (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/51,done,kevlabs, Bids History - Support for geo cohorts + refactor
+✔️ PR #50 Features Writer - Add support for multi dimensions (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/50,done,kevlabs, Features Writer - Add support for multi dimensions
+👀 PR #846 feature/geo-cohort (eq-ianecc),https://github.com/EQWorks/flash/pull/846,needs review,eq-ianecc, feature/geo-cohort
+✔️ PR #845 adserver - support new AUDIT macro (eq-ianecc),https://github.com/EQWorks/flash/pull/845,done,eq-ianecc, adserver - support new AUDIT macro
+👀 PR #7 geo cohort fields (eq-ianecc),https://github.com/EQWorks/aws_kinesis/pull/7,needs review,eq-ianecc, geo cohort fields

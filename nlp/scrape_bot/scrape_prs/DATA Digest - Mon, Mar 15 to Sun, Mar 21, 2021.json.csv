@@ -1,0 +1,31 @@
+text,link,state,contributors,text_cleaned
+"✔️ PR #122 data - add Pandas variant, revise instructions, submission in notebooks (woozyking)",https://github.com/EQWorks/ws-problems/pull/122,done,woozyking," data - add Pandas variant, revise instructions, submission in notebooks"
+✔️ PR #113 product - re-org tracks and revise problems (woozyking),https://github.com/EQWorks/ws-problems/pull/113,done,woozyking, product - re-org tracks and revise problems
+✔️ PR #2 docker - use jupyter/pyspark-notebook image as the base (woozyking),https://github.com/EQWorks/ws-data-spark/pull/2,done,woozyking, docker - use jupyter/pyspark-notebook image as the base
+👀 PR #11 Shopify - Endpoints for Online Store section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/11,needs review,supuntennakoon, Shopify - Endpoints for Online Store section
+"👀 PR #5 Added endpoints for Sales channel, MarketingEvent sections (supuntennakoon)",https://github.com/EQWorks/connector-shopify/pull/5,needs review,supuntennakoon," Added endpoints for Sales channel, MarketingEvent sections"
+👀 PR #2 Shopify - Endpoints for the Orders section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/2,needs review,supuntennakoon, Shopify - Endpoints for the Orders section
+"👀 PR #10 Shopify - Endpoints for TenderTransaction, Metafield, Plus sections (supuntennakoon)",https://github.com/EQWorks/connector-shopify/pull/10,needs review,supuntennakoon," Shopify - Endpoints for TenderTransaction, Metafield, Plus sections"
+👀 PR #9 Shopify - Endpoints for Discounts section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/9,needs review,supuntennakoon, Shopify - Endpoints for Discounts section
+👀 PR #8 Shopify - Endpoints for shopify payments (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/8,needs review,supuntennakoon, Shopify - Endpoints for shopify payments
+👀 PR #7 Shopify - Endpoints for Store Properties (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/7,needs review,supuntennakoon, Shopify - Endpoints for Store Properties
+👀 PR #6 Shopify - Endpoints for Shipping and fulfillment Section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/6,needs review,supuntennakoon, Shopify - Endpoints for Shipping and fulfillment Section
+✔️ PR #8 demo aoi - update with improve  get_geojson (bsandi1220),https://github.com/EQWorks/notebook-files/pull/8,done,bsandi1220, demo aoi - update with improve get_geojson
+✔️ PR #64 get_audience_from_poi_list - align checks with new get_pois (bsandi1220),https://github.com/EQWorks/locussdk/pull/64,done,bsandi1220, get_audience_from_poi_list - align checks with new get_pois
+✔️ PR #63 AOI - Improve fetching data (maluhoss),https://github.com/EQWorks/locussdk/pull/63,done,maluhoss, AOI - Improve fetching data
+✔️ PR #31 AOI - improve scalability (maluhoss),https://github.com/EQWorks/EnrichData/pull/31,done,maluhoss, AOI - improve scalability
+✔️ PR #23 popular-times-v1 - remove API backend (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/23,done,bsandi1220, popular-times-v1 - remove API backend
+👀 PR #13 Google analytics 4 connector (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/13,needs review,supuntennakoon, Google analytics 4 connector
+✔️ PR #15 07 - interactive visualization (bsandi1220),https://github.com/EQWorks/python-curriculum/pull/15,done,bsandi1220, 07 - interactive visualization
+✔️ PR #23 Airflow pipeline/fix tasks dates (bsandi1220),https://github.com/EQWorks/DeviceCounts/pull/23,done,bsandi1220, Airflow pipeline/fix tasks dates
+✔️ PR #22 popular times v1 - remove preprocessing from pipeline (bsandi1220),https://github.com/EQWorks/DeviceCounts/pull/22,done,bsandi1220, popular times v1 - remove preprocessing from pipeline
+👀 PR #1 restructure and amend doc (QingleiZhang),https://github.com/EQWorks/hhv2_prod/pull/1,needs review,QingleiZhang, restructure and amend doc
+⚠️ PR #1 Port - tensorflow playground ts (woozyking),https://github.com/EQWorks/nn-viz/pull/1,wip,woozyking, Port - tensorflow playground ts
+👀 PR #12 Bell test final filter (QingleiZhang),https://github.com/EQWorks/cognitive/pull/12,needs review,QingleiZhang, Bell test final filter
+👀 PR #11 Bell test data clean (steven-mindswire),https://github.com/EQWorks/cognitive/pull/11,needs review,steven-mindswire, Bell test data clean
+✔️ PR #33 small updates to readmes & comments (tris-olson),https://github.com/EQWorks/path_builder/pull/33,done,tris-olson, small updates to readmes & comments
+👀 PR #30 update master branch with in-production code (tris-olson),https://github.com/EQWorks/path_builder/pull/30,needs review,tris-olson, update master branch with in-production code
+✔️ PR #8 Remove flaged audience (steven-mindswire),https://github.com/EQWorks/segment_push/pull/8,done,steven-mindswire, Remove flaged audience
+✔️ PR #7 replace deprecated use_batch_mode with executemany_mode (steven-mindswire),https://github.com/EQWorks/segment_push/pull/7,done,steven-mindswire, replace deprecated use_batch_mode with executemany_mode
+👀 PR #3 Commute direction (dshparyk),https://github.com/EQWorks/astral/pull/3,needs review,dshparyk, Commute direction
+👀 PR #179 change centroid label algorithm (QingleiZhang),https://github.com/EQWorks/Miner/pull/179,needs review,QingleiZhang, change centroid label algorithm

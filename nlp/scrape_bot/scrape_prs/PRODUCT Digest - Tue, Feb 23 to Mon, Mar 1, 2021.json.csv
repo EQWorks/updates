@@ -1,0 +1,26 @@
+text,link,state,contributors,text_cleaned
+👀 PR #107 mobile - draft problems and evaluation guide (woozyking),https://github.com/EQWorks/ws-problems/pull/107,needs review,woozyking, mobile - draft problems and evaluation guide
+👀 PR #105 update wireframe link (DoParkEQ),https://github.com/EQWorks/ws-problems/pull/105,needs review,DoParkEQ, update wireframe link
+✔️ PR #1 playground - simplify and factor out ping() (woozyking),https://github.com/EQWorks/ws-mobile-swift/pull/1,done,woozyking, playground - simplify and factor out ping()
+⚠️ PR #60 Poi map radii viewport (geoerika),https://github.com/EQWorks/react-maps/pull/60,wip,geoerika, Poi map radii viewport
+⚠️ PR #59 POIMap - add Geocoder; fsa-features; logic to create and display geocoder resulting POIs (geoerika),https://github.com/EQWorks/react-maps/pull/59,wip,geoerika, POIMap - add Geocoder; fsa-features; logic to create and display geocoder resulting POIs
+⚠️ PR #71 saved queries + widgets lab (nivo) (tlowande),https://github.com/EQWorks/ml-ui/pull/71,wip,tlowande, saved queries + widgets lab (nivo)
+⚠️ PR #68 widgets playground - flow selector for barChart (tlowande),https://github.com/EQWorks/ml-ui/pull/68,wip,tlowande, widgets playground - flow selector for barChart
+✔️ PR #60 Query/saved (hyx131),https://github.com/EQWorks/ml-ui/pull/60,done,hyx131, Query/saved
+⚠️ PR #12 [STALE] Tour/joyride (hyx131),https://github.com/EQWorks/ml-ui/pull/12,wip,hyx131, Tour/joyride
+👀 PR #8 [STALE] React grid (hyx131),https://github.com/EQWorks/ml-ui/pull/8,needs review,hyx131, React grid
+⚠️ PR #70 Saved queries (hyx131),https://github.com/EQWorks/ml-ui/pull/70,wip,hyx131, Saved queries
+✔️ PR #11 04 - intro on data aggregation and visualization (woozyking),https://github.com/EQWorks/python-curriculum/pull/11,done,woozyking, 04 - intro on data aggregation and visualization
+👀 PR #56 Add warning for mixed POI lists (geoerika),https://github.com/EQWorks/poi-manage/pull/56,needs review,geoerika, Add warning for mixed POI lists
+✔️ PR #53 custom search for FSA (eq-ianecc),https://github.com/EQWorks/poi-manage/pull/53,done,eq-ianecc, custom search for FSA
+✔️ PR #55 package - change version to v1.0.3 (geoerika),https://github.com/EQWorks/poi-manage/pull/55,done,geoerika, package - change version to v1.0.3
+⚠️ PR #126 VISX/Plotly exp (DoParkEQ),https://github.com/EQWorks/chart-system/pull/126,wip,DoParkEQ, VISX/Plotly exp
+👀 PR #845 adserver - support new AUDIT macro (eq-ianecc),https://github.com/EQWorks/flash/pull/845,needs review,eq-ianecc, adserver - support new AUDIT macro
+"⚠️ PR #1803 LocusPOI fix; update material-ui, @eqworks packages; replace react-labs/material-ui comps with lumen-ui, lumen-table comps; update yarn and fix errors (geoerika)",https://github.com/EQWorks/overlord/pull/1803,wip,geoerika," LocusPOI fix; update material-ui, @eqworks packages; replace react-labs/material-ui comps with lumen-ui, lumen-table comps; update yarn and fix errors"
+👀 PR #59 Access ATOM impressions logs (maluhoss),https://github.com/EQWorks/locussdk/pull/59,needs review,maluhoss, Access ATOM impressions logs
+✔️ PR #58 geocode - append geocode result to original data (bsandi1220),https://github.com/EQWorks/locussdk/pull/58,done,bsandi1220, geocode - append geocode result to original data
+✔️ PR #6 demo files - update to pandas df native compatibility (bsandi1220),https://github.com/EQWorks/notebook-files/pull/6,done,bsandi1220, demo files - update to pandas df native compatibility
+✔️ PR #16 show contributors by project and group digest items by NLP labels (woozyking),https://github.com/EQWorks/updates/pull/16,done,woozyking, show contributors by project and group digest items by NLP labels
+✔️ PR #36 lib - parseRaw for NLP labeling of arbitrary array of strings (woozyking),https://github.com/EQWorks/release/pull/36,done,woozyking, lib - parseRaw for NLP labeling of arbitrary array of strings
+⚠️ PR #32 nlp/label - 2021-Feb batch (woozyking),https://github.com/EQWorks/release/pull/32,wip,woozyking, nlp/label - 2021-Feb batch
+⚠️ PR #2 GitHub workflows setup; refactor files to make them general; create new note using 'New note' instead of 'Prepare' templates (geoerika),https://github.com/EQWorks/hugo-chores/pull/2,wip,geoerika, GitHub workflows setup; refactor files to make them general; create new note using 'New note' instead of 'Prepare' templates

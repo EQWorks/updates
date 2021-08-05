@@ -1,0 +1,63 @@
+text,link,state,contributors,text_cleaned
+⚠️ PR #23 Work with generated/fake data (woozyking),https://github.com/EQWorks/python-curriculum/pull/23,wip,woozyking, Work with generated/fake data
+✔️ PR #22 devops - integrate commit-watch for PRs (woozyking),https://github.com/EQWorks/python-curriculum/pull/22,done,woozyking, devops - integrate commit-watch for s
+"⚠️ PR #76 Map/GeoCohortMap  - add setZoom, setViewportBBox (geoerika)",https://github.com/EQWorks/react-maps/pull/76,wip,geoerika," Map/GeoCohortMap - add setZoom, setViewportBBox"
+👀 PR #75 Intelligence map (kc-leung),https://github.com/EQWorks/react-maps/pull/75,needs review,kc-leung, Intelligence map
+✔️ PR #97 Executions/cancellation (hyx131),https://github.com/EQWorks/ml-ui/pull/97,done,hyx131, Executions/cancellation
+✔️ PR #96 devops - integrate commit-watch to master CI workflow (hyx131),https://github.com/EQWorks/ml-ui/pull/96,done,hyx131, devops - integrate commit-watch to master CI workflow
+✔️ PR #95 Categories/tree (hyx131),https://github.com/EQWorks/ml-ui/pull/95,done,hyx131, Categories/tree
+✔️ PR #94 Categories/re layout (hyx131),https://github.com/EQWorks/ml-ui/pull/94,done,hyx131, Categories/re layout
+⚠️ PR #85 Add map widget (geoerika),https://github.com/EQWorks/ml-ui/pull/85,wip,geoerika, Add map widget
+✔️ PR #164 Selector/tree (hyx131),https://github.com/EQWorks/react-labs/pull/164,done,hyx131, Selector/tree
+👀 PR #27 Commit watch integration and mention in git conventions (woozyking),https://github.com/EQWorks/common/pull/27,needs review,woozyking, Commit watch integration and mention in git conventions
+✔️ PR #59 devops - add commit-watch to master CI workflow (woozyking),https://github.com/EQWorks/keywarden/pull/59,done,woozyking, devops - add commit-watch to master CI workflow
+✔️ PR #58 login - send OTP email to registered users only (waynezhu6),https://github.com/EQWorks/keywarden/pull/58,done,waynezhu6, login - send OTP email to registered users only
+⚠️ PR #1833 Report/GeoCohort - use bbox coords to pull postal code level insights (geoerika),https://github.com/EQWorks/overlord/pull/1833,wip,geoerika, Report/GeoCohort - use bbox coords to pull postal code level insights
+✔️ PR #1832 Manage -fix tab order at flight and media buy level; rename 'Geo Cohort' tab to 'GeoCohort' (geoerika),https://github.com/EQWorks/overlord/pull/1832,done,geoerika, Manage -fix tab order at flight and media buy level; rename 'Geo Cohort' tab to 'GeoCohort'
+✔️ PR #1831 GeoCohort - Suppress error for geocoh item agg data & geom api call (geoerika),https://github.com/EQWorks/overlord/pull/1831,done,geoerika, GeoCohort - Suppress error for geocoh item agg data & geom api call
+👀 PR #1829 table enhancement (DoParkEQ),https://github.com/EQWorks/overlord/pull/1829,needs review,DoParkEQ, table enhancement
+✔️ PR #1827 apply global theme (DoParkEQ),https://github.com/EQWorks/overlord/pull/1827,done,DoParkEQ, apply global theme
+"✔️ PR #1823 devops - upgrade build runtime and clean up dev deps, remove outdated tests (woozyking)",https://github.com/EQWorks/overlord/pull/1823,done,woozyking," devops - upgrade build runtime and clean up dev deps, remove outdated tests"
+"✔️ PR #1830 Package, table fix (geoerika)",https://github.com/EQWorks/overlord/pull/1830,done,geoerika," Package, table fix"
+✔️ PR #1828 Theme - fix default theme (woozyking),https://github.com/EQWorks/overlord/pull/1828,done,woozyking, Theme - fix default theme
+✔️ PR #1808 geo cohort/reports (DoParkEQ),https://github.com/EQWorks/overlord/pull/1808,done,DoParkEQ, geo cohort/reports
+✔️ PR #656 devops - add commit-watch to master CI workflow (woozyking),https://github.com/EQWorks/overseer/pull/656,done,woozyking, devops - add commit-watch to master CI workflow
+👀 PR #23 journal - setup Notion dev-journal automation workflow (hyx131),https://github.com/EQWorks/avail-bot/pull/23,needs review,hyx131, journal - setup Notion dev-journal automation workflow
+"✔️ PR #42 version 3.4, revise commit-watch job (woozyking)",https://github.com/EQWorks/release/pull/42,done,woozyking," version 3.4, revise commit-watch job"
+"✔️ PR #40 devops - dev env to node 14, add commit-watch in master CI workflow (woozyking)",https://github.com/EQWorks/release/pull/40,done,woozyking," devops - dev env to node 14, add commit-watch in master CI workflow"
+✔️ PR #37 nlp/label - 2021-Mar batch (woozyking),https://github.com/EQWorks/release/pull/37,done,woozyking, nlp/label - 2021-Mar batch
+✔️ PR #3 Auto main|master branch detection (woozyking),https://github.com/EQWorks/commit-watch/pull/3,done,woozyking, Auto main|master branch detection
+👀 PR #12 Stripe - Added The extra parameteres for the payment methods,https://github.com/EQWorks/connector-stripe/pull/12,needs review,, Stripe - Added The extra parameteres for the payment
+👀 PR #11 Stripe - Added The extra parameteres for the core resources,https://github.com/EQWorks/connector-stripe/pull/11,needs review,, Stripe - Added The extra parameteres for the core
+👀 PR #9 Stripe - Endpoints for the Orders section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/9,needs review,supuntennakoon, Stripe - Endpoints for the Orders section
+👀 PR #8 Stripe - Endpoints for the Terminal section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/8,needs review,supuntennakoon, Stripe - Endpoints for the Terminal section
+👀 PR #7 Stripe - Endpoints for the Issuing section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/7,needs review,supuntennakoon, Stripe - Endpoints for the Issuing section
+👀 PR #6 Stripe - Endpoints for the Fraud section (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/6,needs review,supuntennakoon, Stripe - Endpoints for the Fraud section
+👀 PR #4 Stripe - Endpoints for the Billing (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/4,needs review,supuntennakoon, Stripe - Endpoints for the Billing
+"👀 PR #10 Stripe - Endpoints for the Sigma, Reporting, webhooks sections (supuntennakoon)",https://github.com/EQWorks/connector-stripe/pull/10,needs review,supuntennakoon," Stripe - Endpoints for the Sigma, Reporting, webhooks sections"
+👀 PR #5 Stripe - Endpoints for the Connect (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/5,needs review,supuntennakoon, Stripe - Endpoints for the Connect
+✔️ PR #16 update airflow dag deployment (wwwmonsterlam),https://github.com/EQWorks/data-hub/pull/16,done,wwwmonsterlam, update airflow dag deployment
+👀 PR #25 Devops - update image for singleuser to v0.8.0 (maluhoss),https://github.com/EQWorks/JupyterHub/pull/25,needs review,maluhoss, Devops - update image for singleuser to v0.8.0
+✔️ PR #84 Devops - fix path to demo-notebooks tests (waynezhu6),https://github.com/EQWorks/locussdk/pull/84,done,waynezhu6, Devops - fix path to demo-notebooks tests
+✔️ PR #83 Devops - fix path to demo-notebooks tests (waynezhu6),https://github.com/EQWorks/locussdk/pull/83,done,waynezhu6, Devops - fix path to demo-notebooks tests
+"✔️ PR #82 Add ipyleaflet, timezonefinder, modin and ray + add commit-watch (maluhoss)",https://github.com/EQWorks/locussdk/pull/82,done,maluhoss," Add ipyleaflet, timezonefinder, modin and ray + add commit-watch"
+✔️ PR #80 Devops - add automated testing for demo notebooks on release (waynezhu6),https://github.com/EQWorks/locussdk/pull/80,done,waynezhu6, Devops - add automated testing for demo notebooks on release
+✔️ PR #534 Serverless/Env - Expose STAGE var (kevlabs),https://github.com/EQWorks/firstorder/pull/534,done,kevlabs, Serverless/Env - Expose STAGE var
+✔️ PR #533 QL/Executions - Add API triggered cancellation (kevlabs),https://github.com/EQWorks/firstorder/pull/533,done,kevlabs, QL/Executions - Add API triggered cancellation
+✔️ PR #532 Devops - commit watch integration (woozyking),https://github.com/EQWorks/firstorder/pull/532,done,woozyking, Devops - commit watch integration
+"✔️ PR #957 devops - add commit-watch to master CI workflow, node 14 as dev runtime (woozyking)",https://github.com/EQWorks/snoke/pull/957,done,woozyking," devops - add commit-watch to master CI workflow, node 14 as dev runtime"
+✔️ PR #919 design - change illustrations in home and notebook (YizhiCatherineZhang),https://github.com/EQWorks/snoke/pull/919,done,YizhiCatherineZhang, design - change illustrations in home and notebook
+✔️ PR #3 Execution - Add support for cancellation (kevlabs),https://github.com/EQWorks/ml-airflow/pull/3,done,kevlabs, Execution - Add support for cancellation
+✔️ PR #12 Bugfix/exception detection (wwwmonsterlam),https://github.com/EQWorks/connector-shopify/pull/12,done,wwwmonsterlam, Bugfix/exception detection
+👀 PR #11 Shopify - Endpoints for Online Store section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/11,needs review,supuntennakoon, Shopify - Endpoints for Online Store section
+"✔️ PR #5 Added endpoints for Sales channel, MarketingEvent sections (supuntennakoon)",https://github.com/EQWorks/connector-shopify/pull/5,done,supuntennakoon," Added endpoints for Sales channel, MarketingEvent sections"
+✔️ PR #4 Shopify - Endpoints for the Events Section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/4,done,supuntennakoon, Shopify - Endpoints for the Events Section
+✔️ PR #3 Shopify - Endpoints for the Inventory Section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/3,done,supuntennakoon, Shopify - Endpoints for the Inventory Section
+✔️ PR #2 Shopify - Endpoints for the Orders section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/2,done,supuntennakoon, Shopify - Endpoints for the Orders section
+✔️ PR #1 Shopify - Endpoints for the Products section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/1,done,supuntennakoon, Shopify - Endpoints for the Products section
+"✔️ PR #10 Shopify - Endpoints for TenderTransaction, Metafield, Plus sections (supuntennakoon)",https://github.com/EQWorks/connector-shopify/pull/10,done,supuntennakoon," Shopify - Endpoints for TenderTransaction, Metafield, Plus sections"
+✔️ PR #9 Shopify - Endpoints for Discounts section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/9,done,supuntennakoon, Shopify - Endpoints for Discounts section
+✔️ PR #8 Shopify - Endpoints for shopify payments (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/8,done,supuntennakoon, Shopify - Endpoints for shopify payments
+✔️ PR #7 Shopify - Endpoints for Store Properties (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/7,done,supuntennakoon, Shopify - Endpoints for Store Properties
+👀 PR #6 Shopify - Endpoints for Shipping and fulfillment Section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/6,needs review,supuntennakoon, Shopify - Endpoints for Shipping and fulfillment Section
+✔️ PR #1 aws lambda - add AWS SAM based template deployment (eq-ianecc),https://github.com/EQWorks/tegola/pull/1,done,eq-ianecc, aws lambda - add AWS SAM based template deployment

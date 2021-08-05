@@ -1,0 +1,40 @@
+text,link,state,contributors,text_cleaned
+"✔️ PR #122 data - add Pandas variant, revise instructions, submission in notebooks (woozyking)",https://github.com/EQWorks/ws-problems/pull/122,done,woozyking," data - add Pandas variant, revise instructions, submission in notebooks"
+✔️ PR #113 product - re-org tracks and revise problems (woozyking),https://github.com/EQWorks/ws-problems/pull/113,done,woozyking, product - re-org tracks and revise problems
+✔️ PR #1 devops/gltich - update install instruction (woozyking),https://github.com/EQWorks/ws-product-ruby/pull/1,done,woozyking, devops/gltich - update install instruction
+✔️ PR #3 My branch (warrenchu),https://github.com/EQWorks/ws-data-spark/pull/3,done,warrenchu, My branch
+✔️ PR #2 docker - use jupyter/pyspark-notebook image as the base (woozyking),https://github.com/EQWorks/ws-data-spark/pull/2,done,woozyking, docker - use jupyter/pyspark-notebook image as the base
+✔️ PR #5 devops - update deps (woozyking),https://github.com/EQWorks/ws-product-python/pull/5,done,woozyking, devops - update deps
+✔️ PR #6 devops - upgrade runtime and deps (woozyking),https://github.com/EQWorks/ws-product-nodejs/pull/6,done,woozyking, devops - upgrade runtime and deps
+⚠️ PR #79 State Management with Easy-Peasy (woozyking),https://github.com/EQWorks/ml-ui/pull/79,wip,woozyking, State Management with Easy-Peasy
+✔️ PR #72 saved-query + widgets lab (plotly) (tlowande),https://github.com/EQWorks/ml-ui/pull/72,done,tlowande, saved-query + widgets lab (plotly)
+✔️ PR #71 saved queries + widgets lab (nivo) (tlowande),https://github.com/EQWorks/ml-ui/pull/71,done,tlowande, saved queries + widgets lab (nivo)
+✔️ PR #68 widgets playground - flow selector for barChart (tlowande),https://github.com/EQWorks/ml-ui/pull/68,done,tlowande, widgets playground - flow selector for barChart
+✔️ PR #59 bump version to0.3.0-alpha (eq-ianecc),https://github.com/EQWorks/ml-ui/pull/59,done,eq-ianecc, bump version to0.3.0-alpha
+⚠️ PR #70 Saved queries (hyx131),https://github.com/EQWorks/ml-ui/pull/70,wip,hyx131, Saved queries
+✔️ PR #63 PoiMap - add mode='empty' and state logic for empty maps to deal with mixed POI lists logic in poi-manage (geoerika),https://github.com/EQWorks/react-maps/pull/63,done,geoerika, PoiMap - add mode='empty' and state logic for empty maps to deal with mixed POI lists logic in poi-manage
+⚠️ PR #59 POIMap - add Geocoder; fsa-features; logic to create and display geocoder resulting POIs (geoerika),https://github.com/EQWorks/react-maps/pull/59,wip,geoerika, POIMap - add Geocoder; fsa-features; logic to create and display geocoder resulting POIs
+✔️ PR #14 06 - meta-automation (woozyking),https://github.com/EQWorks/python-curriculum/pull/14,done,woozyking, 06 - meta-automation
+✔️ PR #14 login - separate api_stage & key_warden_stage (hyx131),https://github.com/EQWorks/common-login/pull/14,done,hyx131, login - separate api_stage & key_warden_stage
+✔️ PR #56 Add warning for mixed POI lists (geoerika),https://github.com/EQWorks/poi-manage/pull/56,done,geoerika, Add warning for mixed POI lists
+"👀 PR #5 Added endpoints for Sales channel, MarketingEvent sections (supuntennakoon)",https://github.com/EQWorks/connector-shopify/pull/5,needs review,supuntennakoon," Added endpoints for Sales channel, MarketingEvent sections"
+👀 PR #4 Shopify - Endpoints for the Events Section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/4,needs review,supuntennakoon, Shopify - Endpoints for the Events Section
+👀 PR #3 Shopify - Endpoints for the Inventory Section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/3,needs review,supuntennakoon, Shopify - Endpoints for the Inventory Section
+👀 PR #2 Shopify - Endpoints for the Orders section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/2,needs review,supuntennakoon, Shopify - Endpoints for the Orders section
+👀 PR #1 Shopify - Endpoints for the Products section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/1,needs review,supuntennakoon, Shopify - Endpoints for the Products section
+✔️ PR #63 AOI - Improve fetching data (maluhoss),https://github.com/EQWorks/locussdk/pull/63,done,maluhoss, AOI - Improve fetching data
+✔️ PR #62 get_popular_times - remove suppport for popular-times-v1 (bsandi1220),https://github.com/EQWorks/locussdk/pull/62,done,bsandi1220, get_popular_times - remove suppport for popular-times-v1
+✔️ PR #61 get_geojson - add presigned post url for scalability (bsandi1220),https://github.com/EQWorks/locussdk/pull/61,done,bsandi1220, get_geojson - add presigned post url for scalability
+✔️ PR #500 Locussdk - improve AOI fetching (maluhoss),https://github.com/EQWorks/firstorder/pull/500,done,maluhoss, Locussdk - improve AOI fetching
+✔️ PR #499 locussdk - remove support for popular-times-v1 (bsandi1220),https://github.com/EQWorks/firstorder/pull/499,done,bsandi1220, locussdk - remove support for popular-times-v1
+✔️ PR #498 locussdk - update get_geojson for better scalability (bsandi1220),https://github.com/EQWorks/firstorder/pull/498,done,bsandi1220, locussdk - update get_geojson for better scalability
+✔️ PR #497 Hub - modify auth restriction (maluhoss),https://github.com/EQWorks/firstorder/pull/497,done,maluhoss, Hub - modify auth restriction
+✔️ PR #31 AOI - improve scalability (maluhoss),https://github.com/EQWorks/EnrichData/pull/31,done,maluhoss, AOI - improve scalability
+✔️ PR #30 get_geojson - update to use presigned post url (bsandi1220),https://github.com/EQWorks/EnrichData/pull/30,done,bsandi1220, get_geojson - update to use presigned post url
+✔️ PR #7 demo - remove popular-times-v1 (bsandi1220),https://github.com/EQWorks/notebook-files/pull/7,done,bsandi1220, demo - remove popular-times-v1
+✔️ PR #940 hub - auto-detect nullable columns from sample (woozyking),https://github.com/EQWorks/snoke/pull/940,done,woozyking, hub - auto-detect nullable columns from sample
+⚠️ PR #939 ml - upgrade ml version + react-query version (hyx131),https://github.com/EQWorks/snoke/pull/939,wip,hyx131, ml - upgrade ml version + react-query version
+👀 PR #23 popular-times-v1 - remove API backend (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/23,needs review,bsandi1220, popular-times-v1 - remove API backend
+✔️ PR #19 devops - update notebook image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/19,done,bsandi1220, devops - update notebook image
+👀 PR #35 Bert embedding (steven-mindswire),https://github.com/EQWorks/release/pull/35,needs review,steven-mindswire, Bert embedding
+✔️ PR #32 nlp/label - 2021-Feb batch (woozyking),https://github.com/EQWorks/release/pull/32,done,woozyking, nlp/label - 2021-Feb batch

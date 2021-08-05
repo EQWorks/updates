@@ -1,0 +1,36 @@
+text,link,state,contributors,text_cleaned
+✔️ #45 Columns/reorder (hyx131),https://github.com/EQWorks/ml-ui/pull/45,done,hyx131,Columns/reorder
+⚠️ #44 re-layout (tlowande)#42 update layout,https://github.com/EQWorks/ml-ui/pull/44,wip,tlowande,re-layout (tlowande)#42 update
+✔️ #36 views - fix viewIndex error on view-columns update using searched res… (hyx131),https://github.com/EQWorks/ml-ui/pull/36,done,hyx131,views - fix viewIndex error on view-columns update using searched res…
+⚠️ #5 02 - control flow (woozyking),https://github.com/EQWorks/python-curriculum/pull/5,wip,woozyking,02 - control flow
+"✔️ #4 01 - dissect 2/2, revise problem 03 (woozyking)",https://github.com/EQWorks/python-curriculum/pull/4,done,woozyking,"01 - dissect 2/2, revise problem 03"
+✔️ #1 part 00 background (woozyking),https://github.com/EQWorks/python-curriculum/pull/1,done,woozyking,part 00 background
+✔️ #4 Writer - Process all inserts in single transaction (kevlabs),https://github.com/EQWorks/ml-fusion-writer/pull/4,done,kevlabs,Writer - Process all inserts in single transaction
+✔️ #3 Added Slack logger + Split cache cleanup into scheduled lambda (kevlabs),https://github.com/EQWorks/ml-fusion-writer/pull/3,done,kevlabs,Added Slack logger + Split cache cleanup into scheduled lambda
+✔️ #4 Wordwrap (tlowande),https://github.com/EQWorks/lumen-table/pull/4,done,tlowande,Wordwrap
+✔️ #42 POIMap - adjust to resizable map container; adjust styling; lint (geoerika),https://github.com/EQWorks/react-maps/pull/42,done,geoerika,POIMap - adjust to resizable map container; adjust styling; lint
+⚠️ #41 ColumnPOI - adjust POIManage to latest version of POIMap component (geoerika),https://github.com/EQWorks/poi-manage/pull/41,wip,geoerika,ColumnPOI - adjust POIManage to latest version of POIMap component
+✔️ #40 Reset/exit buttons (geoerika),https://github.com/EQWorks/poi-manage/pull/40,done,geoerika,Reset/exit buttons
+👀 #479 Add lambda authorizer + fix ML customer filter (kevlabs),https://github.com/EQWorks/firstorder/pull/479,needs review,kevlabs,Add lambda authorizer + fix ML customer filter
+✔️ #478 DevOps/Fix - Abstract portunus token (kevlabs),https://github.com/EQWorks/firstorder/pull/478,done,kevlabs,DevOps/Fix - Abstract portunus token
+✔️ #477 DevOps/Stages - Introduce stage stable (kevlabs),https://github.com/EQWorks/firstorder/pull/477,done,kevlabs,DevOps/Stages - Introduce stage stable
+✔️ #476 ML/Logs - Add all atom insights + more fast views (kevlabs),https://github.com/EQWorks/firstorder/pull/476,done,kevlabs,ML/Logs - Add all atom insights + more fast views
+👀 #908 - new marketplace update (DoParkEQ),https://github.com/EQWorks/snoke/pull/908,needs review,DoParkEQ,- new marketplace update
+👀 #907 Add Map back under Analytics in nav (YizhiCatherineZhang),https://github.com/EQWorks/snoke/pull/907,needs review,YizhiCatherineZhang,Add Map back under Analytics in nav
+✔️ #14 devops -  update notebook image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/14,done,bsandi1220,devops - update notebook image
+✔️ #13 devops -  update notebook image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/13,done,bsandi1220,devops - update notebook image
+✔️ #41 enrich - add support for direct mapping and presigned s3 (bsandi1220),https://github.com/EQWorks/locussdk/pull/41,done,bsandi1220,enrich - add support for direct mapping and presigned s3
+✔️ #16 Demographic/add direct mapping (bsandi1220),https://github.com/EQWorks/EnrichData/pull/16,done,bsandi1220,Demographic/add direct mapping
+👀 #7 User scope (dilanSuraj),https://github.com/EQWorks/connector-google-analytics/pull/7,needs review,dilanSuraj,User scope
+✔️ #4 demo - update with aoi and demo (bsandi1220),https://github.com/EQWorks/notebook-files/pull/4,done,bsandi1220,demo - update with aoi and demo
+👀 #7 Distinguish issues from PRs and better daily updated commit links (woozyking),https://github.com/EQWorks/updates/pull/7,needs review,woozyking,Distinguish issues from s and better daily updated commit links
+✔️ #6 daily - fix uncertain properties from issues and PRs distinctions (woozyking),https://github.com/EQWorks/updates/pull/6,done,woozyking,daily - fix uncertain properties from issues and s distinctions
+✔️ #5 Digest/group by team (woozyking),https://github.com/EQWorks/updates/pull/5,done,woozyking,Digest/group by team
+✔️ #4 Daily updates (woozyking),https://github.com/EQWorks/updates/pull/4,done,woozyking,Daily updates
+👀 #58 /demo command (tlowande),https://github.com/EQWorks/legion/pull/58,needs review,tlowande,/demo command
+✔️ #57 Release - show prompt in channel when release command completed (maluhoss),https://github.com/EQWorks/legion/pull/57,done,maluhoss,Release - show prompt in channel when release command completed
+👀 #56 Diff/calendar (tlowande),https://github.com/EQWorks/legion/pull/56,needs review,tlowande,Diff/calendar
+"✔️ #55 diff - better control, info, and highlights (woozyking)",https://github.com/EQWorks/legion/pull/55,done,woozyking,"diff - better control, info, and highlights"
+✔️ #30 tag - fix directory access to json (tlowande),https://github.com/EQWorks/release/pull/30,done,tlowande,tag - fix directory access to json
+👀 #843 agent - fix no expire daily nobids counters (eq-ianecc),https://github.com/EQWorks/flash/pull/843,needs review,eq-ianecc,agent - fix no expire daily nobids counters
+✔️ #1 add header support for auth (2qU24Tlb),https://github.com/EQWorks/dgraph-js-http/pull/1,done,2qU24Tlb,add header support for auth

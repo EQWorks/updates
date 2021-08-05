@@ -1,0 +1,57 @@
+text,link,state,contributors,text_cleaned
+👀 PR #68 Bday sign fix multi-bday logic (tlowande),https://github.com/EQWorks/legion/pull/68,needs review,tlowande, Bday sign fix multi-bday logic
+✔️ PR #67 diff - incorporate @eqworks/release parse commit (woozyking),https://github.com/EQWorks/legion/pull/67,done,woozyking, diff - incorporate @eqworks/release parse commit
+✔️ PR #64 Notes - make slack message link flexible (maluhoss),https://github.com/EQWorks/legion/pull/64,done,maluhoss, Notes - make slack message link flexible
+✔️ PR #63 devops - yarn upgrade-interactive 20210107 (woozyking),https://github.com/EQWorks/legion/pull/63,done,woozyking, devops - yarn upgrade-interactive 20210107
+👀 PR #10 github - lone repo updates to factor in teams and format by prod category (woozyking),https://github.com/EQWorks/updates/pull/10,needs review,woozyking, github - lone repo updates to factor in teams and format by prod category
+✔️ PR #9 github - include lone repo updates (sans-issues/prs) (woozyking),https://github.com/EQWorks/updates/pull/9,done,woozyking, github - include lone repo updates (sans-issues/prs)
+✔️ PR #14 devJournal/name - fix incremental space between name & task length (hyx131),https://github.com/EQWorks/avail-bot/pull/14,done,hyx131, devJournal/name - fix incremental space between name & task length
+👀 PR #3 offWeekDaysDurations and support unavailable hours (woozyking),https://github.com/EQWorks/effort/pull/3,needs review,woozyking, offWeekDaysDurations and support unavailable hours
+✔️ PR #152 [2.0] Remove MUIChip lowercase textTransform (geoerika),https://github.com/EQWorks/react-labs/pull/152,done,geoerika, Remove MUIChip lowercase textTransform
+✔️ PR #150 Button - remove children requirement (geoerika)Issue #149 [BUG] Buttons shouldn't require children,https://github.com/EQWorks/react-labs/pull/150,done,geoerika, Button - remove children requirement (geoerika)Issue Buttons shouldn't require
+✔️ PR #148 Tabs - add vertical tabs option + return controlled tab value & onChange handler (hyx131),https://github.com/EQWorks/react-labs/pull/148,done,hyx131, Tabs - add vertical tabs option + return controlled tab value & onChange handler
+👀 PR #147 alert - simplify alert and eliminate inline-styles (woozyking),https://github.com/EQWorks/react-labs/pull/147,needs review,woozyking, alert - simplify alert and eliminate inline-styles
+✔️ PR #145 devops - release workflow rev and CHANGELOG redirects to github releases (woozyking),https://github.com/EQWorks/react-labs/pull/145,done,woozyking, devops - release workflow rev and CHANGELOG redirects to github releases
+👀 PR #52 Ml model/refactor - refactor useMLModel & related hooks (hyx131),https://github.com/EQWorks/ml-ui/pull/52,needs review,hyx131, Ml model/refactor - refactor useMLModel & related hooks
+✔️ PR #51 Nav control - control top & left navigation & rendering state using hooks + file re-structure for hooks directory (hyx131),https://github.com/EQWorks/ml-ui/pull/51,done,hyx131, Nav control - control top & left navigation & rendering state using hooks + file re-structure for hooks directory
+✔️ PR #50 Files/restructure (hyx131),https://github.com/EQWorks/ml-ui/pull/50,done,hyx131, Files/restructure
+✔️ PR #49 query-builder/views - persist subviews open state (tlowande)Issue #48 persist subviews parent open,https://github.com/EQWorks/ml-ui/pull/49,done,tlowande, query-builder/views - persist subviews open state (tlowande)Issue persist subviews parent
+✔️ PR #26 meetings - guideline with link to /notes automation (tlowande),https://github.com/EQWorks/common/pull/26,done,tlowande, meetings - guideline with link to /notes automation
+✔️ PR #25 Dev journal - update with asana automations and new journal workflow (hyx131),https://github.com/EQWorks/common/pull/25,done,hyx131, Dev journal - update with asana automations and new journal workflow
+"✔️ PR #24 update documentation with bday, demo and notes (tlowande)",https://github.com/EQWorks/common/pull/24,done,tlowande," update documentation with bday, demo and notes"
+✔️ PR #23 meetings - update with recent progress of with automation assistance (woozyking),https://github.com/EQWorks/common/pull/23,done,woozyking, meetings - update with recent progress of with automation assistance
+✔️ PR #22 git - add another way to solve rebase mistakes (YizhiCatherineZhang),https://github.com/EQWorks/common/pull/22,done,YizhiCatherineZhang, git - add another way to solve rebase mistakes
+"✔️ PR #21 git - agnostic main branch, rev on commit, mention release CLI (woozyking)",https://github.com/EQWorks/common/pull/21,done,woozyking," git - agnostic main branch, rev on commit, mention release CLI"
+✔️ PR #15 Communication (Goondrious),https://github.com/EQWorks/common/pull/15,done,Goondrious, Communication
+✔️ PR #14 Revised Communication Doc: Includes feedback (maluhoss),https://github.com/EQWorks/common/pull/14,done,maluhoss, Revised Communication Doc: Includes feedback
+✔️ PR #10 Reviewed and made a quick draft of the communications.md file (odesiuz),https://github.com/EQWorks/common/pull/10,done,odesiuz, Reviewed and made a quick draft of the communications.md file
+👀 PR #46 Update map packages (geoerika),https://github.com/EQWorks/react-maps/pull/46,needs review,geoerika, Update map packages
+⚠️ PR #42 V1 - research mapbox attribution error (geoerika),https://github.com/EQWorks/poi-manage/pull/42,wip,geoerika, V1 - research mapbox attribution error
+👀 PR #41 ColumnPOI - adjust POIManage to latest version of POIMap component (geoerika),https://github.com/EQWorks/poi-manage/pull/41,needs review,geoerika, ColumnPOI - adjust POIManage to latest version of POIMap component
+✔️ PR #1 devops - port from @eqworks/react-labs with barebone structure (woozyking),https://github.com/EQWorks/lumen-image-slider/pull/1,done,woozyking, devops - port from @eqworks/react-labs with barebone structure
+"👀 PR #6 02 - logic controls (bitwise operations, try/except, assert) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/6,needs review,woozyking," 02 - logic controls (bitwise operations, try/except, assert)"
+"✔️ PR #5 02 - logic controls (conditions, boolean operations) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/5,done,woozyking," 02 - logic controls (conditions, boolean operations)"
+✔️ PR #48 Fix/Vast - Fix date string (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/48,done,kevlabs, Fix/Vast - Fix date string
+✔️ PR #1800 fix chart rendering issue (tlowande),https://github.com/EQWorks/overlord/pull/1800,done,tlowande, fix chart rendering issue
+✔️ PR #1799 Mapbox - update css file for mapbox-gl (geoerika),https://github.com/EQWorks/overlord/pull/1799,done,geoerika, Mapbox - update css file for mapbox-gl
+✔️ PR #1797 Update poi-manage to v0.4.0 (geoerika),https://github.com/EQWorks/overlord/pull/1797,done,geoerika, Update poi-manage to v0.4.0
+✔️ PR #844 Fix/Adserver - Click tracker in click handler (kevlabs),https://github.com/EQWorks/flash/pull/844,done,kevlabs, Fix/Adserver - Click tracker in click handler
+👀 PR #10 Weilin test/supun 1 (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/10,needs review,wwwmonsterlam, Weilin test/supun 1
+👀 PR #9 Google analytics supun (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/9,needs review,wwwmonsterlam, Google analytics supun
+✔️ PR #8 Google analytics - Handling multiple reports in UniversalAnalyticsDataHandler (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/8,done,supuntennakoon, Google analytics - Handling multiple reports in UniversalAnalyticsDataHandler
+✔️ PR #24 enrich_demographic - fix check of dataset structure (bsandi1220),https://github.com/EQWorks/EnrichData/pull/24,done,bsandi1220, enrich_demographic - fix check of dataset structure
+✔️ PR #23 get_polygon - fix geometry without data (bsandi1220),https://github.com/EQWorks/EnrichData/pull/23,done,bsandi1220, get_polygon - fix geometry without data
+✔️ PR #22 enrich_demographic - add flag for fsa execution (bsandi1220),https://github.com/EQWorks/EnrichData/pull/22,done,bsandi1220, enrich_demographic - add flag for fsa execution
+✔️ PR #21 get_hh_data - delete ip when existing (bsandi1220),https://github.com/EQWorks/EnrichData/pull/21,done,bsandi1220, get_hh_data - delete ip when existing
+✔️ PR #20 Round value to nearest integer when using geo id (maluhoss),https://github.com/EQWorks/EnrichData/pull/20,done,maluhoss, Round value to nearest integer when using geo id
+✔️ PR #19 Add billing for getting AOI data (maluhoss),https://github.com/EQWorks/EnrichData/pull/19,done,maluhoss, Add billing for getting AOI data
+✔️ PR #18 Device/hh enrichment (bsandi1220),https://github.com/EQWorks/EnrichData/pull/18,done,bsandi1220, Device/hh enrichment
+👀 PR #44 Access hub datasets (maluhoss),https://github.com/EQWorks/locussdk/pull/44,needs review,maluhoss, Access hub datasets
+✔️ PR #43 Enrich/hh graph (bsandi1220),https://github.com/EQWorks/locussdk/pull/43,done,bsandi1220, Enrich/hh graph
+✔️ PR #33 Add prompt for billing for getting AOI data (maluhoss),https://github.com/EQWorks/locussdk/pull/33,done,maluhoss, Add prompt for billing for getting AOI data
+✔️ PR #485 devops - pin down to node 12.x to match lambda env + minor deps upgrades (woozyking),https://github.com/EQWorks/firstorder/pull/485,done,woozyking, devops - pin down to node 12.x to match lambda env + minor deps upgrades
+✔️ PR #484 dataset - add route for household enrichment (bsandi1220),https://github.com/EQWorks/firstorder/pull/484,done,bsandi1220, dataset - add route for household enrichment
+✔️ PR #911 Mapbox fix (geoerika),https://github.com/EQWorks/snoke/pull/911,done,geoerika, Mapbox fix
+✔️ PR #910 Update poi-manage to v0.4.0 (geoerika),https://github.com/EQWorks/snoke/pull/910,done,geoerika, Update poi-manage to v0.4.0
+✔️ PR #908 - new marketplace update (DoParkEQ),https://github.com/EQWorks/snoke/pull/908,done,DoParkEQ, - new marketplace update
+⚠️ PR #1 Dashboard layout base structure (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/1,wip,DoParkEQ, Dashboard layout base structure

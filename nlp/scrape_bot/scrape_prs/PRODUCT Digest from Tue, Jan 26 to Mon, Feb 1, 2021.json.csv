@@ -1,0 +1,41 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #62 Test release (tlowande),https://github.com/EQWorks/ml-ui/pull/62,done,tlowande, Test release
+✔️ PR #61 Widgets playground setup (tlowande),https://github.com/EQWorks/ml-ui/pull/61,done,tlowande, Widgets playground setup
+✔️ PR #56 Nebula update; layers error fix (geoerika),https://github.com/EQWorks/react-maps/pull/56,done,geoerika, Nebula update; layers error fix
+"⚠️ PR #9 03 - 3/3 classes, dataframes (woozyking)",https://github.com/EQWorks/python-curriculum/pull/9,wip,woozyking," 03 - 3/3 classes, dataframes"
+"✔️ PR #8 03 dict, set, while loop, loop controls, json format (woozyking)",https://github.com/EQWorks/python-curriculum/pull/8,done,woozyking," 03 dict, set, while loop, loop controls, json format"
+👀 PR #9 Enable table heads to take a fixed amount of space (DoParkEQ)Issue #8 Table styling enhancementIssue #10 Optional toolbar,https://github.com/EQWorks/lumen-table/pull/9,needs review,DoParkEQ, Enable table heads to take a fixed amount of space (DoParkEQ)Issue Table styling enhancementIssue Optional
+👀 PR #2 API endpoints meta table (woozyking),https://github.com/EQWorks/smaug/pull/2,needs review,woozyking, API endpoints meta table
+✔️ PR #1 daily finance aggregation (woozyking),https://github.com/EQWorks/smaug/pull/1,done,woozyking, daily finance aggregation
+✔️ PR #50 React maps update to v.0.4.5 (geoerika),https://github.com/EQWorks/poi-manage/pull/50,done,geoerika, React maps update to v.0.4.5
+✔️ PR #930 Home - default wl on url and update url onChange (tlowande),https://github.com/EQWorks/snoke/pull/930,done,tlowande, Home - default wl on url and update url onChange
+👀 PR #928 Finance - smaug daily API consumption report (woozyking),https://github.com/EQWorks/snoke/pull/928,needs review,woozyking, Finance - smaug daily API consumption report
+✔️ PR #927 Patch missing customers for client home (maluhoss),https://github.com/EQWorks/snoke/pull/927,done,maluhoss, Patch missing customers for client home
+✔️ PR #926 Cleanup segments and widgets - use wl/cu from match params instead of redux store (tlowande),https://github.com/EQWorks/snoke/pull/926,done,tlowande, Cleanup segments and widgets - use wl/cu from match params instead of redux store
+✔️ PR #925 cleanup/maps - read wl/cu from match params (tlowande),https://github.com/EQWorks/snoke/pull/925,done,tlowande, cleanup/maps - read wl/cu from match params
+✔️ PR #924 Cleanup - remove old nav & marketplace and make nav read wl/cu from match params (tlowande),https://github.com/EQWorks/snoke/pull/924,done,tlowande, Cleanup - remove old nav & marketplace and make nav read wl/cu from match params
+✔️ PR #923 toastify - replace react-toastify with material-react-toastify (hyx131),https://github.com/EQWorks/snoke/pull/923,done,hyx131, toastify - replace react-toastify with material-react-toastify
+✔️ PR #922 Cleanup/selector state - read wl/cu from match params (hyx131),https://github.com/EQWorks/snoke/pull/922,done,hyx131, Cleanup/selector state - read wl/cu from match params
+✔️ PR #921 ml - test pre-release in maps (tlowande),https://github.com/EQWorks/snoke/pull/921,done,tlowande, ml - test pre-release in maps
+✔️ PR #920 Home/fix customer view (YizhiCatherineZhang),https://github.com/EQWorks/snoke/pull/920,done,YizhiCatherineZhang, Home/fix customer view
+✔️ PR #914 hub - new google sheets flow (woozyking),https://github.com/EQWorks/snoke/pull/914,done,woozyking, hub - new google sheets flow
+👀 PR #27 Add geocoding util (maluhoss),https://github.com/EQWorks/EnrichData/pull/27,needs review,maluhoss, Add geocoding util
+✔️ PR #26 Feature/segment create (bsandi1220),https://github.com/EQWorks/EnrichData/pull/26,done,bsandi1220, Feature/segment create
+👀 PR #493 expense - smaug daily report split by stage and enrich by meta (woozyking),https://github.com/EQWorks/firstorder/pull/493,needs review,woozyking, expense - smaug daily report split by stage and enrich by meta
+✔️ PR #492 dataset routes - update smaug counter (bsandi1220),https://github.com/EQWorks/firstorder/pull/492,done,bsandi1220, dataset routes - update smaug counter
+✔️ PR #491 smaug daily API consumption report (woozyking),https://github.com/EQWorks/firstorder/pull/491,done,woozyking, smaug daily API consumption report
+✔️ PR #490 dataset - add routes for  presigned post url and segment creation (bsandi1220),https://github.com/EQWorks/firstorder/pull/490,done,bsandi1220, dataset - add routes for presigned post url and segment creation
+✔️ PR #489 hub - google sheet connector (eq-ianecc),https://github.com/EQWorks/firstorder/pull/489,done,eq-ianecc, hub - google sheet connector
+⚠️ PR #5 widget editor (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/5,wip,DoParkEQ, widget editor
+✔️ PR #4 dashboard & widget base structure (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/4,done,DoParkEQ, dashboard & widget base structure
+✔️ PR #12 Supun tests (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/12,done,wwwmonsterlam, Supun tests
+👀 PR #11 Supun tests (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/11,needs review,supuntennakoon, Supun tests
+👀 PR #9 Google analytics supun (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/9,needs review,wwwmonsterlam, Google analytics supun
+👀 PR #52 create_segment - add method to process audience and push segment (bsandi1220),https://github.com/EQWorks/locussdk/pull/52,needs review,bsandi1220, create_segment - add method to process audience and push segment
+⚠️ PR #51 Add Geocoding Util (maluhoss),https://github.com/EQWorks/locussdk/pull/51,wip,maluhoss, Add Geocoding Util
+⚠️ PR #32 nlp/label - add fixed label training data (woozyking),https://github.com/EQWorks/release/pull/32,wip,woozyking, nlp/label - add fixed label training data
+✔️ PR #18 journal - idle check handler and remove isIdle from auto task creation process (hyx131),https://github.com/EQWorks/avail-bot/pull/18,done,hyx131, journal - idle check handler and remove isIdle from auto task creation process
+✔️ PR #1804 hide cost column be default in report tables (eq-ianecc),https://github.com/EQWorks/overlord/pull/1804,done,eq-ianecc, hide cost column be default in report tables
+⚠️ PR #1803 LocusPOI fix (geoerika),https://github.com/EQWorks/overlord/pull/1803,wip,geoerika, LocusPOI fix
+✔️ PR #1796 Integrate new poi-manage; replace semantic-ui comps with material-ui comps (geoerika),https://github.com/EQWorks/overlord/pull/1796,done,geoerika, Integrate new poi-manage; replace semantic-ui comps with material-ui comps
+✔️ PR #640 manage - mb partial updates patch w/o full campaign scope (woozyking),https://github.com/EQWorks/overseer/pull/640,done,woozyking, manage - mb partial updates patch w/o full campaign scope

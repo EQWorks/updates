@@ -1,0 +1,23 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #128 Tooltip disable title prop; add box-shadow and fix padding in tooltip (geoerika)Issue #127 Nivo - disable legend does not disable one on its tooltip,https://github.com/EQWorks/chart-system/pull/128,done,geoerika, Tooltip disable title prop; add box-shadow and fix padding in tooltip (geoerika)Issue Nivo - disable legend does not disable one on its
+⚠️ PR #126 VISX/Plotly/D3 exp (DoParkEQ),https://github.com/EQWorks/chart-system/pull/126,wip,DoParkEQ, VISX/Plotly/D3 exp
+"✔️ PR #18 others/git - intro to git, commits, branches (woozyking)",https://github.com/EQWorks/python-curriculum/pull/18,done,woozyking," others/git - intro to git, commits, branches"
+✔️ PR #1 Ongoing projects (woozyking),https://github.com/EQWorks/kb/pull/1,done,woozyking, Ongoing projects
+✔️ PR #2 Add work sample solution 1-3 (woozyking),https://github.com/EQWorks/data-analyst-training/pull/2,done,woozyking, Add work sample solution 1-3
+✔️ PR #1 recipe - search available POI lists by name (woozyking),https://github.com/EQWorks/locussdk-collab/pull/1,done,woozyking, recipe - search available POI lists by name
+👀 PR #24 Devops - update notebook image to v0.7.11 (maluhoss),https://github.com/EQWorks/JupyterHub/pull/24,needs review,maluhoss, Devops - update notebook image to v0.7.11
+✔️ PR #23 single user server - fix poststart hook due to invalid token (maluhoss),https://github.com/EQWorks/JupyterHub/pull/23,done,maluhoss, single user server - fix poststart hook due to invalid token
+👀 PR #80 Devops - add automated testing for demo notebooks on release (waynezhu6),https://github.com/EQWorks/locussdk/pull/80,needs review,waynezhu6, Devops - add automated testing for demo notebooks on release
+✔️ PR #78 get_audience,https://github.com/EQWorks/locussdk/pull/78,done,,
+✔️ PR #79 Geocode - fix missing postalcodes due to API (maluhoss),https://github.com/EQWorks/locussdk/pull/79,done,maluhoss, Geocode - fix missing postalcodes due to API
+✔️ PR #46 connection-hub - datetime serialization bugfix (newest) (waynezhu6),https://github.com/EQWorks/EnrichData/pull/46,done,waynezhu6, connection-hub - datetime serialization bugfix (newest)
+✔️ PR #45 connectionHub - datetime serialization bugfix (waynezhu6),https://github.com/EQWorks/EnrichData/pull/45,done,waynezhu6, connectionHub - datetime serialization bugfix
+"✔️ PR #44 Revert ""[G2M] connectionHub - datetime serialization bugfix"" (waynezhu6)",https://github.com/EQWorks/EnrichData/pull/44,done,waynezhu6," Revert "" connectionHub - datetime serialization bugfix"""
+✔️ PR #42 connectionHub - datetime serialization bugfix (waynezhu6),https://github.com/EQWorks/EnrichData/pull/42,done,waynezhu6, connectionHub - datetime serialization bugfix
+✔️ PR #43 Get_polygon - include centroid to use in geocode locussdk method (maluhoss),https://github.com/EQWorks/EnrichData/pull/43,done,maluhoss, Get_polygon - include centroid to use in geocode locussdk method
+✔️ PR #651 Customer/GeoCohort - Add cohort size attributes (kevlabs),https://github.com/EQWorks/overseer/pull/651,done,kevlabs, Customer/GeoCohort - Add cohort size attributes
+✔️ PR #650 insights - geo cohort - add list name (eq-ianecc),https://github.com/EQWorks/overseer/pull/650,done,eq-ianecc, insights - geo cohort - add list name
+✔️ PR #649 WL - endpoint to create white label (woozyking),https://github.com/EQWorks/overseer/pull/649,done,woozyking, WL - endpoint to create white label
+👀 PR #35 small fix to journey builder to lower case userIDs (dshparyk),https://github.com/EQWorks/path_builder/pull/35,needs review,dshparyk, small fix to journey builder to lower case userIDs
+👀 PR #2 Ip classification (steven-mindswire),https://github.com/EQWorks/hhv2_prod/pull/2,needs review,steven-mindswire, Ip classification
+👀 PR #1 restructure and amend doc (QingleiZhang),https://github.com/EQWorks/hhv2_prod/pull/1,needs review,QingleiZhang, restructure and amend doc

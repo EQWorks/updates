@@ -1,0 +1,33 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #655 Geocohort insights fsa agg (kevlabs),https://github.com/EQWorks/overseer/pull/655,done,kevlabs, Geocohort insights fsa agg
+✔️ PR #654 geo cohort fsa agg (eq-ianecc),https://github.com/EQWorks/overseer/pull/654,done,eq-ianecc, geo cohort fsa agg
+✔️ PR #653 Customer/GeoCohort - Geo avail from table (kevlabs),https://github.com/EQWorks/overseer/pull/653,done,kevlabs, Customer/GeoCohort - Geo avail from table
+"👀 PR #1823 devops - upgrade build runtime and clean up dev deps, remove outdated tests (woozyking)",https://github.com/EQWorks/overlord/pull/1823,needs review,woozyking," devops - upgrade build runtime and clean up dev deps, remove outdated tests"
+✔️ PR #1822 More optimal Geocohort API calls through SWR (woozyking),https://github.com/EQWorks/overlord/pull/1822,done,woozyking, More optimal Geocohort API calls through SWR
+✔️ PR #1821 FSA to postal codes transition for map (geoerika),https://github.com/EQWorks/overlord/pull/1821,done,geoerika, FSA to postal codes transition for map
+✔️ PR #1813 whitelabels - add new white label creation feature (woozyking),https://github.com/EQWorks/overlord/pull/1813,done,woozyking, whitelabels - add new white label creation feature
+👀 PR #1808 geo cohort/reports (DoParkEQ),https://github.com/EQWorks/overlord/pull/1808,needs review,DoParkEQ, geo cohort/reports
+✔️ PR #52 GeoCohort/Fix - Export handler (kevlabs),https://github.com/EQWorks/chronos-lambda/pull/52,done,kevlabs, GeoCohort/Fix - Export handler
+✔️ PR #50 GeoCohortAvail - Implement lambda (kevlabs),https://github.com/EQWorks/chronos-lambda/pull/50,done,kevlabs, GeoCohortAvail - Implement lambda
+"✔️ PR #51 GeoCohortAvail/devops - resolve npm registry sources, pin down node 12.x (woozyking)",https://github.com/EQWorks/chronos-lambda/pull/51,done,woozyking," GeoCohortAvail/devops - resolve npm registry sources, pin down node 12.x"
+✔️ PR #52 Athena - Modularize + GeoCohort Codes (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/52,done,kevlabs, Athena - Modularize + GeoCohort Codes
+👀 PR #57 devops - CI revisions (woozyking),https://github.com/EQWorks/keywarden/pull/57,needs review,woozyking, devops - CI revisions
+✔️ PR #56 jwt/long-lasting-jwt (waynezhu6),https://github.com/EQWorks/keywarden/pull/56,done,waynezhu6, jwt/long-lasting-jwt
+✔️ PR #93 devops - automate release notes updating process (hyx131),https://github.com/EQWorks/ml-ui/pull/93,done,hyx131, devops - automate release notes updating process
+✔️ PR #92 Columns/alias (hyx131),https://github.com/EQWorks/ml-ui/pull/92,done,hyx131, Columns/alias
+✔️ PR #91 UI/enhancements (hyx131),https://github.com/EQWorks/ml-ui/pull/91,done,hyx131, UI/enhancements
+✔️ PR #90 Nav/execution (hyx131),https://github.com/EQWorks/ml-ui/pull/90,done,hyx131, Nav/execution
+✔️ PR #20 10 raw html (woozyking),https://github.com/EQWorks/python-curriculum/pull/20,done,woozyking, 10 raw html
+✔️ PR #19 10 - bridging web ui to notebook (divyselva),https://github.com/EQWorks/python-curriculum/pull/19,done,divyselva, 10 - bridging web ui to notebook
+"⚠️ PR #73 Get zoom, bbox (geoerika)",https://github.com/EQWorks/react-maps/pull/73,wip,geoerika," Get zoom, bbox"
+✔️ PR #2 projects - add Geo Cohort project/team (woozyking),https://github.com/EQWorks/kb/pull/2,done,woozyking, projects - add Geo Cohort project/team
+✔️ PR #21 Incorporate lumen-ui theme (kc-leung)Issue #20 Incorporate lumen UI theme to table,https://github.com/EQWorks/lumen-table/pull/21,done,kc-leung, Incorporate lumen-ui theme (kc-leung)Issue Incorporate lumen UI theme to
+👀 PR #956 ql - upgrade package with v1.1.0 release (hyx131),https://github.com/EQWorks/snoke/pull/956,needs review,hyx131, ql - upgrade package with v1.1.0 release
+✔️ PR #955 devops - upgrade build dev deps and babel config (woozyking),https://github.com/EQWorks/snoke/pull/955,done,woozyking, devops - upgrade build dev deps and babel config
+⚠️ PR #15 New table/oauth info (wwwmonsterlam),https://github.com/EQWorks/data-hub/pull/15,wip,wwwmonsterlam, New table/oauth info
+✔️ PR #531 QL/Expression - Add support for column aliases (kevlabs),https://github.com/EQWorks/firstorder/pull/531,done,kevlabs, QL/Expression - Add support for column aliases
+✔️ PR #530 Dataset - get marketplace layers (maluhoss),https://github.com/EQWorks/firstorder/pull/530,done,maluhoss, Dataset - get marketplace layers
+👀 PR #81 Dataset - get Marketplace layers (maluhoss),https://github.com/EQWorks/locussdk/pull/81,needs review,maluhoss, Dataset - get Marketplace layers
+👀 PR #80 Devops - add automated testing for demo notebooks on release (waynezhu6),https://github.com/EQWorks/locussdk/pull/80,needs review,waynezhu6, Devops - add automated testing for demo notebooks on release
+👀 PR #47 Get Marketplace Layers (maluhoss),https://github.com/EQWorks/EnrichData/pull/47,needs review,maluhoss, Get Marketplace Layers
+👀 PR #1 port - tensorflow playground simulation logic/controls (woozyking),https://github.com/EQWorks/nn-viz/pull/1,needs review,woozyking, port - tensorflow playground simulation logic/controls

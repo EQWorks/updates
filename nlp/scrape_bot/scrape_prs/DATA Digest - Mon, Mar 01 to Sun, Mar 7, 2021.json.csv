@@ -1,0 +1,21 @@
+text,link,state,contributors,text_cleaned
+👀 PR #114 mobile - open options to use stacks like flutter (woozyking),https://github.com/EQWorks/ws-problems/pull/114,needs review,woozyking, mobile - open options to use stacks like flutter
+👀 PR #113 product - re-org tracks and revise problems (woozyking),https://github.com/EQWorks/ws-problems/pull/113,needs review,woozyking, product - re-org tracks and revise problems
+✔️ PR #112 mobile - update prob 1 for variants consistency (woozyking),https://github.com/EQWorks/ws-problems/pull/112,done,woozyking, mobile - update prob 1 for variants consistency
+✔️ PR #107 mobile - draft problems and evaluation guide (woozyking),https://github.com/EQWorks/ws-problems/pull/107,done,woozyking, mobile - draft problems and evaluation guide
+👀 PR #105 update wireframe link (DoParkEQ),https://github.com/EQWorks/ws-problems/pull/105,needs review,DoParkEQ, update wireframe link
+✔️ PR #2 playground - parity with kotlin variant (woozyking),https://github.com/EQWorks/ws-mobile-swift/pull/2,done,woozyking, playground - parity with kotlin variant
+✔️ PR #1 playground - simplify and factor out ping() (woozyking),https://github.com/EQWorks/ws-mobile-swift/pull/1,done,woozyking, playground - simplify and factor out ping()
+👀 PR #1 Shopify - Endpoints for the Products section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/1,needs review,supuntennakoon, Shopify - Endpoints for the Products section
+👀 PR #60 enrich - update direct mapping to use posturl (bsandi1220),https://github.com/EQWorks/locussdk/pull/60,needs review,bsandi1220, enrich - update direct mapping to use posturl
+👀 PR #29 get_presigned_post - add upload type enrich (bsandi1220),https://github.com/EQWorks/EnrichData/pull/29,needs review,bsandi1220, get_presigned_post - add upload type enrich
+👀 PR #14 Supun test/supun 7 (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/14,needs review,supuntennakoon, Supun test/supun 7
+👀 PR #13 Google analytics 4 connector (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/13,needs review,supuntennakoon, Google analytics 4 connector
+"✔️ PR #13 05 - add README entry to nbviewer, add 04 exercise (woozyking)",https://github.com/EQWorks/python-curriculum/pull/13,done,woozyking," 05 - add README entry to nbviewer, add 04 exercise"
+✔️ PR #12 05 - obtain internet resources (woozyking),https://github.com/EQWorks/python-curriculum/pull/12,done,woozyking, 05 - obtain internet resources
+✔️ PR #32 rearranged repo and improved documentation (tris-olson),https://github.com/EQWorks/path_builder/pull/32,done,tris-olson, rearranged repo and improved documentation
+👀 PR #30 update master branch with in-production code (tris-olson),https://github.com/EQWorks/path_builder/pull/30,needs review,tris-olson, update master branch with in-production code
+✔️ PR #28 Shortest path phase2 boxgen (tris-olson),https://github.com/EQWorks/path_builder/pull/28,done,tris-olson, Shortest path phase2 boxgen
+✔️ PR #7 create_dag - update board mapping and ouput folder (bsandi1220),https://github.com/EQWorks/POIClustering/pull/7,done,bsandi1220, create_dag - update board mapping and ouput folder
+✔️ PR #6 Daily pipeline/add commute (bsandi1220),https://github.com/EQWorks/POIClustering/pull/6,done,bsandi1220, Daily pipeline/add commute
+⚠️ PR #2 GitHub workflows setup; refactor files to make them general; create new note using 'New note' instead of 'Prepare' templates (geoerika),https://github.com/EQWorks/hugo-chores/pull/2,wip,geoerika, GitHub workflows setup; refactor files to make them general; create new note using 'New note' instead of 'Prepare' templates

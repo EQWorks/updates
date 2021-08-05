@@ -1,0 +1,23 @@
+text,link,state,contributors,text_cleaned
+👀 PR #2 Stripe - Endpoints for the core resources (supuntennakoon),https://github.com/EQWorks/connector-stripe/pull/2,needs review,supuntennakoon, Stripe - Endpoints for the core resources
+✔️ PR #1 lint fix (wwwmonsterlam),https://github.com/EQWorks/connector-stripe/pull/1,done,wwwmonsterlam, lint fix
+👀 PR #76 cli - add locus get command for LOCUS API requests (woozyking),https://github.com/EQWorks/locussdk/pull/76,needs review,woozyking, cli - add locus get command for LOCUS API requests
+✔️ PR #69 Dataset - modify ML routes in getting list of datasets (maluhoss),https://github.com/EQWorks/locussdk/pull/69,done,maluhoss, Dataset - modify ML routes in getting list of datasets
+✔️ PR #75 Improve getting report based on report length (maluhoss),https://github.com/EQWorks/locussdk/pull/75,done,maluhoss, Improve getting report based on report length
+"✔️ PR #74 devops - deps, README, and top-level export revisions (woozyking)",https://github.com/EQWorks/locussdk/pull/74,done,woozyking," devops - deps, README, and top-level export revisions"
+✔️ PR #73 dataset/extra - get time zone geometries (woozyking),https://github.com/EQWorks/locussdk/pull/73,done,woozyking, dataset/extra - get time zone geometries
+✔️ PR #70 Use export endpoints when getting LOCUS reports (maluhoss),https://github.com/EQWorks/locussdk/pull/70,done,maluhoss, Use export endpoints when getting LOCUS reports
+✔️ PR #39 report - improve performance (bsandi1220),https://github.com/EQWorks/EnrichData/pull/39,done,bsandi1220, report - improve performance
+✔️ PR #36 Quick Query util (maluhoss),https://github.com/EQWorks/EnrichData/pull/36,done,maluhoss, Quick Query util
+✔️ PR #38 Report - create new handler to get LOCUS report directly (maluhoss),https://github.com/EQWorks/EnrichData/pull/38,done,maluhoss, Report - create new handler to get LOCUS report directly
+⚠️ PR #17 09 - set operations (bsandi1220),https://github.com/EQWorks/python-curriculum/pull/17,wip,bsandi1220, 09 - set operations
+✔️ PR #17 daily and weekly/long-range format re-organization (woozyking),https://github.com/EQWorks/updates/pull/17,done,woozyking, daily and weekly/long-range format re-organization
+✔️ PR #20 journal - de-duplicate overlapping tasks between vacay & prev-day tas… (hyx131),https://github.com/EQWorks/avail-bot/pull/20,done,hyx131, journal - de-duplicate overlapping tasks between vacay & prev-day tas…
+✔️ PR #646 devops - remove incorrect counter docker service dependency for overseer (woozyking),https://github.com/EQWorks/overseer/pull/646,done,woozyking, devops - remove incorrect counter docker service dependency for overseer
+✔️ PR #642 docs - add tunnel instruction for docker local dev option (woozyking),https://github.com/EQWorks/overseer/pull/642,done,woozyking, docs - add tunnel instruction for docker local dev option
+✔️ PR #641 devops - add containerization with docker-compose (woozyking),https://github.com/EQWorks/overseer/pull/641,done,woozyking, devops - add containerization with docker-compose
+✔️ PR #645 geo cohort details (eq-ianecc),https://github.com/EQWorks/overseer/pull/645,done,eq-ianecc, geo cohort details
+✔️ PR #644 geo cohort lists (eq-ianecc),https://github.com/EQWorks/overseer/pull/644,done,eq-ianecc, geo cohort lists
+✔️ PR #643 Insights/GeoCohort - Add new geocohort type (kevlabs),https://github.com/EQWorks/overseer/pull/643,done,kevlabs, Insights/GeoCohort - Add new geocohort type
+👀 PR #34 New bounding box logic (tris-olson),https://github.com/EQWorks/path_builder/pull/34,needs review,tris-olson, New bounding box logic
+✔️ PR #8 schema - update schema for empty audiences (bsandi1220),https://github.com/EQWorks/POIClustering/pull/8,done,bsandi1220, schema - update schema for empty audiences

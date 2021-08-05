@@ -1,0 +1,41 @@
+text,link,state,contributors,text_cleaned
+#897 [G2M]Marketplace bugfixes (DoParkEQ),https://github.com/EQWorks/snoke/pull/897,,DoParkEQ,Marketplace bugfixes
+#895 [WIP]ML connect (tlowande) ⚠️,https://github.com/EQWorks/snoke/pull/895,wip,tlowande,ML connect
+#888 [G2M] Navbar (DoParkEQ),https://github.com/EQWorks/snoke/pull/888,,DoParkEQ,Navbar
+#884 [WIP] Marketplace/knowmore (YizhiCatherineZhang) ⚠️,https://github.com/EQWorks/snoke/pull/884,wip,YizhiCatherineZhang,Marketplace/knowmore
+#47 [G2M] Vast/Logger - No log for non-vast/empty s3 objects (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/47,,kevlabs,Vast/Logger - No log for non-vast/empty s3 objects
+#46 [G2M] Archive: use SSM for PG env + Slack handler: add requests dep (kevlabs) ✔️,https://github.com/EQWorks/camp-history-writer/pull/46,done,kevlabs,Archive: use SSM for PG env + Slack handler: add requests dep
+#45 [G2M] DevOps/Fix - Yarn @eqworks from GitHub registry (kevlabs) ✔️,https://github.com/EQWorks/camp-history-writer/pull/45,done,kevlabs,DevOps/Fix - Yarn @eqworks from GitHub registry
+"#44 [G2M] Logging - Add Slack to archive, vast & viewability (kevlabs) ✔️",https://github.com/EQWorks/camp-history-writer/pull/44,done,kevlabs,"Logging - Add Slack to archive, vast & viewability"
+#38 Master rebase v1 - second try (geoerika) ✔️,https://github.com/EQWorks/poi-manage/pull/38,done,geoerika,Master rebase v1 - second try
+#37 Master v1 rebase (geoerika) ✔️,https://github.com/EQWorks/poi-manage/pull/37,done,geoerika,Master v1 rebase
+#36 [G2M] V1 0.4.0 release (geoerika) ✔️,https://github.com/EQWorks/poi-manage/pull/36,done,geoerika,V1 0.4.0 release
+#35 [G2M] CustomPOIList - fix activeMarker (geoerika) ✔️,https://github.com/EQWorks/poi-manage/pull/35,done,geoerika,CustomPOIList - fix activeMarker
+#34 [G2M] CustomPOIList  - update components after poi list edit (geoerika) ✔️,https://github.com/EQWorks/poi-manage/pull/34,done,geoerika,CustomPOIList - update components after poi list edit
+#30 [G2M] storybook env var (tlowande),https://github.com/EQWorks/ml-ui/pull/30,,tlowande,storybook env var
+#29 [G2M]Deploy (tlowande) ✔️,https://github.com/EQWorks/ml-ui/pull/29,done,tlowande,Deploy
+#28 [G2M]Table fix (tlowande),https://github.com/EQWorks/ml-ui/pull/28,,tlowande,Table fix
+#27 [G2M]results - fix json cell visualization (tlowande) ✔️,https://github.com/EQWorks/ml-ui/pull/27,done,tlowande,results - fix json cell visualization
+#26 [G2M] Views/persist columns (hyx131) ✔️,https://github.com/EQWorks/ml-ui/pull/26,done,hyx131,Views/persist columns
+#25 [WIP]view/default-state - scroll to last opened view (tlowande) ⚠️,https://github.com/EQWorks/ml-ui/pull/25,wip,tlowande,view/default-state - scroll to last opened view
+#19 Templates (Goondrious) ⚠️,https://github.com/EQWorks/ml-ui/pull/19,wip,Goondrious,Templates
+#14 [G2M] Views - ease-of-use tweaks (Goondrious),https://github.com/EQWorks/ml-ui/pull/14,,Goondrious,Views - ease-of-use tweaks
+#8 [G2M] React grid (hyx131),https://github.com/EQWorks/ml-ui/pull/8,,hyx131,React grid
+#8 Feature/aoi presigned url (bsandi1220),https://github.com/EQWorks/EnrichData/pull/8,,bsandi1220,Feature/aoi presigned url
+#18 Update - Add SDR to data sources (mptcloud),https://github.com/EQWorks/DeviceCounts/pull/18,,mptcloud,Update - Add SDR to data sources
+#34 [G2M] Handle timeout when fetching AOI data (maluhoss) ✔️,https://github.com/EQWorks/locussdk/pull/34,done,maluhoss,Handle timeout when fetching AOI data
+#24 airflowize daily commute and commute wrapper optimization (ansel-rangers11),https://github.com/EQWorks/path_builder/pull/24,,ansel-rangers11,airflowize daily commute and commute wrapper optimization
+#23 Shortest path phase2 iterative starting point (ansel-rangers11),https://github.com/EQWorks/path_builder/pull/23,,ansel-rangers11,Shortest path phase2 iterative starting point
+#3 [WIP]stories - experiment and add json cell values (tlowande) ⚠️,https://github.com/EQWorks/lumen-table/pull/3,wip,tlowande,stories - experiment and add json cell values
+#4 demo - update with aoi and demo (bsandi1220),https://github.com/EQWorks/notebook-files/pull/4,,bsandi1220,demo - update with aoi and demo
+#1 [G2M] github - get issues/PRs by datetime range (woozyking),https://github.com/EQWorks/updates/pull/1,,woozyking,github - get issues/s by datetime range
+#1 create interface for goolge analytics connector (dilanSuraj) ✔️,https://github.com/EQWorks/connector-google-analytics/pull/1,done,dilanSuraj,create interface for goolge analytics connector
+"#39 [G2M] POIMap - add radius switch, refactor layer processing (geoerika)",https://github.com/EQWorks/react-maps/pull/39,,geoerika,"POIMap - add radius switch, refactor layer processing"
+#27 [G2M] nlp - auto retrain (woozyking) ✔️,https://github.com/EQWorks/release/pull/27,done,woozyking,nlp - auto retrain
+#26 [G2M] fix release workflow (tlowande) ✔️,https://github.com/EQWorks/release/pull/26,done,tlowande,fix release workflow
+#24 [G2M]devops - add gh action to auto release tag based on commit message (tlowande) ✔️,https://github.com/EQWorks/release/pull/24,done,tlowande,devops - add gh action to auto release tag based on commit message
+#6 [G2M] redis cache - use global client (eq-ianecc),https://github.com/EQWorks/anubis/pull/6,,eq-ianecc,redis cache - use global client
+#466 [G2M] Notebook - add tracking to dataset routes (maluhoss) ✔️,https://github.com/EQWorks/firstorder/pull/466,done,maluhoss,Notebook - add tracking to dataset routes
+#1 [G2M] v0.2.0 - Extract API and Formatting (kevlabs) ✔️,https://github.com/EQWorks/node-slack-logger/pull/1,done,kevlabs,v0.2.0 - Extract API and Formatting
+#2 Airflow/clustering pipeline (bsandi1220),https://github.com/EQWorks/POIClustering/pull/2,,bsandi1220,Airflow/clustering pipeline
+#58 [WIP] range filter UI improvement (DoParkEQ) ✔️,https://github.com/EQWorks/react-labs/pull/58,done,DoParkEQ,range filter UI improvement

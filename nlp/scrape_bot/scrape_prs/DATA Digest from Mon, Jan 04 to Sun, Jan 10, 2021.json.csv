@@ -1,0 +1,37 @@
+text,link,state,contributors,text_cleaned
+👀 PR #68 Bday sign fix multi-bday logic (tlowande),https://github.com/EQWorks/legion/pull/68,needs review,tlowande, Bday sign fix multi-bday logic
+✔️ PR #67 diff - incorporate @eqworks/release parse commit (woozyking),https://github.com/EQWorks/legion/pull/67,done,woozyking, diff - incorporate @eqworks/release parse commit
+✔️ PR #64 Notes - make slack message link flexible (maluhoss),https://github.com/EQWorks/legion/pull/64,done,maluhoss, Notes - make slack message link flexible
+✔️ PR #63 devops - yarn upgrade-interactive 20210107 (woozyking),https://github.com/EQWorks/legion/pull/63,done,woozyking, devops - yarn upgrade-interactive 20210107
+✔️ PR #9 github - include lone repo updates (sans-issues/prs) (woozyking),https://github.com/EQWorks/updates/pull/9,done,woozyking, github - include lone repo updates (sans-issues/prs)
+👀 PR #10 Weilin test/supun 1 (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/10,needs review,wwwmonsterlam, Weilin test/supun 1
+👀 PR #9 Google analytics supun (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/9,needs review,wwwmonsterlam, Google analytics supun
+✔️ PR #8 Google analytics - Handling multiple reports in UniversalAnalyticsDataHandler (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/8,done,supuntennakoon, Google analytics - Handling multiple reports in UniversalAnalyticsDataHandler
+✔️ PR #24 enrich_demographic - fix check of dataset structure (bsandi1220),https://github.com/EQWorks/EnrichData/pull/24,done,bsandi1220, enrich_demographic - fix check of dataset structure
+✔️ PR #23 get_polygon - fix geometry without data (bsandi1220),https://github.com/EQWorks/EnrichData/pull/23,done,bsandi1220, get_polygon - fix geometry without data
+✔️ PR #22 enrich_demographic - add flag for fsa execution (bsandi1220),https://github.com/EQWorks/EnrichData/pull/22,done,bsandi1220, enrich_demographic - add flag for fsa execution
+✔️ PR #21 get_hh_data - delete ip when existing (bsandi1220),https://github.com/EQWorks/EnrichData/pull/21,done,bsandi1220, get_hh_data - delete ip when existing
+✔️ PR #20 Round value to nearest integer when using geo id (maluhoss),https://github.com/EQWorks/EnrichData/pull/20,done,maluhoss, Round value to nearest integer when using geo id
+✔️ PR #19 Add billing for getting AOI data (maluhoss),https://github.com/EQWorks/EnrichData/pull/19,done,maluhoss, Add billing for getting AOI data
+✔️ PR #18 Device/hh enrichment (bsandi1220),https://github.com/EQWorks/EnrichData/pull/18,done,bsandi1220, Device/hh enrichment
+👀 PR #44 Access hub datasets (maluhoss),https://github.com/EQWorks/locussdk/pull/44,needs review,maluhoss, Access hub datasets
+✔️ PR #43 Enrich/hh graph (bsandi1220),https://github.com/EQWorks/locussdk/pull/43,done,bsandi1220, Enrich/hh graph
+✔️ PR #42 Enrich by distance (maluhoss),https://github.com/EQWorks/locussdk/pull/42,done,maluhoss, Enrich by distance
+✔️ PR #33 Add prompt for billing for getting AOI data (maluhoss),https://github.com/EQWorks/locussdk/pull/33,done,maluhoss, Add prompt for billing for getting AOI data
+👀 PR #25 Dev journal - update with asana automations and new journal workflow (hyx131),https://github.com/EQWorks/common/pull/25,needs review,hyx131, Dev journal - update with asana automations and new journal workflow
+"👀 PR #24 update documentation with bday, demo and notes (tlowande)",https://github.com/EQWorks/common/pull/24,needs review,tlowande," update documentation with bday, demo and notes"
+👀 PR #23 meetings - update with recent progress of with automation assistance (woozyking),https://github.com/EQWorks/common/pull/23,needs review,woozyking, meetings - update with recent progress of with automation assistance
+✔️ PR #22 git - add another way to solve rebase mistakes (YizhiCatherineZhang),https://github.com/EQWorks/common/pull/22,done,YizhiCatherineZhang, git - add another way to solve rebase mistakes
+"✔️ PR #21 git - agnostic main branch, rev on commit, mention release CLI (woozyking)",https://github.com/EQWorks/common/pull/21,done,woozyking," git - agnostic main branch, rev on commit, mention release CLI"
+✔️ PR #15 Communication (Goondrious),https://github.com/EQWorks/common/pull/15,done,Goondrious, Communication
+✔️ PR #14 Revised Communication Doc: Includes feedback (maluhoss),https://github.com/EQWorks/common/pull/14,done,maluhoss, Revised Communication Doc: Includes feedback
+✔️ PR #10 Reviewed and made a quick draft of the communications.md file (odesiuz),https://github.com/EQWorks/common/pull/10,done,odesiuz, Reviewed and made a quick draft of the communications.md file
+✔️ PR #1 devops - port from @eqworks/react-labs with barebone structure (woozyking),https://github.com/EQWorks/lumen-image-slider/pull/1,done,woozyking, devops - port from @eqworks/react-labs with barebone structure
+"👀 PR #6 02 - logic controls (bitwise operations, try/except, assert) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/6,needs review,woozyking," 02 - logic controls (bitwise operations, try/except, assert)"
+"✔️ PR #5 02 - logic controls (conditions, boolean operations) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/5,done,woozyking," 02 - logic controls (conditions, boolean operations)"
+⚠️ PR #1 Dashboard layout base structure (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/1,wip,DoParkEQ, Dashboard layout base structure
+⚠️ PR #10 ip/eval meta and ip unary clustering (steven-mindswire),https://github.com/EQWorks/DataEvaluation/pull/10,wip,steven-mindswire, ip/eval meta and ip unary clustering
+✔️ PR #2 Airflow/clustering pipeline (bsandi1220),https://github.com/EQWorks/POIClustering/pull/2,done,bsandi1220, Airflow/clustering pipeline
+✔️ PR #2 get_location_segments - return empty dic when no data available (bsandi1220),https://github.com/EQWorks/segments_prefill/pull/2,done,bsandi1220, get_location_segments - return empty dic when no data available
+👀 PR #28 Shortest path phase2 boxgen (tris-olson),https://github.com/EQWorks/path_builder/pull/28,needs review,tris-olson, Shortest path phase2 boxgen
+👀 PR #24 airflowize daily commute and commute wrapper optimization (ansel-rangers11),https://github.com/EQWorks/path_builder/pull/24,needs review,ansel-rangers11, airflowize daily commute and commute wrapper optimization

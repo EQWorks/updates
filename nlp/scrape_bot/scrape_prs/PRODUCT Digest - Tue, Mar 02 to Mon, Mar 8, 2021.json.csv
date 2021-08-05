@@ -1,0 +1,25 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #114 mobile - open options to use stacks like flutter (woozyking),https://github.com/EQWorks/ws-problems/pull/114,done,woozyking, mobile - open options to use stacks like flutter
+👀 PR #113 product - re-org tracks and revise problems (woozyking),https://github.com/EQWorks/ws-problems/pull/113,needs review,woozyking, product - re-org tracks and revise problems
+✔️ PR #112 mobile - update prob 1 for variants consistency (woozyking),https://github.com/EQWorks/ws-problems/pull/112,done,woozyking, mobile - update prob 1 for variants consistency
+✔️ PR #107 mobile - draft problems and evaluation guide (woozyking),https://github.com/EQWorks/ws-problems/pull/107,done,woozyking, mobile - draft problems and evaluation guide
+👀 PR #2 docker - use jupyter/pyspark-notebook image as the base (woozyking),https://github.com/EQWorks/ws-data-spark/pull/2,needs review,woozyking, docker - use jupyter/pyspark-notebook image as the base
+👀 PR #5 devops - update deps (woozyking),https://github.com/EQWorks/ws-product-python/pull/5,needs review,woozyking, devops - update deps
+👀 PR #6 devops - upgrade runtime and deps (woozyking),https://github.com/EQWorks/ws-product-nodejs/pull/6,needs review,woozyking, devops - upgrade runtime and deps
+✔️ PR #2 playground - parity with kotlin variant (woozyking),https://github.com/EQWorks/ws-mobile-swift/pull/2,done,woozyking, playground - parity with kotlin variant
+✔️ PR #62 package - change version to 0.4.7 (geoerika),https://github.com/EQWorks/react-maps/pull/62,done,geoerika, package - change version to 0.4.7
+✔️ PR #60 POIMap - add mid-sized icon symbol for lists with low POIs nr; include radii when setting view; update packages and imports to remove warnings (geoerika),https://github.com/EQWorks/react-maps/pull/60,done,geoerika, POIMap - add mid-sized icon symbol for lists with low POIs nr; include radii when setting view; update packages and imports to remove warnings
+"✔️ PR #13 05 - add README entry to nbviewer, add 04 exercise (woozyking)",https://github.com/EQWorks/python-curriculum/pull/13,done,woozyking," 05 - add README entry to nbviewer, add 04 exercise"
+✔️ PR #12 05 - obtain internet resources (woozyking),https://github.com/EQWorks/python-curriculum/pull/12,done,woozyking, 05 - obtain internet resources
+⚠️ PR #72 saved-query + widgets lab (plotly) (tlowande),https://github.com/EQWorks/ml-ui/pull/72,wip,tlowande, saved-query + widgets lab (plotly)
+⚠️ PR #68 widgets playground - flow selector for barChart (tlowande),https://github.com/EQWorks/ml-ui/pull/68,wip,tlowande, widgets playground - flow selector for barChart
+⚠️ PR #70 Saved queries (hyx131),https://github.com/EQWorks/ml-ui/pull/70,wip,hyx131, Saved queries
+⚠️ PR #56 Add warning for mixed POI lists (geoerika),https://github.com/EQWorks/poi-manage/pull/56,wip,geoerika, Add warning for mixed POI lists
+👀 PR #1 Shopify - Endpoints for the Products section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/1,needs review,supuntennakoon, Shopify - Endpoints for the Products section
+✔️ PR #496 locussdk - update direct mapping (bsandi1220),https://github.com/EQWorks/firstorder/pull/496,done,bsandi1220, locussdk - update direct mapping
+✔️ PR #60 enrich - update direct mapping to use posturl (bsandi1220),https://github.com/EQWorks/locussdk/pull/60,done,bsandi1220, enrich - update direct mapping to use posturl
+✔️ PR #29 get_presigned_post - add upload type enrich (bsandi1220),https://github.com/EQWorks/EnrichData/pull/29,done,bsandi1220, get_presigned_post - add upload type enrich
+👀 PR #14 Supun test/supun 7 (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/14,needs review,supuntennakoon, Supun test/supun 7
+👀 PR #13 Google analytics 4 connector (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/13,needs review,supuntennakoon, Google analytics 4 connector
+✔️ PR #6 Dashboard structure (DoParkEQ),https://github.com/EQWorks/snoke-dashboard/pull/6,done,DoParkEQ, Dashboard structure
+⚠️ PR #2 GitHub workflows setup; refactor files to make them general; create new note using 'New note' instead of 'Prepare' templates (geoerika),https://github.com/EQWorks/hugo-chores/pull/2,wip,geoerika, GitHub workflows setup; refactor files to make them general; create new note using 'New note' instead of 'Prepare' templates

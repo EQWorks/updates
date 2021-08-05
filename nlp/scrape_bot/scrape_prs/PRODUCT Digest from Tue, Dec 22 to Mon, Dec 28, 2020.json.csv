@@ -1,0 +1,22 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #46 Columns/target drop (hyx131),https://github.com/EQWorks/ml-ui/pull/46,done,hyx131, Columns/target drop
+✔️ PR #44 re-layout (tlowande)Issue #42 update layoutIssue #40 upgrade table and add json2csv to download json cellsIssue #39 add word wrap on cell for EQWorks/lumen-table,https://github.com/EQWorks/ml-ui/pull/44,done,tlowande, re-layout (tlowande)Issue update layoutIssue upgrade table and add json2csv to download json cellsIssue add word wrap on cell for
+✔️ PR #33 Tabs (tlowande),https://github.com/EQWorks/ml-ui/pull/33,done,tlowande, Tabs
+✔️ PR #5 devops - broaden alpha tag scopes (woozyking),https://github.com/EQWorks/lumen-table/pull/5,done,woozyking, devops - broaden alpha tag scopes
+✔️ PR #45 Fix github workflow token for npm publish job (geoerika),https://github.com/EQWorks/react-maps/pull/45,done,geoerika, Fix github workflow token for npm publish job
+✔️ PR #44 Devops - add scope to publish and changelog actions in workflows (geoerika),https://github.com/EQWorks/react-maps/pull/44,done,geoerika, Devops - add scope to publish and changelog actions in workflows
+✔️ PR #43 Storybook - include mapbox-gl.css; fix preview-head content (geoerika),https://github.com/EQWorks/react-maps/pull/43,done,geoerika, Storybook - include mapbox-gl.css; fix preview-head content
+⚠️ PR #5 02 - control flow (woozyking),https://github.com/EQWorks/python-curriculum/pull/5,wip,woozyking, 02 - control flow
+⚠️ PR #41 ColumnPOI - adjust POIManage to latest version of POIMap component (geoerika),https://github.com/EQWorks/poi-manage/pull/41,wip,geoerika, ColumnPOI - adjust POIManage to latest version of POIMap component
+👀 PR #61 Patch calendar (tlowande),https://github.com/EQWorks/legion/pull/61,needs review,tlowande, Patch calendar
+✔️ PR #60 devops - add googleapis secret to serverless (tlowande),https://github.com/EQWorks/legion/pull/60,done,tlowande, devops - add googleapis secret to serverless
+✔️ PR #58 /demo command (tlowande),https://github.com/EQWorks/legion/pull/58,done,tlowande, /demo command
+✔️ PR #56 Diff/calendar (tlowande),https://github.com/EQWorks/legion/pull/56,done,tlowande, Diff/calendar
+"✔️ PR #8 Catch me if you can - refactor, fix lack of error catch (woozyking)",https://github.com/EQWorks/updates/pull/8,done,woozyking," Catch me if you can - refactor, fix lack of error catch"
+✔️ PR #7 Distinguish issues from PRs and better daily updated commit links (woozyking),https://github.com/EQWorks/updates/pull/7,done,woozyking, Distinguish issues from s and better daily updated commit links
+⚠️ PR #17 Demographic enrichment by distance (maluhoss),https://github.com/EQWorks/EnrichData/pull/17,wip,maluhoss, Demographic enrichment by distance
+✔️ PR #479 Add lambda authorizer + fix ML customer filter + Rename deploy stages (kevlabs),https://github.com/EQWorks/firstorder/pull/479,done,kevlabs, Add lambda authorizer + fix ML customer filter + Rename deploy stages
+👀 PR #908 - new marketplace update (DoParkEQ),https://github.com/EQWorks/snoke/pull/908,needs review,DoParkEQ, - new marketplace update
+✔️ PR #882 hide marketplace from top nav (DoParkEQ),https://github.com/EQWorks/snoke/pull/882,done,DoParkEQ, hide marketplace from top nav
+👀 PR #7 User scope (dilanSuraj),https://github.com/EQWorks/connector-google-analytics/pull/7,needs review,dilanSuraj, User scope
+✔️ PR #53 Confirmed Cases - fetch province french name for UI translation (tlowande),https://github.com/EQWorks/covidata/pull/53,done,tlowande, Confirmed Cases - fetch province french name for UI translation

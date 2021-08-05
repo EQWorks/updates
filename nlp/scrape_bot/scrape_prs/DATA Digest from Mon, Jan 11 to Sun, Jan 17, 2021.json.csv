@@ -1,0 +1,25 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #47 devops - auto documentation generated from docstrings (woozyking),https://github.com/EQWorks/locussdk/pull/47,done,woozyking, devops - auto documentation generated from docstrings
+✔️ PR #46 Fix missing reports when retrieving eq datasets (maluhoss),https://github.com/EQWorks/locussdk/pull/46,done,maluhoss, Fix missing reports when retrieving eq datasets
+✔️ PR #45 Send readable error if wrong report type provided with eq report (maluhoss),https://github.com/EQWorks/locussdk/pull/45,done,maluhoss, Send readable error if wrong report type provided with eq report
+✔️ PR #44 Access hub datasets (maluhoss),https://github.com/EQWorks/locussdk/pull/44,done,maluhoss, Access hub datasets
+👀 PR #9 Google analytics supun (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/9,needs review,wwwmonsterlam, Google analytics supun
+👀 PR #19 Update - Add device capture and export to S3 (mptcloud),https://github.com/EQWorks/DeviceCounts/pull/19,needs review,mptcloud, Update - Add device capture and export to S3
+✔️ PR #18 Update - Add SDR to data sources (mptcloud),https://github.com/EQWorks/DeviceCounts/pull/18,done,mptcloud, Update - Add SDR to data sources
+⚠️ PR #10 ip/eval meta and ip unary clustering (steven-mindswire),https://github.com/EQWorks/DataEvaluation/pull/10,wip,steven-mindswire, ip/eval meta and ip unary clustering
+⚠️ PR #7 03 - data containers and repetitions (woozyking),https://github.com/EQWorks/python-curriculum/pull/7,wip,woozyking, 03 - data containers and repetitions
+"✔️ PR #6 02 - logic controls (try/except, assert, extra on bitwise operations) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/6,done,woozyking," 02 - logic controls (try/except, assert, extra on bitwise operations)"
+✔️ PR #26 meetings - guideline with link to /notes automation (tlowande),https://github.com/EQWorks/common/pull/26,done,tlowande, meetings - guideline with link to /notes automation
+✔️ PR #25 Dev journal - update with asana automations and new journal workflow (hyx131),https://github.com/EQWorks/common/pull/25,done,hyx131, Dev journal - update with asana automations and new journal workflow
+"✔️ PR #24 update documentation with bday, demo and notes (tlowande)",https://github.com/EQWorks/common/pull/24,done,tlowande," update documentation with bday, demo and notes"
+✔️ PR #23 meetings - update with recent progress of with automation assistance (woozyking),https://github.com/EQWorks/common/pull/23,done,woozyking, meetings - update with recent progress of with automation assistance
+✔️ PR #16 journal - remove optional chaining (hyx131),https://github.com/EQWorks/avail-bot/pull/16,done,hyx131, journal - remove optional chaining
+✔️ PR #15 Journal/vacay - skip journal process during vacay & fetch for pre-vacay tasks when back (hyx131),https://github.com/EQWorks/avail-bot/pull/15,done,hyx131, Journal/vacay - skip journal process during vacay & fetch for pre-vacay tasks when back
+✔️ PR #14 devJournal/name - fix incremental space between name & task length (hyx131),https://github.com/EQWorks/avail-bot/pull/14,done,hyx131, devJournal/name - fix incremental space between name & task length
+✔️ PR #10 github - lone repo updates to factor in teams and format by prod category (woozyking),https://github.com/EQWorks/updates/pull/10,done,woozyking, github - lone repo updates to factor in teams and format by prod category
+✔️ PR #3 offWeekDaysDurations and support unavailable hours (woozyking),https://github.com/EQWorks/effort/pull/3,done,woozyking, offWeekDaysDurations and support unavailable hours
+✔️ PR #68 Bday sign fix multi-bday logic (tlowande),https://github.com/EQWorks/legion/pull/68,done,tlowande, Bday sign fix multi-bday logic
+✔️ PR #48 Fix/Vast - Fix date string (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/48,done,kevlabs, Fix/Vast - Fix date string
+⚠️ PR #4 Index Job (QingleiZhang),https://github.com/EQWorks/astral/pull/4,wip,QingleiZhang, Index Job
+👀 PR #3 Commute direction (dshparyk),https://github.com/EQWorks/astral/pull/3,needs review,dshparyk, Commute direction
+⚠️ PR #181 Datasource/sdx (QingleiZhang),https://github.com/EQWorks/Miner/pull/181,wip,QingleiZhang, Datasource/sdx

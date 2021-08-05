@@ -1,0 +1,8 @@
+text,link,state,contributors,text_cleaned
+✔️ PR #25 devops - fix serverless (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/25,done,bsandi1220, devops - fix serverless
+✔️ PR #24 encryption - update encrypt method to achieve consistency over time (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/24,done,bsandi1220, encryption - update encrypt method to achieve consistency over time
+✔️ PR #34 devops - fix serverless (bsandi1220),https://github.com/EQWorks/EnrichData/pull/34,done,bsandi1220, devops - fix serverless
+✔️ PR #33 popular times -  update decryption method (bsandi1220),https://github.com/EQWorks/EnrichData/pull/33,done,bsandi1220, popular times - update decryption method
+✔️ PR #66 dokerfile - define steps for dockerfile (bsandi1220),https://github.com/EQWorks/locussdk/pull/66,done,bsandi1220, dokerfile - define steps for dockerfile
+"👀 PR #14 Upgrade version, add error handling & docstirng (maluhoss)",https://github.com/EQWorks/facebook-segments/pull/14,needs review,maluhoss," Upgrade version, add error handling & docstirng"
+👀 PR #5 Handle individual log views + Support for direct invocation (kevlabs),https://github.com/EQWorks/ml-fusion-writer/pull/5,needs review,kevlabs, Handle individual log views + Support for direct invocation

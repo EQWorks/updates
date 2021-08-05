@@ -1,0 +1,18 @@
+text,link,state,contributors,text_cleaned
+👀 PR #1 port - tensorflow playground simulation logic/controls (woozyking)Issue #2 NN Model simulation and controls in React,https://github.com/EQWorks/nn-viz/pull/1,needs review,woozyking, port - tensorflow playground simulation logic/controls (woozyking)Issue NN Model simulation and controls in
+⚠️ PR #15 New table/oauth info (wwwmonsterlam),https://github.com/EQWorks/data-hub/pull/15,wip,wwwmonsterlam, New table/oauth info
+👀 PR #81 Dataset - get Marketplace layers (maluhoss),https://github.com/EQWorks/locussdk/pull/81,needs review,maluhoss, Dataset - get Marketplace layers
+👀 PR #80 Devops - add automated testing for demo notebooks on release (waynezhu6),https://github.com/EQWorks/locussdk/pull/80,needs review,waynezhu6, Devops - add automated testing for demo notebooks on release
+👀 PR #47 Get Marketplace Layers (maluhoss),https://github.com/EQWorks/EnrichData/pull/47,needs review,maluhoss, Get Marketplace Layers
+✔️ PR #24 Devops - update notebook image to v0.7.11 (maluhoss),https://github.com/EQWorks/JupyterHub/pull/24,done,maluhoss, Devops - update notebook image to v0.7.11
+✔️ PR #20 10 raw html (woozyking),https://github.com/EQWorks/python-curriculum/pull/20,done,woozyking, 10 raw html
+✔️ PR #19 10 - bridging web ui to notebook (divyselva),https://github.com/EQWorks/python-curriculum/pull/19,done,divyselva, 10 - bridging web ui to notebook
+👀 PR #2 projects - add Geo Cohort project/team (woozyking),https://github.com/EQWorks/kb/pull/2,needs review,woozyking, projects - add Geo Cohort project/team
+👀 PR #52 GeoCohort/Fix - Export handler (kevlabs),https://github.com/EQWorks/chronos-lambda/pull/52,needs review,kevlabs, GeoCohort/Fix - Export handler
+✔️ PR #50 GeoCohortAvail - Implement lambda (kevlabs),https://github.com/EQWorks/chronos-lambda/pull/50,done,kevlabs, GeoCohortAvail - Implement lambda
+"✔️ PR #51 GeoCohortAvail/devops - resolve npm registry sources, pin down node 12.x (woozyking)",https://github.com/EQWorks/chronos-lambda/pull/51,done,woozyking," GeoCohortAvail/devops - resolve npm registry sources, pin down node 12.x"
+✔️ PR #52 Athena - Modularize + GeoCohort Codes (kevlabs),https://github.com/EQWorks/camp-history-writer/pull/52,done,kevlabs, Athena - Modularize + GeoCohort Codes
+✔️ PR #654 geo cohort fsa agg (eq-ianecc),https://github.com/EQWorks/overseer/pull/654,done,eq-ianecc, geo cohort fsa agg
+✔️ PR #653 Customer/GeoCohort - Geo avail from table (kevlabs),https://github.com/EQWorks/overseer/pull/653,done,kevlabs, Customer/GeoCohort - Geo avail from table
+✔️ PR #652 perf - geo cohort filtered query (eq-ianecc),https://github.com/EQWorks/overseer/pull/652,done,eq-ianecc, perf - geo cohort filtered query
+⚠️ PR #3 ip hh dev (steven-mindswire),https://github.com/EQWorks/hhv2_prod/pull/3,wip,steven-mindswire, ip hh dev

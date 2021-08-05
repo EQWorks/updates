@@ -1,0 +1,18 @@
+text,link,state,contributors,text_cleaned
+⚠️ PR #1 Port - tensorflow playground ts (woozyking),https://github.com/EQWorks/nn-viz/pull/1,wip,woozyking, Port - tensorflow playground ts
+👀 PR #5 Handle individual log views + Support for direct invocation (kevlabs),https://github.com/EQWorks/ml-fusion-writer/pull/5,needs review,kevlabs, Handle individual log views + Support for direct invocation
+✔️ PR #16 08 - workspace automation (woozyking),https://github.com/EQWorks/python-curriculum/pull/16,done,woozyking, 08 - workspace automation
+⚠️ PR #66 dokerfile - define steps for dockerfile (bsandi1220),https://github.com/EQWorks/locussdk/pull/66,wip,bsandi1220, dokerfile - define steps for dockerfile
+✔️ PR #65 AOI - Use aoi export endpoint instead of layer (maluhoss),https://github.com/EQWorks/locussdk/pull/65,done,maluhoss, AOI - Use aoi export endpoint instead of layer
+⚠️ PR #33 popular times -  update decryption method (bsandi1220),https://github.com/EQWorks/EnrichData/pull/33,wip,bsandi1220, popular times - update decryption method
+✔️ PR #32 AOI - refactor endpoint from /layer to /export/aoi (maluhoss),https://github.com/EQWorks/EnrichData/pull/32,done,maluhoss, AOI - refactor endpoint from /layer to /export/aoi
+⚠️ PR #24 encryption - update encrypt method to achieve consistency over time (bsandi1220),https://github.com/EQWorks/PopularTimes/pull/24,wip,bsandi1220, encryption - update encrypt method to achieve consistency over time
+👀 PR #137 Training Gym - Enrichment ETL (wenting-pan),https://github.com/EQWorks/datapipeline-task/pull/137,needs review,wenting-pan, Training Gym - Enrichment ETL
+👀 PR #135 add airflow dag file for hhv2 weekly update (QingleiZhang),https://github.com/EQWorks/datapipeline-task/pull/135,needs review,QingleiZhang, add airflow dag file for hhv2 weekly update
+👀 PR #11 Shopify - Endpoints for Online Store section (supuntennakoon),https://github.com/EQWorks/connector-shopify/pull/11,needs review,supuntennakoon, Shopify - Endpoints for Online Store section
+✔️ PR #13 Google analytics 4 connector (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/13,done,supuntennakoon, Google analytics 4 connector
+✔️ PR #1 companion project for python-curriculum/08 (woozyking),https://github.com/EQWorks/where/pull/1,done,woozyking, companion project for python-curriculum/08
+✔️ PR #24 devops - update image from conda to pure python (bsandi1220),https://github.com/EQWorks/DeviceCounts/pull/24,done,bsandi1220, devops - update image from conda to pure python
+✔️ PR #3 Adding auto risk score to HH Segments (wenting-pan),https://github.com/EQWorks/segments_prefill/pull/3,done,wenting-pan, Adding auto risk score to HH Segments
+⚠️ PR #37 nlp/label - 2021-Mar batch (woozyking),https://github.com/EQWorks/release/pull/37,wip,woozyking, nlp/label - 2021-Mar batch
+👀 PR #183 feature/hhv2 (QingleiZhang),https://github.com/EQWorks/Miner/pull/183,needs review,QingleiZhang, feature/hhv2

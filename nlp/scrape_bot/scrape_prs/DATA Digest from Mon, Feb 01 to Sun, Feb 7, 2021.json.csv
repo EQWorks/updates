@@ -1,0 +1,28 @@
+text,link,state,contributors,text_cleaned
+👀 PR #183 feature/hhv2 (QingleiZhang),https://github.com/EQWorks/Miner/pull/183,needs review,QingleiZhang, feature/hhv2
+⚠️ PR #69 journal - setup asana oauth flow via slack modal (hyx131),https://github.com/EQWorks/legion/pull/69,wip,hyx131, journal - setup asana oauth flow via slack modal
+⚠️ PR #1 Create new note in Hugo meetings with slack digest file link (geoerika),https://github.com/EQWorks/hugo-chores/pull/1,wip,geoerika, Create new note in Hugo meetings with slack digest file link
+⚠️ PR #33 common/baseHandler - filter out revert commits (tlowande),https://github.com/EQWorks/release/pull/33,wip,tlowande, common/baseHandler - filter out revert commits
+⚠️ PR #32 nlp/label - 2021-Feb batch (woozyking),https://github.com/EQWorks/release/pull/32,wip,woozyking, nlp/label - 2021-Feb batch
+👀 PR #13 Google analytics 4 connector (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/13,needs review,supuntennakoon, Google analytics 4 connector
+👀 PR #11 Supun tests (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/11,needs review,supuntennakoon, Supun tests
+👀 PR #9 Google analytics supun (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/9,needs review,wwwmonsterlam, Google analytics supun
+✔️ PR #56 Feature/native df compatibility (bsandi1220),https://github.com/EQWorks/locussdk/pull/56,done,bsandi1220, Feature/native df compatibility
+✔️ PR #55 Feature/native df compatibility (bsandi1220),https://github.com/EQWorks/locussdk/pull/55,done,bsandi1220, Feature/native df compatibility
+👀 PR #54 Save dataset as hub connection (maluhoss),https://github.com/EQWorks/locussdk/pull/54,needs review,maluhoss, Save dataset as hub connection
+✔️ PR #53 AOI - Change routes to use query params for source_id (maluhoss),https://github.com/EQWorks/locussdk/pull/53,done,maluhoss, AOI - Change routes to use query params for source_id
+✔️ PR #52 create_segment - add method to process audience and push segment (bsandi1220),https://github.com/EQWorks/locussdk/pull/52,done,bsandi1220, create_segment - add method to process audience and push segment
+✔️ PR #51 Add Geocoding Util (maluhoss),https://github.com/EQWorks/locussdk/pull/51,done,maluhoss, Add Geocoding Util
+✔️ PR #16 devops -update notebook image (bsandi1220),https://github.com/EQWorks/JupyterHub/pull/16,done,bsandi1220, devops -update notebook image
+✔️ PR #24 flow/utils - support lookalike segments and default values (tlowande),https://github.com/EQWorks/snoke-builder-viz/pull/24,done,tlowande, flow/utils - support lookalike segments and default values
+✔️ PR #20 Exp autosize (DoParkEQ),https://github.com/EQWorks/snoke-builder-viz/pull/20,done,DoParkEQ, Exp autosize
+✔️ PR #28 popular times - refactor segment to use datapipeline jobs table (bsandi1220),https://github.com/EQWorks/EnrichData/pull/28,done,bsandi1220, popular times - refactor segment to use datapipeline jobs table
+✔️ PR #26 Feature/segment create (bsandi1220),https://github.com/EQWorks/EnrichData/pull/26,done,bsandi1220, Feature/segment create
+✔️ PR #136 popular times - fix emr task definition and refactor segments table (bsandi1220),https://github.com/EQWorks/datapipeline-task/pull/136,done,bsandi1220, popular times - fix emr task definition and refactor segments table
+⚠️ PR #135 add airflow dag file for hhv2 weekly update (QingleiZhang),https://github.com/EQWorks/datapipeline-task/pull/135,wip,QingleiZhang, add airflow dag file for hhv2 weekly update
+✔️ PR #4 Hari clustering for pr (wwwmonsterlam),https://github.com/EQWorks/POIClustering/pull/4,done,wwwmonsterlam, Hari clustering for pr
+✔️ PR #3 Clustering pipeline/add polygon (bsandi1220),https://github.com/EQWorks/POIClustering/pull/3,done,bsandi1220, Clustering pipeline/add polygon
+👀 PR #1 restructure and amend doc (QingleiZhang),https://github.com/EQWorks/hhv2_prod/pull/1,needs review,QingleiZhang, restructure and amend doc
+"✔️ PR #9 03 - 3/3 classes, pandas (dataframes) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/9,done,woozyking," 03 - 3/3 classes, pandas (dataframes)"
+✔️ PR #2 API endpoints meta table (woozyking),https://github.com/EQWorks/smaug/pull/2,done,woozyking, API endpoints meta table
+👀 PR #3 Commute direction (dshparyk),https://github.com/EQWorks/astral/pull/3,needs review,dshparyk, Commute direction

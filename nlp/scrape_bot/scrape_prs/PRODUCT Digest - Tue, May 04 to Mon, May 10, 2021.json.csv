@@ -1,0 +1,43 @@
+text,link,state,contributors,text_cleaned
+👀 PR #1 port - tensorflow playground simulation logic/controls (woozyking)Issue #2 Expose EDA for un-purchased datasets/enrichments,https://github.com/EQWorks/nn-viz/pull/1,needs review,woozyking, port - tensorflow playground simulation logic/controls (woozyking)Issue Expose EDA for un-purchased
+✔️ PR #128 Tooltip disable title prop; add box-shadow and fix padding in tooltip (geoerika)Issue #127 Nivo - disable legend does not disable one on its tooltip,https://github.com/EQWorks/chart-system/pull/128,done,geoerika, Tooltip disable title prop; add box-shadow and fix padding in tooltip (geoerika)Issue Nivo - disable legend does not disable one on its
+⚠️ PR #126 VISX/Plotly/D3 exp (DoParkEQ),https://github.com/EQWorks/chart-system/pull/126,wip,DoParkEQ, VISX/Plotly/D3 exp
+👀 PR #2 projects - add Geo Cohort project/team (woozyking),https://github.com/EQWorks/kb/pull/2,needs review,woozyking, projects - add Geo Cohort project/team
+✔️ PR #1 Ongoing projects (woozyking),https://github.com/EQWorks/kb/pull/1,done,woozyking, Ongoing projects
+✔️ PR #55 sql - update schema on prefix column to NOT NULL (woozyking),https://github.com/EQWorks/keywarden/pull/55,done,woozyking, sql - update schema on prefix column to NOT NULL
+👀 PR #21 Incorporate lumen-ui theme (kc-leung),https://github.com/EQWorks/lumen-table/pull/21,needs review,kc-leung, Incorporate lumen-ui theme
+"✔️ PR #18 others/git - intro to git, commits, branches (woozyking)",https://github.com/EQWorks/python-curriculum/pull/18,done,woozyking," others/git - intro to git, commits, branches"
+✔️ PR #15 package - change to v1.1.1 (kc-leung),https://github.com/EQWorks/lumen-ui/pull/15,done,kc-leung, package - change to v1.1.1
+✔️ PR #14 Checkbox & Button fix (kc-leung),https://github.com/EQWorks/lumen-ui/pull/14,done,kc-leung, Checkbox & Button fix
+✔️ PR #72 Fix colour for layer when we have both fill and other data displayed for 0 max value; add line colour to Legend symbol; adjust QLReportMap to all latest changes (geoerika),https://github.com/EQWorks/react-maps/pull/72,done,geoerika, Fix colour for layer when we have both fill and other data displayed for 0 max value; add line colour to Legend symbol; adjust QLReportMap to all latest changes
+"✔️ PR #71 Legend scale fix for zero max; rename MLReportMap as QLReportMap; tooltip styling; restyle Legend to horizontal layout; add formatting props for legend and tooltip title, attribute keys and values; add custom opacity for Gradient; adjust GeoCohortMap to all these changes (geoerika)",https://github.com/EQWorks/react-maps/pull/71,done,geoerika," Legend scale fix for zero max; rename MLReportMap as QLReportMap; tooltip styling; restyle Legend to horizontal layout; add formatting props for legend and tooltip title, attribute keys and values; add custom opacity for Gradient; adjust GeoCohortMap to all these changes"
+👀 PR #90 Nav/execution (hyx131),https://github.com/EQWorks/ml-ui/pull/90,needs review,hyx131, Nav/execution
+✔️ PR #89 [G2M ] States/ezpz (hyx131),https://github.com/EQWorks/ml-ui/pull/89,done,hyx131, States/ezpz
+✔️ PR #2 Add work sample solution 1-3 (woozyking),https://github.com/EQWorks/data-analyst-training/pull/2,done,woozyking, Add work sample solution 1-3
+✔️ PR #652 perf - geo cohort filtered query (eq-ianecc),https://github.com/EQWorks/overseer/pull/652,done,eq-ianecc, perf - geo cohort filtered query
+✔️ PR #651 Customer/GeoCohort - Add cohort size attributes (kevlabs),https://github.com/EQWorks/overseer/pull/651,done,kevlabs, Customer/GeoCohort - Add cohort size attributes
+✔️ PR #650 insights - geo cohort - add list name (eq-ianecc),https://github.com/EQWorks/overseer/pull/650,done,eq-ianecc, insights - geo cohort - add list name
+✔️ PR #649 WL - endpoint to create white label (woozyking),https://github.com/EQWorks/overseer/pull/649,done,woozyking, WL - endpoint to create white label
+✔️ PR #1820 Temp geom fix (geoerika),https://github.com/EQWorks/overlord/pull/1820,done,geoerika, Temp geom fix
+✔️ PR #1819 deps - update yarn.lock to fix parcel build (possibly about babel) (woozyking),https://github.com/EQWorks/overlord/pull/1819,done,woozyking, deps - update yarn.lock to fix parcel build (possibly about babel)
+✔️ PR #1817 manage - fix geo cohort style (eq-ianecc),https://github.com/EQWorks/overlord/pull/1817,done,eq-ianecc, manage - fix geo cohort style
+✔️ PR #1814 Campaign/GeoCohort - Manage cohort size (kevlabs),https://github.com/EQWorks/overlord/pull/1814,done,kevlabs, Campaign/GeoCohort - Manage cohort size
+👀 PR #1813 whitelabels - add new white label creation feature (woozyking),https://github.com/EQWorks/overlord/pull/1813,needs review,woozyking, whitelabels - add new white label creation feature
+👀 PR #1808 geo cohort/reports (DoParkEQ),https://github.com/EQWorks/overlord/pull/1808,needs review,DoParkEQ, geo cohort/reports
+✔️ PR #1812 GeoCohortMap (geoerika),https://github.com/EQWorks/overlord/pull/1812,done,geoerika, GeoCohortMap
+✔️ PR #1810 OLD GeoCohort Map (geoerika),https://github.com/EQWorks/overlord/pull/1810,done,geoerika, OLD GeoCohort Map
+✔️ PR #848 geo cohort pacing (eq-ianecc),https://github.com/EQWorks/flash/pull/848,done,eq-ianecc, geo cohort pacing
+✔️ PR #527 QL/Logs - Allow access to global cohorts (kevlabs),https://github.com/EQWorks/firstorder/pull/527,done,kevlabs, QL/Logs - Allow access to global cohorts
+✔️ PR #24 Devops - update notebook image to v0.7.11 (maluhoss),https://github.com/EQWorks/JupyterHub/pull/24,done,maluhoss, Devops - update notebook image to v0.7.11
+✔️ PR #23 single user server - fix poststart hook due to invalid token (maluhoss),https://github.com/EQWorks/JupyterHub/pull/23,done,maluhoss, single user server - fix poststart hook due to invalid token
+👀 PR #80 Devops - add automated testing for demo notebooks on release (waynezhu6),https://github.com/EQWorks/locussdk/pull/80,needs review,waynezhu6, Devops - add automated testing for demo notebooks on release
+✔️ PR #78 get_audience,https://github.com/EQWorks/locussdk/pull/78,done,,
+✔️ PR #79 Geocode - fix missing postalcodes due to API (maluhoss),https://github.com/EQWorks/locussdk/pull/79,done,maluhoss, Geocode - fix missing postalcodes due to API
+✔️ PR #1 recipe - search available POI lists by name (woozyking),https://github.com/EQWorks/locussdk-collab/pull/1,done,woozyking, recipe - search available POI lists by name
+✔️ PR #46 connection-hub - datetime serialization bugfix (newest) (waynezhu6),https://github.com/EQWorks/EnrichData/pull/46,done,waynezhu6, connection-hub - datetime serialization bugfix (newest)
+✔️ PR #45 connectionHub - datetime serialization bugfix (waynezhu6),https://github.com/EQWorks/EnrichData/pull/45,done,waynezhu6, connectionHub - datetime serialization bugfix
+"✔️ PR #44 Revert ""[G2M] connectionHub - datetime serialization bugfix"" (waynezhu6)",https://github.com/EQWorks/EnrichData/pull/44,done,waynezhu6," Revert "" connectionHub - datetime serialization bugfix"""
+✔️ PR #42 connectionHub - datetime serialization bugfix (waynezhu6),https://github.com/EQWorks/EnrichData/pull/42,done,waynezhu6, connectionHub - datetime serialization bugfix
+✔️ PR #43 Get_polygon - include centroid to use in geocode locussdk method (maluhoss),https://github.com/EQWorks/EnrichData/pull/43,done,maluhoss, Get_polygon - include centroid to use in geocode locussdk method
+✔️ PR #950 hub/google - associate to new service account (woozyking),https://github.com/EQWorks/snoke/pull/950,done,woozyking, hub/google - associate to new service account
+⚠️ PR #947 builder - geo_cohort step support for AOI enabled jobs (woozyking),https://github.com/EQWorks/snoke/pull/947,wip,woozyking, builder - geo_cohort step support for AOI enabled jobs

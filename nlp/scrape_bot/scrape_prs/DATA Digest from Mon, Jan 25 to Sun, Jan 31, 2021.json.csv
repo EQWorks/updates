@@ -1,0 +1,18 @@
+text,link,state,contributors,text_cleaned
+👀 PR #5 Hivestack index filter (odesiuz),https://github.com/EQWorks/astral/pull/5,needs review,odesiuz, Hivestack index filter
+👀 PR #3 Commute direction (dshparyk),https://github.com/EQWorks/astral/pull/3,needs review,dshparyk, Commute direction
+✔️ PR #134 Merge airflow_reoccuring_jobs branch into master (wenting-pan),https://github.com/EQWorks/datapipeline-task/pull/134,done,wenting-pan, Merge airflow_reoccuring_jobs branch into master
+✔️ PR #133 create_dag - add popular times segment creation (bsandi1220),https://github.com/EQWorks/datapipeline-task/pull/133,done,bsandi1220, create_dag - add popular times segment creation
+✔️ PR #12 Supun tests (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/12,done,wwwmonsterlam, Supun tests
+👀 PR #11 Supun tests (supuntennakoon),https://github.com/EQWorks/connector-google-analytics/pull/11,needs review,supuntennakoon, Supun tests
+👀 PR #9 Google analytics supun (wwwmonsterlam),https://github.com/EQWorks/connector-google-analytics/pull/9,needs review,wwwmonsterlam, Google analytics supun
+👀 PR #52 create_segment - add method to process audience and push segment (bsandi1220),https://github.com/EQWorks/locussdk/pull/52,needs review,bsandi1220, create_segment - add method to process audience and push segment
+⚠️ PR #51 Add Geocoding Util (maluhoss),https://github.com/EQWorks/locussdk/pull/51,wip,maluhoss, Add Geocoding Util
+👀 PR #26 Feature/segment create (bsandi1220),https://github.com/EQWorks/EnrichData/pull/26,needs review,bsandi1220, Feature/segment create
+✔️ PR #18 journal - idle check handler and remove isIdle from auto task creation process (hyx131),https://github.com/EQWorks/avail-bot/pull/18,done,hyx131, journal - idle check handler and remove isIdle from auto task creation process
+✔️ PR #6 REPLACER - add popular times datasource (bsandi1220),https://github.com/EQWorks/segment_push/pull/6,done,bsandi1220, REPLACER - add popular times datasource
+✔️ PR #640 manage - mb partial updates patch w/o full campaign scope (woozyking),https://github.com/EQWorks/overseer/pull/640,done,woozyking, manage - mb partial updates patch w/o full campaign scope
+"✔️ PR #8 03 dict, set, while loop, loop controls, json format (woozyking)",https://github.com/EQWorks/python-curriculum/pull/8,done,woozyking," 03 dict, set, while loop, loop controls, json format"
+✔️ PR #1 daily finance aggregation (woozyking),https://github.com/EQWorks/smaug/pull/1,done,woozyking, daily finance aggregation
+✔️ PR #21 Popular times v2/dynamodb upload (bsandi1220),https://github.com/EQWorks/DeviceCounts/pull/21,done,bsandi1220, Popular times v2/dynamodb upload
+👀 PR #28 Shortest path phase2 boxgen (tris-olson),https://github.com/EQWorks/path_builder/pull/28,needs review,tris-olson, Shortest path phase2 boxgen
