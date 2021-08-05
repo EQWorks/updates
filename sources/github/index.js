@@ -63,7 +63,7 @@ module.exports.enrichIssues = async ({ issues: _issues, start, end, team, skipEn
   // split out pure issues and PRs
   const prs = enrichedIssues.filter(isPR).map((pr) => ({
     ...pr,
-    linked_issues: Array.from(pr.body.matchAll(REGEX_LINKED_ISSUES)).map((v) => v.groups.issue),
+    linked_issues: Array.from((pr.body || '').matchAll(REGEX_LINKED_ISSUES)).map((v) => v.groups.issue),
     pull_request_url: pr.url.replace('/issues/', '/pulls/'),
     commits_url: `${pr.url.replace('/issues/', '/pulls/')}/commits`,
     review_comments_url: pr.comments_url.replace('/issues/', '/pulls/'),
