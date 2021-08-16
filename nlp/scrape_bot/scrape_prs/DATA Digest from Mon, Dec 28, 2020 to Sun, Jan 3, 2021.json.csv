@@ -1,9 +1,0 @@
-text,link,state,contributors,text_cleaned
-"⚠️ PR #6 02 - logic controls (bitwise operations, try/except, assert) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/6,wip,woozyking," 02 - logic controls (bitwise operations, try/except, assert)"
-"👀 PR #5 02 - logic controls (conditions, boolean operations) (woozyking)",https://github.com/EQWorks/python-curriculum/pull/5,needs review,woozyking," 02 - logic controls (conditions, boolean operations)"
-✔️ PR #13 Asana/dev journal (hyx131),https://github.com/EQWorks/avail-bot/pull/13,done,hyx131, Asana/dev journal
-⚠️ PR #8 devJournal - export methods for legion slack command (hyx131),https://github.com/EQWorks/avail-bot/pull/8,wip,hyx131, devJournal - export methods for legion slack command
-✔️ PR #7 Dev journal (hyx131),https://github.com/EQWorks/avail-bot/pull/7,done,hyx131, Dev journal
-✔️ PR #61 Patch calendar (tlowande),https://github.com/EQWorks/legion/pull/61,done,tlowande, Patch calendar
-✔️ PR #17 Demographic enrichment by distance (maluhoss),https://github.com/EQWorks/EnrichData/pull/17,done,maluhoss, Demographic enrichment by distance
-👀 PR #2 Airflow/clustering pipeline (bsandi1220),https://github.com/EQWorks/POIClustering/pull/2,needs review,bsandi1220, Airflow/clustering pipeline
