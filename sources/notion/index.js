@@ -9,10 +9,6 @@ const databases = [
     name: 'Dev Journal',
     id: 'f232e15f-f9cf-4740-9ef0-5f6f44de6555',
   },
-  {
-    name: 'Design Journal',
-    id: 'd4a935fbb66c46b584061956b17e9335',
-  },
 ]
 
 const groupBy = (arr, key) => {
@@ -32,6 +28,7 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
     database_id,
     filter: { property: 'Date', date: { on_or_after: isDaily ? end : start } },
   })
+  console.log('>>>>>> results: ', results)
   return Promise.all(results.map(async ({ id, properties }) => {
     const _lwd = properties['Last Workday'].rich_text[0]
     let doing = null
@@ -83,8 +80,9 @@ module.exports.formatJournals = async ({ post, journals }) => {
 
     lwdJournals += `\n*[${name}](${url})*${_did}${_doing}\n`
   }))
+  console.log('lwdJournals: ', lwdJournals)
 
-  const _post = await post
-  _post.content += `\n\n${lwdJournals}`
-  return _post
+  // const _post = await post
+  // _post.content += `\n\n${lwdJournals}`
+  // return _post
 }
