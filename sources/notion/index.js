@@ -28,36 +28,43 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
     database_id,
     filter: { property: 'Date', date: { on_or_after: isDaily ? end : start } },
   })
-  return Promise.all(results.map(async ({ id, properties }) => {
-    const _lwd = properties['Last Workday'].rich_text
-    let doing = null
+  return Promise.all(results
+    .filter(({ properties: { Name, Assignee } }) => (Assignee.people.length && Name.title.length))
+    .map(async ({ id, properties }) => {
+      let _Name = properties.Name
+      if (properties.Assignee.people.length && !(properties.Name.title.length)) {
+        _Name = { ...properties.Name, title: [{ text: {}, plain_text: (properties.Assignee.people[0].name).split(' ')[0] }] }
+      }
 
-    if (properties.Date.date.start === end.split('T')[0]) {
-      const _doing = await getJournalTasks({ block_id: id })
-      doing = _doing
-        .filter(({ type }) => type === 'to_do')
-        .map(({ to_do: { text } }) => text.map(({ text: { content, link } }) => {
-          if (link) {
-            return (`[${content}](${link.url})`)
+      const _lwd = properties['Last Workday'].rich_text
+      let doing = null
+
+      if (properties.Date.date.start === end.split('T')[0]) {
+        const _doing = await getJournalTasks({ block_id: id })
+        doing = _doing
+          .filter(({ type }) => type === 'to_do')
+          .map(({ to_do: { text } }) => text.map(({ text: { content, link } }) => {
+            if (link) {
+              return (`[${content}](${link.url})`)
+            }
+            return content
+          }).join(''))
+          .flat()
+      }
+
+      return ({
+        id,
+        date: properties.Date.date.start,
+        name: _Name.title[0].plain_text.split(' ')[0],
+        LWD: _lwd ? _lwd.map(({ plain_text, href }) => {
+          if (href) { 
+            return `[${plain_text}](${href})`
           }
-          return content
-        }).join(''))
-        .flat()
-    }
-
-    return ({
-      id,
-      date: properties.Date.date.start,
-      name: properties.Name.title[0].plain_text.split(' ')[0],
-      LWD: _lwd ? _lwd.map(({ plain_text, href }) => {
-        if (href) { 
-          return `[${plain_text}](${href})`
-        }
-        return plain_text
-      }).join('').split('* ').map((t) => t.split('\n')[0]) : '',
-      doing,
-    })
-  }))
+          return plain_text
+        }).join('').split('* ').map((t) => t.split('\n')[0]) : '',
+        doing,
+      })
+    }))
 }
 
 module.exports.getJournals = async ({ start, end, isDaily }) => {
