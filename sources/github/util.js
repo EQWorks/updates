@@ -10,7 +10,7 @@ module.exports.isClosed = ({ state }) => state === 'closed'
 
 module.exports.isPR = (v) => Boolean(v.pull_request)
 
-module.exports.isTeamTopic = (t) => ['meta-data', 'meta-product', 'meta-design'].includes(t)
+module.exports.isTeamTopic = (t) => ['meta-data', 'meta-product', 'meta-design', 'meta-mobile'].includes(t)
 
 module.exports.groupByCatProj = (acc, curr) => {
   const { category = 'meta-uncategorized', project } = curr
