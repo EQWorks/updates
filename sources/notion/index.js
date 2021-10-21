@@ -69,7 +69,7 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
 
 module.exports.getJournals = async ({ start, end, isDaily }) => {
   const journals = await Promise.all(databases.map(async ({ id: database_id }) => (
-    _getJournals({ database_id, filters: { start, end }, isDaily })
+    _getJournals({ database_id, filters: { start: start.split('T')[0], end: end.split('T')[0] }, isDaily })
   )))
   return groupBy(journals.flat(), 'name')
 }
