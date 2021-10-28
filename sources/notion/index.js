@@ -90,7 +90,9 @@ module.exports.formatJournals = async ({ post, journals }) => {
     did.length ? _did += `\n* ${did.join('\n* ')}` : _did = ''
     doing.length ? _doing += `\n* ${doing.join('\n* ')}` : _doing = ''
 
-    lwdJournals += `\n*[${name}](${url})*${_did}${_doing}\n`
+    if (_did || _doing) {
+      lwdJournals += `\n*[${name}](${url})*${_did}${_doing}\n`
+    }
   }))
 
   const _post = await post
