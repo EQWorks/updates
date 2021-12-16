@@ -110,17 +110,27 @@ const formatLoneRepos = ({ all, repos }) => {
   return content
 }
 
-module.exports.formatDigest = async ({ repos, issues, prs, start, end, team }) => {
-  // enrich PRs with release NLP labels (and T1/T2 categories for future uses)
+module.exports.enrichNLP = async (data) => {
+  // enrich PRs and issues with release NLP labels (and T1/T2 categories for future uses)
+  const { prs, issues } = data
   const parsedPRs = await parseRaw(prs.map(trimTitle))
   const enrichedPRs = prs.map((pr) => ({
     ...pr,
     ...parsedPRs.find((p) => pr.title.includes(p.message)),
   }))
+  const parsedIssues = await parseRaw(issues.map(trimTitle))
+  const enrichedIssues = issues.map((issue) => ({
+    ...issue,
+    ...parsedIssues.find((p) => issue.title.includes(p.message)),
+  }))
+  return { ...data, issues: enrichedIssues, prs: enrichedPRs }
+}
+
+module.exports.formatDigest = async ({ repos, issues, prs, start, end, team }) => {
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
-    ...enrichedPRs,
+    ...prs,
   ]
   let content = formatLoneRepos({ all, repos })
 

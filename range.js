@@ -1,6 +1,6 @@
 const { DateTime } = require('luxon')
 
-const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, formatDigest } = require('./sources/github')
+const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, enrichNLP, formatDigest } = require('./sources/github')
 const { uploadMD } = require('./targets/slack')
 
 const { ORG_TZ = 'America/Toronto' } = process.env
@@ -25,6 +25,7 @@ const range = () => {
       .then((repos) => enrichRepos({ repos })),
   ])
     .then(([issues, repos]) => ({ repos, ...issues }))
+    .then(enrichNLP)
     .then(formatDigest)
     .then(uploadMD())
     .then(console.log)

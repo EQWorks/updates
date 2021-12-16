@@ -1,6 +1,6 @@
 const { DateTime } = require('luxon')
 
-const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, formatDigest } = require('./sources/github')
+const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, enrichNLP, formatDigest } = require('./sources/github')
 const { getVacays, formatVacays } = require('./sources/asana')
 const { getJournals, formatJournals } = require('./sources/notion')
 const { uploadMD } = require('./targets/slack')
@@ -9,7 +9,7 @@ const { ORG_TZ = 'America/Toronto' } = process.env
 const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
 
 
-const weeklyDigest = () => {
+const weeklyDigest = async () => {
   const team = process.argv[2]
   // weekly range in ISO string but drops ms portion
   const today = DateTime.utc().startOf('day').setZone(ORG_TZ, { keepLocalTime: true })
@@ -18,7 +18,7 @@ const weeklyDigest = () => {
   const start = stripMS(lastYst.startOf('day').toUTC())
   const end = stripMS(yst.endOf('day').toUTC())
 
-  Promise.all([
+  const [issues, repos, vacays, journals] = await Promise.all([
     issuesByRange({ start, end })
       .then((issues) => issues.filter(ignoreProjects))
       .then((issues) => issues.filter(ignoreBotUsers))
@@ -28,16 +28,17 @@ const weeklyDigest = () => {
       .then((repos) => enrichRepos({ repos, team })),
     getVacays({ after: lastYst.toISODate(), before: today.endOf('week').toISODate() }),
     getJournals({ start, end }),
-  ]).then(([issues, repos, vacays, journals]) => {
-    const post = formatDigest({ repos, ...issues })
-    const vPost = formatVacays({ post, vacays })
-    return formatJournals({ post: vPost, journals })
-  }).then(uploadMD()).then(console.log).catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
+  ])
+  const enriched = await enrichNLP({ repos, ...issues, vacays, journals })
+  const post = await formatDigest(enriched)
+  const vPost = await formatVacays({ post, vacays })
+  const md = await formatJournals({ post: vPost, journals })
+  return uploadMD()(md)
 }
 
 if (require.main === module) {
-  weeklyDigest()
+  weeklyDigest().then(console.log).catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
 }
