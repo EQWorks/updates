@@ -1,5 +1,12 @@
 const REGEX_TITLE = /(\[(g2m|wip)\])?(?<trimmed>.*)/i
 
+module.exports.parseHTMLUrl = ({ html_url }) => {
+  // https://github.com/org/repo/resource/...
+  const url = new URL(html_url)
+  const [, org, project] = url.pathname.split('/')
+  return { org, project }
+}
+
 const isWIP = ({ draft, title }) => draft || title.toLowerCase().includes('[wip]')
 
 module.exports.pick = (...ps) => (o) => Object.assign({}, ...ps.map((p) => ({ [p]: o[p] })))
@@ -26,6 +33,13 @@ module.exports.groupByCat = (acc, curr) => {
   const cat = category.substring(5).toUpperCase()
   acc[cat] = acc[cat] || []
   acc[cat].push(curr)
+  return acc
+}
+
+module.exports.groupByProj = (acc, curr) => {
+  const { project } = curr
+  acc[project] = acc[project] || []
+  acc[project].push(curr)
   return acc
 }
 

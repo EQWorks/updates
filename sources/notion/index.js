@@ -57,7 +57,7 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
         date: properties.Date.date.start,
         name: _Name.title[0].plain_text.split(' ')[0],
         LWD: _lwd ? _lwd.map(({ plain_text, href }) => {
-          if (href) { 
+          if (href) {
             return `[${plain_text}](${href})`
           }
           return plain_text
@@ -74,7 +74,7 @@ module.exports.getJournals = async ({ start, end, isDaily }) => {
   return groupBy(journals.flat(), 'name')
 }
 
-module.exports.formatJournals = async ({ post, journals }) => {
+module.exports.formatJournals = ({ post, journals }) => {
   let lwdJournals = '*JOURNALS*\n'
 
   Object.entries(journals).map(([name, journals]) => {
@@ -95,7 +95,6 @@ module.exports.formatJournals = async ({ post, journals }) => {
     }
   }))
 
-  const _post = await post
-  _post.content += `\n\n${lwdJournals}`
-  return _post
+  post.content += `\n\n${lwdJournals}`
+  return post
 }

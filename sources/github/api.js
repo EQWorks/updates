@@ -1,7 +1,7 @@
 const { Octokit } = require('@octokit/core')
 const { DateTime } = require('luxon')
 
-const { before, isClosed } = require('./util')
+const { before, isClosed, parseHTMLUrl } = require('./util')
 
 const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks' } = process.env
 
@@ -102,5 +102,5 @@ module.exports.getReleases = async ({ repos, start, end }) => {
     .filter(({ published_at }) => {
       const published = DateTime.fromISO(published_at, { zone: 'UTC' }).startOf('day')
       return ((published >= _start) && (published <= _end))
-    })
+    }).map((item) => ({ ...item, ...parseHTMLUrl(item) }))
 }
