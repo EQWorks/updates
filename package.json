@@ -1,14 +1,18 @@
 {
   "name": "@eqworks/updates",
-  "version": "0.1.0",
-  "description": "Retrieve updates based on activities happening across the GitHub organization",
+  "version": "1.0.0",
+  "description": "Tool to retrieve work updates so we don't waste time recollecting what we did and or misinterpreting others'.",
   "main": "index.js",
   "source": "index.js",
   "files": [
     "index.js",
+    "cli.js",
     "sources",
     "targets"
   ],
+  "bin": {
+    "update": "./cli.js"
+  },
   "scripts": {
     "range": "env $(print-env) node range.js",
     "weekly": "env $(print-env) node weekly.js",
@@ -28,7 +32,8 @@
     "@octokit/core": "^3.2.4",
     "@slack/web-api": "^5.15.0",
     "asana": "^0.18.5",
-    "luxon": "^1.25.0"
+    "luxon": "^1.25.0",
+    "yargs": "^17.3.0"
   },
   "devDependencies": {
     "eslint": "^7.18.0"
