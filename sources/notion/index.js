@@ -43,12 +43,16 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
         const _doing = await getJournalTasks({ block_id: id })
         doing = _doing
           .filter(({ type }) => type === 'to_do')
-          .map(({ to_do: { text } }) => text.map(({ text: { content, link } }) => {
-            if (link) {
-              return (`[${content}](${link.url})`)
+          .map(({ to_do: { text } }) => text.map((t) => {
+            if (t.type === 'mention') {
+              return (`[${t.plain_text}](${t.href})`)
             }
-            return content
-          }).join(''))
+            if (t.text) {
+              const { content, link } = t.text
+              if (link) return (`[${content}](${link.url})`)
+              return content
+            }
+          }).filter((r) => r).join(''))
           .flat()
       }
 
