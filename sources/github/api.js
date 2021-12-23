@@ -1,7 +1,7 @@
 const { Octokit } = require('@octokit/core')
 const { DateTime } = require('luxon')
 
-const { before, isClosed } = require('./util')
+const { before, isClosed, parseHTMLUrl } = require('./util')
 
 const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks' } = process.env
 
@@ -85,3 +85,17 @@ module.exports.getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
       || isClosed(pr) && (closed >= updated) // PR closed and not updated after closing
   }).map((r) => ({ ...r, pull_request_url: pr.pull_request_url, pr_html_url: `${pr.html_url}/commits/${r.sha}` }))),
 )).then((data) => data.flat())
+
+module.exports.getReleases = async ({ repos, start, end }) => {
+  const urls = [...new Set(repos.map(({ url }) => url))]
+  const releases = await Promise.all(urls.map(v => client.request({ url: `${v}/releases` })))
+  const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
+  const _end = DateTime.fromISO(end, { zone: 'UTC' }).startOf('day')
+  return releases
+    .map(({ data }) => data)
+    .flat() // this would auto filter empty data arrays
+    .filter(({ published_at }) => {
+      const published = DateTime.fromISO(published_at, { zone: 'UTC' }).startOf('day')
+      return ((published >= _start) && (published <= _end))
+    }).map((item) => ({ ...item, ...parseHTMLUrl(item) }))
+}

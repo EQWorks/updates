@@ -1,6 +1,7 @@
 const { DateTime } = require('luxon')
 
-const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, enrichNLP, formatDigest } = require('./sources/github')
+const { issuesByRange, reposByRange, enrichIssues, enrichRepos, ignoreProjects, ignoreBotUsers, enrichNLP, formatDigest, formatReleases } = require('./sources/github')
+const { getReleases } = require('./sources/github/api')
 const { getVacays, formatVacays } = require('./sources/asana')
 const { getJournals, formatJournals } = require('./sources/notion')
 const { uploadMD } = require('./targets/slack')
@@ -29,11 +30,15 @@ const weeklyDigest = async () => {
     getVacays({ after: lastYst.toISODate(), before: today.endOf('week').toISODate() }),
     getJournals({ start, end }),
   ])
-  const enriched = await enrichNLP({ repos, ...issues, vacays, journals })
-  const post = await formatDigest(enriched)
-  const vPost = await formatVacays({ post, vacays })
-  const md = await formatJournals({ post: vPost, journals })
-  return uploadMD()(md)
+  const [enriched, releases] = await Promise.all([
+    enrichNLP({ repos, ...issues, vacays, journals }),
+    getReleases({ repos, start, end }),
+  ])
+  const post = formatDigest(enriched)
+  formatReleases({ post, releases, pre: true }) // mutates post.content with releases
+  formatVacays({ post, vacays, pre: true }) // mutates post.content with vacations
+  formatJournals({ post, journals }) // mutates post.content with journals
+  return uploadMD(post)
 }
 
 if (require.main === module) {

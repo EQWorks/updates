@@ -1,12 +1,12 @@
 const { parseRaw } = require('@eqworks/release')
 
 const { searchByRange, getIssuesComments, getPRsReviews, getTopics, getPRsCommits } = require('./api')
-const { pick, trimTitle, isPR, isTeamTopic, groupByCatProj, groupByCat, formatAggStates, getID, formatUsers, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
+const { pick, trimTitle, isPR, isTeamTopic, groupByCatProj, groupByCat, groupByProj, formatAggStates, getID, formatUsers, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
 const { formatDates } = require('../util')
+const { parseHTMLUrl } = require('./util')
 
 const { GITHUB_ORG = 'EQWorks' } = process.env
 
-const REGEX_PROJ = new RegExp(`https://github.com/${GITHUB_ORG}/(.*)/.*/.*`)
 const REGEX_LINKED_ISSUES = /(fix|fixed|fixes|close|closes|closed)\s+#(?<issue>\d+)/ig
 const ISSUE_FIELDS = ['html_url', 'title', 'user', 'state', 'assignees', 'comments', 'created_at', 'updated_at', 'closed_at', 'body', 'project', 'team', 'category', 'enriched_comments']
 const PR_FIELDS = [...ISSUE_FIELDS, 'pull_request', 'linked_issues', 'draft', 'requested_reviewers', 'enriched_reviews', 'enriched_commits', 'commit_label']
@@ -54,7 +54,7 @@ module.exports.enrichIssues = async ({ issues: _issues, start, end, team, skipEn
     const category = repoTopics.filter((t) => !isTeamTopic(t))[0]
     return {
       ...issue,
-      project: issue.html_url.match(REGEX_PROJ)[1],
+      ...parseHTMLUrl(issue),
       team,
       category,
       enriched_comments: comments.filter((v) => v.issue_url === issue.url),
@@ -126,7 +126,7 @@ module.exports.enrichNLP = async (data) => {
   return { ...data, issues: enrichedIssues, prs: enrichedPRs }
 }
 
-module.exports.formatDigest = async ({ repos, issues, prs, start, end, team }) => {
+module.exports.formatDigest = ({ repos, issues, prs, start, end, team }) => {
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
@@ -208,4 +208,26 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
   }
 
   return { content, title: `Previously - ${formatDates({ start, end })}` }
+}
+
+module.exports.formatReleases = ({ post, releases, pre = true }) => {
+  if (!releases || releases.length === 0) {
+    return post
+  }
+  let content = `${releases.length} Releases\n`
+  const byProjects = releases.reduce(groupByProj, {})
+  Object.entries(byProjects).forEach(([project, items]) => {
+    if (items.length > 1) {
+      content += `\n* ${items.length} *${project}* releases`
+    } else {
+      content += `\n* 1 *${project}* release`
+    }
+    content += ` - ${items.map(({ tag_name, html_url }) => `[${tag_name}](${html_url})`).join(', ')}`
+  })
+  if (pre) {
+    post.content = `${content}\n${post.content}`
+  } else {
+    post.content = `${post.content}\n${content}`
+  }
+  return post
 }

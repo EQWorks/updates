@@ -21,4 +21,5 @@ module.exports = {
     semi: ['error', 'never'],
     'quote-props': ['error', 'as-needed'],
   },
+  ignorePatterns: ['nlp/', 'bin/'],
 }
