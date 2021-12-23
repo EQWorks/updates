@@ -30,7 +30,7 @@ jobs:
       - run: npm i
 
       - name: Post weekly digest
-        run: node weekly.js mobile
+        run: node cli.js weekly --team=mobile
         env:
           GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}

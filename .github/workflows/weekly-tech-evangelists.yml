@@ -30,7 +30,7 @@ jobs:
       - run: npm i
 
       - name: Post weekly digest
-        run: node weekly.js tech_evangelists
+        run: node cli.js weekly --team=tech_evangelists
         env:
           GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
