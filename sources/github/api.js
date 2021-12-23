@@ -87,13 +87,8 @@ module.exports.getPRsCommits = ({ prs, start, end }) => Promise.all(prs.map(
 )).then((data) => data.flat())
 
 module.exports.getReleases = async ({ repos, start, end }) => {
-  const urls = repos.reduce((acc, curr) => {
-    if (acc.indexOf(curr.url) < 0) {
-      acc.push(curr.url)
-    }
-    return acc
-  }, [])
-  const releases = await Promise.all(urls.map((v => client.request({ url: `${v}/releases` }))))
+  const urls = [...new Set(repos.map(({ url }) => url))]
+  const releases = await Promise.all(urls.map(v => client.request({ url: `${v}/releases` })))
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).startOf('day')
   return releases
