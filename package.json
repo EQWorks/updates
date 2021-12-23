@@ -16,7 +16,7 @@
   "scripts": {
     "range": "env $(print-env) node range.js",
     "weekly": "env $(print-env) node weekly.js",
-    "daily": "env $(print-env) node daily.js",
+    "daily": "env $(print-env) node cli.js daily",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
