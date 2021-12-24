@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/updates",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "Tool to retrieve work updates so we don't waste time recollecting what we did and or misinterpreting others'.",
   "main": "index.js",
   "source": "index.js",
@@ -11,10 +11,10 @@
     "targets"
   ],
   "bin": {
-    "update": "./cli.js"
+    "updates": "./cli.js"
   },
   "scripts": {
-    "range": "env $(print-env) node range.js",
+    "range": "env $(print-env) node cli.js range",
     "weekly": "env $(print-env) node cli.js weekly",
     "daily": "env $(print-env) node cli.js daily",
     "lint": "eslint .",

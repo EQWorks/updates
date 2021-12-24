@@ -9,7 +9,7 @@ const slack = require('./targets/slack')
 const { ORG_TZ = 'America/Toronto' } = process.env
 const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
 
-
+// TODO: a lot of getX functions are similar, refactor
 const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
   // last work day in ISO string - ms portion
   const day = DateTime.fromISO(date).startOf('day').setZone(timeZone, { keepLocalTime: true })
@@ -42,7 +42,6 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
   }
   return slack.uploadMD(post)
 }
-
 const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
   // weekly range in ISO string but drops ms portion
   const day = DateTime.fromISO(date).startOf('day').setZone(timeZone, { keepLocalTime: true })
@@ -78,8 +77,37 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
   }
   return slack.uploadMD(post)
 }
+const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
+  // range in ISO string but drops ms portion
+  const day = DateTime.fromISO(date).setZone(timeZone, { keepLocalTime: true })
+  const start = stripMS(day.startOf(scope).toUTC())
+  const end = stripMS(day.endOf(scope).toUTC())
 
-const singleOptions = {
+  const [issues, repos] = await Promise.all([
+    gh.issuesByRange({ start, end })
+      .then((issues) => issues.filter(gh.ignoreProjects))
+      .then((issues) => issues.filter(gh.ignoreBotUsers))
+      .then((issues) => gh.enrichIssues({ issues, start, end, team })),
+    gh.reposByRange({ start, end })
+      .then((repos) => repos.filter(gh.ignoreProjects))
+      .then((repos) => gh.enrichRepos({ repos })),
+  ])
+  const [enriched, releases] = await Promise.all([
+    gh.enrichNLP({ repos, ...issues }),
+    gh.api.getReleases({ repos, start, end }),
+  ])
+  if (raw) {
+    return JSON.stringify({ ...enriched, releases })
+  }
+  const post = gh.formatDigest(enriched)
+  gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
+  if (dryRun) {
+    return post
+  }
+  return slack.uploadMD(post)
+}
+
+const sharedOptions = {
   date: {
     alias: 'd',
     type: 'string',
@@ -111,7 +139,7 @@ require('yargs')
   .command(
     'daily',
     'daily updates',
-    singleOptions, // builder options
+    sharedOptions, // builder options
     (args) => {
       getDaily(args).then(console.log).catch((e) => {
         console.error(e)
@@ -122,9 +150,27 @@ require('yargs')
   .command(
     'weekly',
     'weekly digest',
-    singleOptions, // builder options
+    sharedOptions, // builder options
     (args) => {
       getWeekly(args).then(console.log).catch((e) => {
+        console.error(e)
+        process.exit(1)
+      })
+    },
+  )
+  .command(
+    'range', // TODO: add --start and --end options
+    'custom range of updates (daily, weekly, monthly, or yearly) of GitHub stats only',
+    { // builder options
+      ...sharedOptions,
+      scope: {
+        type: 'string',
+        default: 'month',
+        description: 'Which scope to retrieve the updates, can be day, week, month, and year. Default month',
+      },
+    },
+    (args) => {
+      getRange(args).then(console.log).catch((e) => {
         console.error(e)
         process.exit(1)
       })
