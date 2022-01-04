@@ -1,7 +1,7 @@
 {
   "name": "@eqworks/updates",
   "version": "0.9.0",
-  "description": "Tool to retrieve work updates so we don't waste time recollecting what we did and or misinterpreting others'.",
+  "description": "Tool to retrieve work updates from multiple sources.",
   "main": "index.js",
   "source": "index.js",
   "files": [
