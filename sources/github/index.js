@@ -231,3 +231,5 @@ module.exports.formatReleases = ({ post, releases, pre = true }) => {
   }
   return post
 }
+
+module.exports.api = require('./api')

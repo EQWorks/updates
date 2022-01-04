@@ -31,7 +31,7 @@ jobs:
       - run: npm i
 
       - name: Post weekly digest
-        run: node weekly.js data
+        run: node cli.js weekly --team data
         env:
           GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}

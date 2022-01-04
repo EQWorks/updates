@@ -1,18 +1,22 @@
 {
   "name": "@eqworks/updates",
-  "version": "0.1.0",
-  "description": "Retrieve updates based on activities happening across the GitHub organization",
+  "version": "0.9.0",
+  "description": "Tool to retrieve work updates from multiple sources.",
   "main": "index.js",
   "source": "index.js",
   "files": [
     "index.js",
+    "cli.js",
     "sources",
     "targets"
   ],
+  "bin": {
+    "updates": "./cli.js"
+  },
   "scripts": {
-    "range": "env $(print-env) node range.js",
-    "weekly": "env $(print-env) node weekly.js",
-    "daily": "env $(print-env) node daily.js",
+    "range": "env $(print-env) node cli.js range",
+    "weekly": "env $(print-env) node cli.js weekly",
+    "daily": "env $(print-env) node cli.js daily",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,7 +32,8 @@
     "@octokit/core": "^3.2.4",
     "@slack/web-api": "^5.15.0",
     "asana": "^0.18.5",
-    "luxon": "^1.25.0"
+    "luxon": "^1.25.0",
+    "yargs": "^17.3.0"
   },
   "devDependencies": {
     "eslint": "^7.18.0"

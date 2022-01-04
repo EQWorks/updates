@@ -31,7 +31,7 @@ jobs:
       - run: npm i
 
       - name: Post daily previously
-        run: node daily.js
+        run: node cli.js daily
         env:
           GITHUB_TOKEN: ${{ secrets.CD_GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
