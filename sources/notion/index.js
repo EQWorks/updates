@@ -62,7 +62,12 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
         name: _Name.title[0].plain_text.split(' ')[0],
         LWD: _lwd ? _lwd.map(({ plain_text, href }) => {
           if (href) {
-            return `[${plain_text}](${href})`
+            // match * symbol followed by whitespace
+            // (format by split('* ') below cause incorrect url link in post)
+            const match = plain_text.match(/(^\*) (?<body>.*)/)
+            const text = match ? match.groups.body : plain_text
+
+            return `[${text}](${href})`
           }
           return plain_text
         }).join('').split('* ').map((t) => t.split('\n')[0]) : '',
