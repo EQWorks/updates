@@ -6,6 +6,8 @@ const asana = require('./sources/asana')
 const notion = require('./sources/notion')
 const slack = require('./targets/slack')
 
+const data = require('./sources/github/data')
+
 const { ORG_TZ = 'America/Toronto' } = process.env
 const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
 
@@ -31,7 +33,7 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
   ])
   const releases = await gh.api.getReleases({ repos, start, end })
   if (raw) {
-    return JSON.stringify({ vacays, repos, releases, issues, journals })
+    return JSON.stringify({ vacays, repos, releases, issues, journals }, null, 2)
   }
   const post = gh.formatPreviously({ repos, ...issues })
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
@@ -66,7 +68,7 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
     gh.api.getReleases({ repos, start, end }),
   ])
   if (raw) {
-    return JSON.stringify({ ...enriched, releases })
+    return JSON.stringify({ ...enriched, releases }, null, 2)
   }
   const post = gh.formatDigest(enriched)
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
@@ -96,8 +98,13 @@ const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZo
     gh.enrichNLP({ repos, ...issues }),
     gh.api.getReleases({ repos, start, end }),
   ])
+  // filter out issues and PRs
+  enriched.issues = enriched.issues.filter(i => i.closed_at)
+  enriched.prs = enriched.prs
+    .filter(p => p.closed_at) // filter out unclosed PRs
+    .filter(p => ['ADDED', 'CHANGED'].includes(p.labels[0])) // filter out PRs not ADDED or CHANGED
   if (raw) {
-    return JSON.stringify({ ...enriched, releases })
+    return JSON.stringify({ ...enriched, releases }, null, 2)
   }
   const post = gh.formatDigest(enriched)
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
@@ -174,6 +181,24 @@ require('yargs')
         console.error(e)
         process.exit(1)
       })
+    },
+  )
+  .command(
+    'raw',
+    'raw data',
+    sharedOptions,
+    ({ date }) => {
+      // last work day in ISO string - ms portion
+      const day = DateTime.fromISO(date).startOf('day').setZone(ORG_TZ, { keepLocalTime: true })
+      const lastYst = day.minus({ days: day.weekday === 1 ? 3 : 1 })
+      const yst = day.minus({ day: 1 })
+      const start = stripMS(lastYst.startOf('day').toUTC())
+      const end = stripMS(yst.endOf('day').toUTC())
+      data.getIssues({ start, end }).then((df) => {
+        df.print()
+        console.log(df.columns)
+        // console.log(df.toJSON())
+      }).catch(console.error)
     },
   )
   .demandCommand()
