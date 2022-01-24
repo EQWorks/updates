@@ -77,7 +77,7 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
   }
   return slack.uploadMD(post)
 }
-const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
+const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZone = ORG_TZ, labels = [] }) => {
   // range in ISO string but drops ms portion
   const day = DateTime.fromISO(date).setZone(timeZone, { keepLocalTime: true })
   const start = stripMS(day.startOf(scope).toUTC())
@@ -96,6 +96,11 @@ const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZo
     gh.enrichNLP({ repos, ...issues }),
     gh.api.getReleases({ repos, start, end }),
   ])
+  // filter issues and PRs by first labels
+  if (labels.length) {
+    enriched.issues = enriched.issues.filter((issue) => labels.includes(issue.labels[0]))
+    enriched.prs = enriched.prs.filter((pr) => labels.includes(pr.labels[0]))
+  }
   if (raw) {
     return JSON.stringify({ ...enriched, releases })
   }
@@ -167,6 +172,11 @@ require('yargs')
         type: 'string',
         default: 'month',
         description: 'Which scope to retrieve the updates, can be day, week, month, and year. Default month',
+      },
+      labels: {
+        type: 'array',
+        default: [],
+        description: 'Optional labels to filter issues and PRs by',
       },
     },
     (args) => {
