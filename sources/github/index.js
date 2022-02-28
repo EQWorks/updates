@@ -118,7 +118,7 @@ module.exports.enrichNLP = async (data) => {
     ...pr,
     ...parsedPRs.find((p) => pr.title.includes(p.message)),
   }))
-  const parsedIssues = await parseRaw(issues.map(trimTitle))
+  const parsedIssues = await parseRaw(issues.map(trimTitle)).then((p) => p.map((v) => ({ ...v, labels: ['ISSUE'] })))
   const enrichedIssues = issues.map((issue) => ({
     ...issue,
     ...parsedIssues.find((p) => issue.title.includes(p.message)),
