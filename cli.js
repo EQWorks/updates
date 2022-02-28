@@ -105,6 +105,7 @@ const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZo
   if (raw) {
     return JSON.stringify({ ...enriched, releases })
   }
+  enriched.onlyClosed = ['year', 'quarter', 'month'].includes(scope)
   const post = gh.formatDigest(enriched)
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
   if (dryRun) {
