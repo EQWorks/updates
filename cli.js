@@ -98,8 +98,9 @@ const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZo
   ])
   // filter issues and PRs by first labels
   if (labels.length) {
-    enriched.issues = enriched.issues.filter((issue) => labels.includes(issue.labels[0]))
-    enriched.prs = enriched.prs.filter((pr) => labels.includes(pr.labels[0]))
+    const norm = labels.map((label) => label.toLowerCase()) // normalize labels to all lowercase
+    enriched.issues = enriched.issues.filter(({ labels }) => norm.includes(labels[0].toLowerCase()))
+    enriched.prs = enriched.prs.filter(({ labels }) => norm.includes(labels[0].toLowerCase()))
   }
   if (raw) {
     return JSON.stringify({ ...enriched, releases })
