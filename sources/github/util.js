@@ -46,7 +46,7 @@ module.exports.groupByProj = (acc, curr) => {
 module.exports.formatAggStates = (i) => {
   let r = ''
   const closed = i.filter(this.isClosed).length
-  if (i.length === closed.length) {
+  if (i.length === closed) {
     return ' (all done ✔️)'
   }
   if (closed) {

@@ -1,7 +1,7 @@
 const { parseRaw } = require('@eqworks/release')
 
 const { searchByRange, getIssuesComments, getPRsReviews, getTopics, getPRsCommits } = require('./api')
-const { pick, trimTitle, isPR, isTeamTopic, groupByCatProj, groupByCat, groupByProj, formatAggStates, getID, formatUsers, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews } = require('./util')
+const { pick, trimTitle, isPR, isTeamTopic, groupByCatProj, groupByCat, groupByProj, formatAggStates, getID, formatUsers, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews, isClosed } = require('./util')
 const { formatDates } = require('../util')
 const { parseHTMLUrl } = require('./util')
 
@@ -118,7 +118,7 @@ module.exports.enrichNLP = async (data) => {
     ...pr,
     ...parsedPRs.find((p) => pr.title.includes(p.message)),
   }))
-  const parsedIssues = await parseRaw(issues.map(trimTitle))
+  const parsedIssues = await parseRaw(issues.map(trimTitle)).then((p) => p.map((v) => ({ ...v, labels: ['ISSUE'] })))
   const enrichedIssues = issues.map((issue) => ({
     ...issue,
     ...parsedIssues.find((p) => issue.title.includes(p.message)),
@@ -126,16 +126,16 @@ module.exports.enrichNLP = async (data) => {
   return { ...data, issues: enrichedIssues, prs: enrichedPRs }
 }
 
-module.exports.formatDigest = ({ repos, issues, prs, start, end, team }) => {
+module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClosed = false }) => {
   const allLinked = prs.map((pr) => pr.linked_issues).flat()
   const all = [
-    ...issues.filter((issue) => !allLinked.includes(getID(issue))),
-    ...prs,
+    ...issues.filter((issue) => !allLinked.includes(getID(issue)) && (!onlyClosed || isClosed(issue))),
+    ...prs.filter((pr) => !onlyClosed || isClosed(pr)),
   ]
   let content = formatLoneRepos({ all, repos })
 
   if (all.length) {
-    content += `${all.length} PR/issues updates${formatAggStates(all)}`
+    content += `${all.length} PR/issues ${formatAggStates(all) }`
     const grouped = all.reduce(groupByCatProj, {})
     Object.entries(grouped).forEach(([category, byProjects]) => {
       content += `\n\n# ${category}\n`
