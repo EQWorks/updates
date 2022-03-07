@@ -89,6 +89,15 @@ const itemLink = (item) => `[${this.isPR(item) ? 'PR' : 'Issue'} #${this.getID(i
 const composeItem = (item) => [stateIcon(item), itemLink(item), this.trimTitle(item), formatUser(item)]
 module.exports.formatItem = (item) => composeItem(item).join(' ')
 module.exports.formatSub = (sub) => composeItem(sub).slice(1, 3).join(' ')
+// TODO: slack post markdown support is horrible, so can't blockquote nor code-block body atm
+module.exports.formatBody = ({ body }) => {
+  if (!body) {
+    return ''
+  }
+  let content = '\n:arrow_right_hook:'
+  content += `\n${body.split('\n').map((v) => v.trim()).filter((v) => v).map((v) => `=== ${v}`).join('\n')}\n`
+  return content
+}
 
 const _uniqueUsers = (key) => (items) => Array.from(new Set(items.map((v) => v[key]?.login).filter((v) => v)))
 const uniqueUsers = _uniqueUsers('user')
