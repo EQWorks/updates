@@ -165,7 +165,7 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClose
     })
   }
 
-  return { content, title: `${team ? team.toUpperCase() : 'DEV'} Digest - ${formatDates({ start, end })}` }
+  return { content, title: `${team ? team.toUpperCase() : 'DEV'} Digest - ${formatDates({ start, end }).message}` }
 }
 
 module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
@@ -209,7 +209,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     })
   }
 
-  return { content, title: `Previously - ${formatDates({ start, end })}` }
+  return { content, title: `Previously - ${formatDates({ start, end }).message}` }
 }
 
 module.exports.formatReleases = ({ post, releases, pre = true }) => {

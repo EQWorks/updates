@@ -83,7 +83,14 @@ module.exports.formatVacays = ({ post, vacays, pre = true }) => {
   }
   let s = 'Vacations\n'
   Object.entries(vacays).forEach(([email, ranges]) => {
-    s += `\n* ${email} - ${ranges.map(formatLocalDates(zone)).join(', ')}`
+    const fr = ranges.map(formatLocalDates(zone)).map(({ message, status }) => {
+      let m = `${message} (${status})`
+      if (status === 'ongoing') {
+        m = `*${m}*`
+      }
+      return m
+    }).join(', ')
+    s += `\n* ${email} - ${fr}`
   })
   if (pre) {
     post.content = `${s}\n${post.content}`
