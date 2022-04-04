@@ -17,8 +17,7 @@ const _formatDates = (zone = 'UTC') => ({ start, end }) => {
   let message = `${_start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
   if (_start.startOf('day').toMillis() === _end.startOf('day').toMillis()) {
     message = `on ${_start.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
-  }
-  if (_start.startOf('year').toMillis() === _end.startOf('year').toMillis()) {
+  } else if (_start.startOf('year').toMillis() === _end.startOf('year').toMillis()) {
     message = `${_start.toFormat('ccc, MMM dd')} to ${_end.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`
   }
   return { message, status }
