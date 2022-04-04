@@ -1,7 +1,7 @@
 const { parseRaw } = require('@eqworks/release')
 
 const { searchByRange, getIssuesComments, getPRsReviews, getTopics, getPRsCommits } = require('./api')
-const { pick, trimTitle, isPR, isTeamTopic, groupByCatProj, groupByCat, groupByProj, formatAggStates, getID, formatUsers, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews, formatBody, isClosed } = require('./util')
+const { pick, trimTitle, isPR, isTeamTopic, groupByCatProj, groupByCat, groupByProj, formatAggStates, getID, formatUsers, formatItem, formatSub, formatAggComments, formatAggCommits, formatAggReviews, isClosed } = require('./util')
 const { formatDates } = require('../util')
 const { parseHTMLUrl } = require('./util')
 
@@ -158,7 +158,6 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClose
                 content += `\n    * ${formatSub(sub)}`
               }
             })
-            content += formatBody(item)
           })
         })
       })
@@ -203,7 +202,6 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
           if (item.enriched_commits?.length) {
             content += `\n    * ${formatAggCommits(item)}`
           }
-          content += formatBody(item)
         })
       })
     })
