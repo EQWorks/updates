@@ -6,7 +6,12 @@ const web = new WebClient(SLACK_TOKEN)
 
 module.exports.uploadMD = ({ title, content, channels = SLACK_CHANNEL }) => web.files.upload({
   channels,
-  file: Buffer.from(content, 'utf-8'),
   title,
-  filetype: 'post',
+  filename: `${title}.md`,
+  // TODO: Slack Post seems to be malfunctioning
+  // file: Buffer.from(content, 'utf-8'),
+  // filetype: 'post',
+  // TODO: temp workaround as raw markdown upload
+  content,
+  filetype: 'markdown',
 })
