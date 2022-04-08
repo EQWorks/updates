@@ -1,8 +1,7 @@
-const { Client } = require('@notionhq/client')
+const { notion } = require('./api')
 
 
-const { NOTION_TOKEN, BASE_URL = 'https://www.notion.so/eqproduct' } = process.env
-const notion = new Client({ auth: NOTION_TOKEN })
+const { BASE_URL = 'https://www.notion.so/eqproduct' } = process.env
 
 const databases = [
   {

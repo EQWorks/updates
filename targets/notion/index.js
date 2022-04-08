@@ -1,12 +1,9 @@
-const { Client } = require('@notionhq/client')
-
 const slack = require('../../targets/slack')
+const { notion } = require('../../sources/notion/api')
 const { mdNotionConverter } = require('./converter')
 
 
-const { NOTION_TOKEN, DATABASE_ID = 'adf0c7124e1e44ff851e254dbe36015c' } = process.env
-const notion = new Client({ auth: NOTION_TOKEN })
-
+const { DATABASE_ID = 'adf0c7124e1e44ff851e254dbe36015c' } = process.env
 const today = `${new Date().toISOString().split('T')[0]}`
 
 module.exports.uploadMD = async (post, tag) => {
