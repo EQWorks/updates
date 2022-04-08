@@ -97,6 +97,7 @@ module.exports.formatVacays = ({ post, vacays, pre = true }) => {
   } else {
     post.content += `\n${s}`
   }
+  post.summary.push(`${Object.keys(vacays).length} on vacation`)
   return post
 }
 

@@ -43,7 +43,7 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
         const _doing = await getJournalTasks({ block_id: id })
         doing = _doing
           .filter(({ type }) => type === 'to_do')
-          .map(({ to_do: { text } }) => text.map((t) => {
+          .map(({ to_do: { rich_text } }) => rich_text.map((t) => {
             if (t.type === 'mention') {
               return (`[${t.plain_text}](${t.href})`)
             }
@@ -84,7 +84,7 @@ module.exports.getJournals = async ({ start, end, isDaily }) => {
 }
 
 module.exports.formatJournals = ({ post, journals }) => {
-  let lwdJournals = '*JOURNALS*\n'
+  let lwdJournals = '# JOURNALS\n'
 
   Object.entries(journals).map(([name, journals]) => {
     return ({ [name]: {
@@ -100,10 +100,11 @@ module.exports.formatJournals = ({ post, journals }) => {
     doing.length ? _doing += `\n* ${doing.join('\n* ')}` : _doing = ''
 
     if (_did || _doing) {
-      lwdJournals += `\n*[${name}](${url})*${_did}${_doing}\n`
+      lwdJournals += `\n### **[${name}](${url})**${_did}${_doing}\n`
     }
   }))
 
   post.content += `\n\n${lwdJournals}`
+  post.summary.push(`${Object.keys(journals).length} journal updates`)
   return post
 }

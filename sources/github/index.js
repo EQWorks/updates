@@ -107,7 +107,7 @@ const formatLoneRepos = ({ all, repos }) => {
     })
     content += '\n'
   }
-  return content
+  return { content, loneRepos }
 }
 
 module.exports.enrichNLP = async (data) => {
@@ -132,7 +132,7 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClose
     ...issues.filter((issue) => !allLinked.includes(getID(issue)) && (!onlyClosed || isClosed(issue))),
     ...prs.filter((pr) => !onlyClosed || isClosed(pr)),
   ]
-  let content = formatLoneRepos({ all, repos })
+  let { content, loneRepos } = formatLoneRepos({ all, repos })
 
   if (all.length) {
     content += `${all.length} PR/issues ${formatAggStates(all) }`
@@ -164,7 +164,14 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClose
     })
   }
 
-  return { content, title: `${team ? team.toUpperCase() : 'DEV'} Digest - ${formatDates({ start, end }).message}` }
+  return {
+    content,
+    title: `${team ? team.toUpperCase() : 'DEV'} Digest - ${formatDates({ start, end }).message}`,
+    summary: [
+      ...(loneRepos.length ? [`${loneRepos.length} Lone Repo updates`] : []),
+      ...(all.length ? [`${all.length} PR/issues updates${formatAggStates(all)}`] : []),
+    ],
+  }
 }
 
 module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
@@ -173,7 +180,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
     ...prs,
   ]
-  let content = formatLoneRepos({ all, repos })
+  let { content, loneRepos } = formatLoneRepos({ all, repos })
 
   if (all.length) {
     content += `${all.length} PR/issues updates${formatAggStates(all)}`
@@ -207,7 +214,14 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     })
   }
 
-  return { content, title: `Previously - ${formatDates({ start, end }).message}` }
+  return {
+    content,
+    title: `Previously - ${formatDates({ start, end }).message}`,
+    summary: [
+      ...(loneRepos.length ? [`${loneRepos.length} Lone Repo updates`] : []),
+      ...(all.length ? [`${all.length} PR/issues updates${formatAggStates(all)}`] : []),
+    ],
+  }
 }
 
 module.exports.formatReleases = ({ post, releases, pre = true }) => {
@@ -229,6 +243,7 @@ module.exports.formatReleases = ({ post, releases, pre = true }) => {
   } else {
     post.content = `${post.content}\n${content}`
   }
+  post.summary.push(`${releases.length} release(s)`)
   return post
 }
 
