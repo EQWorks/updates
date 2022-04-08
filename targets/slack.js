@@ -12,7 +12,7 @@ module.exports.uploadMD = ({ title, content, channels = SLACK_CHANNEL }) => web.
 })
 
 
-module.exports.notionNotify = ({ url, title, summary }) => {
+module.exports.postSummary = ({ url, title, summary }) => {
   const fields = summary.map((s) => ({
     type: 'mrkdwn',
     text: s.split('\n').map((text, i) => {

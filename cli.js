@@ -5,6 +5,7 @@ const gh = require('./sources/github')
 const asana = require('./sources/asana')
 const notion = require('./sources/notion')
 const notionTarget = require('./targets/notion')
+const slack = require('./targets/slack')
 
 const { ORG_TZ = 'America/Toronto' } = process.env
 const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
@@ -40,7 +41,8 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
   if (dryRun) {
     return post
   }
-  return notionTarget.uploadMD(post, 'daily')
+  const page = await notionTarget.uploadMD(post, 'daily')
+  return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })
 }
 const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
   // weekly range in ISO string but drops ms portion
@@ -75,7 +77,8 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
   if (dryRun) {
     return post
   }
-  return notionTarget.uploadMD(post, `weekly-${team}`)
+  const page = await notionTarget.uploadMD(post, `weekly-${team}`)
+  return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })
 }
 const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZone = ORG_TZ, labels = [] }) => {
   // range in ISO string but drops ms portion
@@ -111,7 +114,8 @@ const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZo
   if (dryRun) {
     return post
   }
-  return notionTarget.uploadMD(post, 'range')
+  const page = await notionTarget.uploadMD(post, 'range')
+  return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })
 }
 
 const sharedOptions = {
