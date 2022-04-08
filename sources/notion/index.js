@@ -83,6 +83,7 @@ module.exports.getJournals = async ({ start, end, isDaily }) => {
 }
 
 module.exports.formatJournals = ({ post, journals }) => {
+  const summary = []
   let lwdJournals = '# JOURNALS\n'
 
   Object.entries(journals).map(([name, journals]) => {
@@ -100,10 +101,14 @@ module.exports.formatJournals = ({ post, journals }) => {
 
     if (_did || _doing) {
       lwdJournals += `\n### **[${name}](${url})**${_did}${_doing}\n`
+      summary.push(`${name}: ${[
+        ...(did.length ? [`${did.length} done`] : []),
+        ...(doing.length ? [`${doing.length} ongoing`] : []),
+      ].join(', ')}`)
     }
   }))
 
   post.content += `\n\n${lwdJournals}`
-  post.summary.push(`${Object.keys(journals).length} journal updates`)
+  post.summary.push(`${Object.keys(journals).length} journal updates\n${summary.join('\n')}`)
   return post
 }

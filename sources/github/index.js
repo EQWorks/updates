@@ -99,15 +99,19 @@ const formatLoneRepos = ({ all, repos }) => {
   let content = ''
   const issueProjects = new Set(all.map(({ project }) => project))
   const loneRepos = repos.filter(({ name }) => !issueProjects.has(name))
+  const summary = []
   if (loneRepos.length) {
     const grouped = loneRepos.reduce(groupByCat, {})
     content += `${loneRepos.length} Lone Repo updates`
     Object.entries(grouped).forEach(([category, items]) => {
-      content += `\n* ${category} - ${items.map(({ name, html_url }) => `[${name}](${html_url})`).join(', ')}`
+      content += `\n* ${category} - ${items.map(({ name, html_url }) => {
+        summary.push(name)
+        return `[${name}](${html_url})`
+      }).join(', ')}`
     })
     content += '\n'
   }
-  return { content, loneRepos }
+  return { content, loneRepos, summary }
 }
 
 module.exports.enrichNLP = async (data) => {
@@ -132,7 +136,7 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClose
     ...issues.filter((issue) => !allLinked.includes(getID(issue)) && (!onlyClosed || isClosed(issue))),
     ...prs.filter((pr) => !onlyClosed || isClosed(pr)),
   ]
-  let { content, loneRepos } = formatLoneRepos({ all, repos })
+  let { content, loneRepos, summary } = formatLoneRepos({ all, repos })
 
   if (all.length) {
     content += `${all.length} PR/issues ${formatAggStates(all) }`
@@ -168,7 +172,10 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClose
     content,
     title: `${team ? team.toUpperCase() : 'DEV'} Digest - ${formatDates({ start, end }).message}`,
     summary: [
-      ...(loneRepos.length ? [`${loneRepos.length} Lone Repo updates`] : []),
+      ...(loneRepos.length
+        ? [`${loneRepos.length} Lone Repo updates\n${summary.join('\n* ')}`]
+        : []
+      ),
       ...(all.length ? [`${all.length} PR/issues updates${formatAggStates(all)}`] : []),
     ],
   }
@@ -180,7 +187,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     ...issues.filter((issue) => !allLinked.includes(getID(issue))),
     ...prs,
   ]
-  let { content, loneRepos } = formatLoneRepos({ all, repos })
+  let { content, loneRepos, summary } = formatLoneRepos({ all, repos })
 
   if (all.length) {
     content += `${all.length} PR/issues updates${formatAggStates(all)}`
@@ -218,7 +225,10 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     content,
     title: `Previously - ${formatDates({ start, end }).message}`,
     summary: [
-      ...(loneRepos.length ? [`${loneRepos.length} Lone Repo updates`] : []),
+      ...(loneRepos.length
+        ? [`${loneRepos.length} Lone Repo updates\n${summary.join('\n* ')}`]
+        : []
+      ),
       ...(all.length ? [`${all.length} PR/issues updates${formatAggStates(all)}`] : []),
     ],
   }
@@ -230,11 +240,14 @@ module.exports.formatReleases = ({ post, releases, pre = true }) => {
   }
   let content = `${releases.length} Releases\n`
   const byProjects = releases.reduce(groupByProj, {})
+  const summary = []
   Object.entries(byProjects).forEach(([project, items]) => {
     if (items.length > 1) {
       content += `\n* ${items.length} *${project}* releases`
+      summary.push(`${project}: ${items.length}`)
     } else {
       content += `\n* 1 *${project}* release`
+      summary.push(`${project}: 1`)
     }
     content += ` - ${items.map(({ tag_name, html_url }) => `[${tag_name}](${html_url})`).join(', ')}`
   })
@@ -243,7 +256,7 @@ module.exports.formatReleases = ({ post, releases, pre = true }) => {
   } else {
     post.content = `${post.content}\n${content}`
   }
-  post.summary.push(`${releases.length} release(s)`)
+  post.summary.push(`${releases.length} release(s)\n${summary.join('\n')}`)
   return post
 }
 
