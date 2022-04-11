@@ -1,8 +1,7 @@
-const { Client } = require('@notionhq/client')
+const { notion } = require('./api')
 
 
-const { NOTION_TOKEN, BASE_URL = 'https://www.notion.so/eqproduct' } = process.env
-const notion = new Client({ auth: NOTION_TOKEN })
+const { BASE_URL = 'https://www.notion.so/eqproduct' } = process.env
 
 const databases = [
   {
@@ -43,7 +42,7 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
         const _doing = await getJournalTasks({ block_id: id })
         doing = _doing
           .filter(({ type }) => type === 'to_do')
-          .map(({ to_do: { text } }) => text.map((t) => {
+          .map(({ to_do: { rich_text } }) => rich_text.map((t) => {
             if (t.type === 'mention') {
               return (`[${t.plain_text}](${t.href})`)
             }
@@ -84,7 +83,8 @@ module.exports.getJournals = async ({ start, end, isDaily }) => {
 }
 
 module.exports.formatJournals = ({ post, journals }) => {
-  let lwdJournals = '*JOURNALS*\n'
+  const summary = []
+  let lwdJournals = '# JOURNALS\n'
 
   Object.entries(journals).map(([name, journals]) => {
     return ({ [name]: {
@@ -100,10 +100,15 @@ module.exports.formatJournals = ({ post, journals }) => {
     doing.length ? _doing += `\n* ${doing.join('\n* ')}` : _doing = ''
 
     if (_did || _doing) {
-      lwdJournals += `\n*[${name}](${url})*${_did}${_doing}\n`
+      lwdJournals += `\n### **[${name}](${url})**${_did}${_doing}\n`
+      summary.push(`${name}: ${[
+        ...(did.length ? [`${did.length} done`] : []),
+        ...(doing.length ? [`${doing.length} ongoing`] : []),
+      ].join(', ')}`)
     }
   }))
 
   post.content += `\n\n${lwdJournals}`
+  post.summary.push(`${Object.keys(journals).length} journal updates\n${summary.join('\n')}`)
   return post
 }

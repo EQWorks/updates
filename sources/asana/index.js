@@ -81,6 +81,7 @@ module.exports.formatVacays = ({ post, vacays, pre = true }) => {
   if (!Object.keys(vacays).length) {
     return post
   }
+  const summary = []
   let s = 'Vacations\n'
   Object.entries(vacays).forEach(([email, ranges]) => {
     const fr = ranges.map(formatLocalDates(zone)).map(({ message, status }) => {
@@ -91,12 +92,14 @@ module.exports.formatVacays = ({ post, vacays, pre = true }) => {
       return m
     }).join(', ')
     s += `\n* ${email} - ${fr}`
+    summary.push(`${email.split(/[@.]/)[0]}: ${fr.split(',').slice(1).join(',')}`)
   })
   if (pre) {
     post.content = `${s}\n${post.content}`
   } else {
     post.content += `\n${s}`
   }
+  post.summary.push(`${Object.keys(vacays).length} vacation status\n${summary.join('\n')}`)
   return post
 }
 

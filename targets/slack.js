@@ -15,3 +15,28 @@ module.exports.uploadMD = ({ title, content, channels = SLACK_CHANNEL }) => web.
   content,
   filetype: 'markdown',
 })
+
+
+module.exports.postSummary = ({ url, title, summary }) => {
+  const fields = summary.map((s) => ({
+    type: 'mrkdwn',
+    text: s.split('\n').map((text, i) => {
+      if (i) {
+        return text
+      }
+      return `*${text}*`
+    }).join('\n'),
+  }))
+  const subFields = Array.from(
+    new Array(Math.ceil(fields.length/2)),
+    (_, i) => fields.slice(i*2, i*2+2))
+
+  return web.chat.postMessage({
+    channel: SLACK_CHANNEL,
+    blocks: [
+      { type: 'header', text: { type: 'plain_text', text: title } },
+      ...subFields.map((fields) => ({ type: 'section', fields })),
+      { type: 'section', text: { type: 'mrkdwn', text: `<${url}|Visit Notion for more details.>` } },
+    ],
+  })
+}
