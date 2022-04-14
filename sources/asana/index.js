@@ -91,8 +91,8 @@ module.exports.formatVacays = ({ post, vacays, pre = true }) => {
       }
       return m
     }).join(', ')
-    s += `\n* ${email} - ${fr}`
-    summary.push(`${email.split(/[@.]/)[0]}: ${fr.split(',').slice(1).join(',')}`)
+    s += `\n- ${email} - ${fr}`
+    summary.push(`${email.split(/[@.]/)[0]}: ${fr}`)
   })
   if (pre) {
     post.content = `${s}\n${post.content}`
