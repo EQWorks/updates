@@ -5,12 +5,12 @@ const { ORG_TZ = 'America/Toronto' } = process.env
 const _formatDates = (zone = 'UTC') => ({ start, end }) => {
   const _start = DateTime.fromISO(start, { zone }).setZone(ORG_TZ)
   const _end = DateTime.fromISO(end, { zone }).setZone(ORG_TZ)
-  const now = DateTime.now()
+  const now = DateTime.now().setZone(ORG_TZ)
   // determine status
   let status = 'ongoing'
-  if (_end < now) {
+  if (_end < now.startOf('day')) {
     status = 'past'
-  } else if (_start > now) {
+  } else if (_start > now.endOf('day')) {
     status = 'upcoming'
   }
   // determine formatted message

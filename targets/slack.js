@@ -28,8 +28,8 @@ module.exports.postSummary = ({ url, title, summary }) => {
     }).join('\n'),
   }))
   const subFields = Array.from(
-    new Array(Math.ceil(fields.length/2)),
-    (_, i) => fields.slice(i*2, i*2+2))
+    new Array(Math.ceil(fields.length / 2)),
+    (_, i) => fields.slice(i * 2, i * 2 + 2))
 
   return web.chat.postMessage({
     channel: SLACK_CHANNEL,
