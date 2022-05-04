@@ -22,6 +22,17 @@ const getJournalTasks = async ({ block_id }) => {
   return results
 }
 
+const formatTodoDoing = (rich_text) => rich_text.map((t) => {
+  if (t.type === 'mention') {
+    return (`[${t.plain_text}](${t.href})`)
+  }
+  if (t.text) {
+    const { content, link } = t.text
+    if (link) return (`[${content}](${link.url})`)
+    return content
+  }
+}).filter((r) => r).join('')
+
 const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) => {
   const { results = [] } = await notion.databases.query({
     database_id,
@@ -40,19 +51,24 @@ const _getJournals = async ({ database_id, filters: { start, end }, isDaily }) =
 
       if (properties.Date.date.start === end.split('T')[0]) {
         const _doing = await getJournalTasks({ block_id: id })
-        doing = _doing
-          .filter(({ type }) => type === 'to_do')
-          .map(({ to_do: { rich_text } }) => rich_text.map((t) => {
-            if (t.type === 'mention') {
-              return (`[${t.plain_text}](${t.href})`)
+
+        doing = await Promise.all(_doing
+          .filter(({ type }) => ['to_do', 'synced_block'].includes(type))
+          .map(async ({ id, to_do, has_children, synced_block }) => {
+            if (to_do) {
+              const { rich_text } = to_do
+              return formatTodoDoing(rich_text)
             }
-            if (t.text) {
-              const { content, link } = t.text
-              if (link) return (`[${content}](${link.url})`)
-              return content
+            if (synced_block) {
+              if (!has_children) {
+                return
+              }
+              const task = await notion.blocks.children.list({ block_id: id })
+              return task.results.map(({ to_do }) => formatTodoDoing(to_do.rich_text)).flat()
             }
-          }).filter((r) => r).join(''))
-          .flat()
+          })
+          .filter((r) => r)
+          .flat())
       }
 
       return ({
