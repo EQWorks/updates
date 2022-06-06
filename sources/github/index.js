@@ -173,7 +173,7 @@ module.exports.formatDigest = ({ repos, issues, prs, start, end, team, onlyClose
     title: `${team ? team.toUpperCase() : 'DEV'} Digest - ${formatDates({ start, end }).message}`,
     summary: [
       ...(loneRepos.length
-        ? [`${loneRepos.length} Lone Repo updates\n${summary.join('\n* ')}`]
+        ? [`${loneRepos.length} Lone Repo updates\n* ${summary.join('\n* ')}`]
         : []
       ),
       ...(all.length ? [`${all.length} PR/issues updates${formatAggStates(all)}`] : []),
@@ -226,7 +226,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
     title: `Previously - ${formatDates({ start, end }).message}`,
     summary: [
       ...(loneRepos.length
-        ? [`${loneRepos.length} Lone Repo updates\n${summary.join('\n* ')}`]
+        ? [`${loneRepos.length} Lone Repo updates\n* ${summary.join('\n* ')}`]
         : []
       ),
       ...(all.length ? [`${all.length} PR/issues updates${formatAggStates(all)}`] : []),
