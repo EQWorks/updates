@@ -73,6 +73,14 @@ module.exports.updatedIssuesByRange = async ({ start, end, per_page = 100 }) => 
                     createdAt
                   }
                 }
+                projectsV2(first: 100) {
+                  nodes {
+                    number
+                    url
+                    title
+                  }
+                  totalCount
+                }
               }
               ... on PullRequest {
                 id
@@ -149,6 +157,14 @@ module.exports.updatedIssuesByRange = async ({ start, end, per_page = 100 }) => 
                     number
                     title
                   }
+                }
+                projectsV2(first: 100) {
+                  nodes {
+                    number
+                    url
+                    title
+                  }
+                  totalCount
                 }
               }
             }
