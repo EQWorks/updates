@@ -191,3 +191,94 @@ module.exports.updatedIssuesByRange = updatedByRange({
     }
   `,
 })
+
+const searchByRange = ({
+  type = 'ISSUE',
+  qualifier = 'updated',
+  query,
+  parameters = {},
+  searchQuery,
+}) => async ({
+  start,
+  end,
+  per_page = 100,
+}) => {
+  let data = []
+  let hasNextPage = true
+  let endCursor = null
+  // iteratively fetch all pages
+  const q = `org:${GITHUB_ORG} ${qualifier}:${start}..${end} ${searchQuery || ''}`
+  while (hasNextPage) {
+    // query based on https://docs.github.com/en/search-github
+    const { search: { nodes = [], pageInfo = {} } = {} } = await octokit.graphql(
+      query,
+      {
+        ...parameters,
+        q,
+        type,
+        first: per_page,
+        after: endCursor,
+      },
+    )
+    data = data.concat(nodes)
+    hasNextPage = pageInfo.hasNextPage
+    endCursor = pageInfo.endCursor
+  }
+  return data
+}
+
+module.exports.reposByRange = searchByRange({
+  type: 'REPOSITORY',
+  qualifier: 'pushed',
+  query: `
+    query ReposByRange($q: String!, $type: SearchType!, $first: Int!, $after: String) {
+      search(query: $q, type: $type, first: $first, after: $after) {
+        nodes {
+          ... on Repository {
+            name
+            url
+            owner {
+              ... on RepositoryOwner {
+                login
+                url
+              }
+            }
+            repositoryTopics(first: 100) {
+              nodes {
+                topic {
+                  ... on Topic {
+                    name
+                  }
+                }
+              }
+            }
+            releases(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) {
+              nodes {
+                name
+                tag {
+                  ... on Ref {
+                    name
+                  }
+                }
+                url
+                publishedAt
+                isPrerelease
+                author {
+                  ... on User {
+                    name
+                    login
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  `,
+})
