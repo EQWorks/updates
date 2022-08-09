@@ -4,12 +4,22 @@ const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks' } = process.env
 const octokit = new Octokit({ auth: GITHUB_TOKEN })
 
 
-const updatedByRange = ({ query, parameters = {} }) => async ({ start, end, per_page = 100 }) => {
+const searchByRange = ({
+  type = 'ISSUE',
+  qualifier = 'updated',
+  query,
+  parameters = {},
+  searchQuery,
+}) => async ({
+  start,
+  end,
+  per_page = 100,
+}) => {
   let data = []
   let hasNextPage = true
   let endCursor = null
   // iteratively fetch all pages
-  const q = `org:${GITHUB_ORG} updated:${start}..${end} -author:app/dependabot`
+  const q = `org:${GITHUB_ORG} ${qualifier}:${start}..${end} ${searchQuery || ''}`
   while (hasNextPage) {
     // query based on https://docs.github.com/en/search-github
     const { search: { nodes = [], pageInfo = {} } = {} } = await octokit.graphql(
@@ -17,6 +27,7 @@ const updatedByRange = ({ query, parameters = {} }) => async ({ start, end, per_
       {
         ...parameters,
         q,
+        type,
         first: per_page,
         after: endCursor,
       },
@@ -88,12 +99,13 @@ const issueNode = `
   }
 `
 
-module.exports.updatedIssuesByRange = updatedByRange({
+module.exports.updatedIssuesByRange = searchByRange({
+  searchQuery: '-author:app/dependabot',
   query: `
-    query IssuesQuery($q: String!, $first: Int!, $after: String) {
+    query IssuesQuery($q: String!, $type: SearchType!, $first: Int!, $after: String) {
       search(
         query: $q
-        type: ISSUE
+        type: $type
         first: $first # max 100
         after: $after
       ) {
@@ -180,6 +192,62 @@ module.exports.updatedIssuesByRange = updatedByRange({
                 title
               }
               totalCount
+            }
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  `,
+})
+
+module.exports.reposByRange = searchByRange({
+  type: 'REPOSITORY',
+  qualifier: 'pushed',
+  query: `
+    query ReposByRange($q: String!, $type: SearchType!, $first: Int!, $after: String) {
+      search(query: $q, type: $type, first: $first, after: $after) {
+        nodes {
+          ... on Repository {
+            name
+            url
+            owner {
+              ... on RepositoryOwner {
+                login
+                url
+              }
+            }
+            repositoryTopics(first: 100) {
+              nodes {
+                topic {
+                  ... on Topic {
+                    name
+                  }
+                }
+              }
+            }
+            releases(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) {
+              nodes {
+                name
+                tag {
+                  ... on Ref {
+                    name
+                  }
+                }
+                url
+                publishedAt
+                isPrerelease
+                author {
+                  ... on User {
+                    name
+                    login
+                    url
+                  }
+                }
+              }
             }
           }
         }
