@@ -4,12 +4,22 @@ const { GITHUB_TOKEN, GITHUB_ORG = 'EQWorks' } = process.env
 const octokit = new Octokit({ auth: GITHUB_TOKEN })
 
 
-const updatedByRange = ({ query, parameters = {} }) => async ({ start, end, per_page = 100 }) => {
+const searchByRange = ({
+  type = 'ISSUE',
+  qualifier = 'updated',
+  query,
+  parameters = {},
+  searchQuery,
+}) => async ({
+  start,
+  end,
+  per_page = 100,
+}) => {
   let data = []
   let hasNextPage = true
   let endCursor = null
   // iteratively fetch all pages
-  const q = `org:${GITHUB_ORG} updated:${start}..${end} -author:app/dependabot`
+  const q = `org:${GITHUB_ORG} ${qualifier}:${start}..${end} ${searchQuery || ''}`
   while (hasNextPage) {
     // query based on https://docs.github.com/en/search-github
     const { search: { nodes = [], pageInfo = {} } = {} } = await octokit.graphql(
@@ -17,6 +27,7 @@ const updatedByRange = ({ query, parameters = {} }) => async ({ start, end, per_
       {
         ...parameters,
         q,
+        type,
         first: per_page,
         after: endCursor,
       },
@@ -88,12 +99,13 @@ const issueNode = `
   }
 `
 
-module.exports.updatedIssuesByRange = updatedByRange({
+module.exports.updatedIssuesByRange = searchByRange({
+  searchQuery: '-author:app/dependabot',
   query: `
-    query IssuesQuery($q: String!, $first: Int!, $after: String) {
+    query IssuesQuery($q: String!, $type: SearchType!, $first: Int!, $after: String) {
       search(
         query: $q
-        type: ISSUE
+        type: $type
         first: $first # max 100
         after: $after
       ) {
@@ -191,41 +203,6 @@ module.exports.updatedIssuesByRange = updatedByRange({
     }
   `,
 })
-
-const searchByRange = ({
-  type = 'ISSUE',
-  qualifier = 'updated',
-  query,
-  parameters = {},
-  searchQuery,
-}) => async ({
-  start,
-  end,
-  per_page = 100,
-}) => {
-  let data = []
-  let hasNextPage = true
-  let endCursor = null
-  // iteratively fetch all pages
-  const q = `org:${GITHUB_ORG} ${qualifier}:${start}..${end} ${searchQuery || ''}`
-  while (hasNextPage) {
-    // query based on https://docs.github.com/en/search-github
-    const { search: { nodes = [], pageInfo = {} } = {} } = await octokit.graphql(
-      query,
-      {
-        ...parameters,
-        q,
-        type,
-        first: per_page,
-        after: endCursor,
-      },
-    )
-    data = data.concat(nodes)
-    hasNextPage = pageInfo.hasNextPage
-    endCursor = pageInfo.endCursor
-  }
-  return data
-}
 
 module.exports.reposByRange = searchByRange({
   type: 'REPOSITORY',
