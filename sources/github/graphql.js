@@ -41,6 +41,7 @@ const searchByRange = ({
 
 const issueNode = `
   id
+  number
   author {
     ... on User {
       login
@@ -115,6 +116,7 @@ module.exports.updatedIssuesByRange = searchByRange({
           ... on Issue {${issueNode}}
           ... on PullRequest {
             id
+            number
             author {
               ... on User {
                 login
