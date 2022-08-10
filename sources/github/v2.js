@@ -52,6 +52,17 @@ const getProjectsV2 = (issue) => {
   return projects
 }
 
+const getLabels = (issue) => ([
+  ...new Set([
+    // seek from direct labels association
+    ...issue?.labels?.nodes?.map(({ name }) => name),
+    // seek from closingIssuesReferences...labels association
+    ...(issue?.closingIssuesReferences?.nodes?.map(({ labels }) => (labels?.nodes || [])) || [])
+      .flat()
+      .map(({ name }) => name),
+  ]),
+])
+
 const getProjectTopics = (repositoryTopics) => {
   const topics = repositoryTopics.nodes.map(({ topic }) => topic?.name)
   let pts = topics.filter((t) => !isTeamTopic(t))
@@ -191,6 +202,11 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
       // format aggregated review stats
       if (i.reviews?.totalCount) {
         content += formatAggDiscussionStats({ discussions: i.reviews, start, end })
+      }
+      // format labels
+      const labels = getLabels(i)
+      if (labels.length) {
+        content += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
       }
     })
   })

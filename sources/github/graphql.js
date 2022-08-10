@@ -98,6 +98,12 @@ const issueNode = `
     }
     totalCount
   }
+  labels(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+    nodes {
+      name
+    }
+    totalCount
+  }
 `
 
 module.exports.issuesByRange = searchByRange({
@@ -192,6 +198,12 @@ module.exports.issuesByRange = searchByRange({
                 number
                 url
                 title
+              }
+              totalCount
+            }
+            labels(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+              nodes {
+                name
               }
               totalCount
             }
