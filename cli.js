@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 const { DateTime } = require('luxon')
 
+// TODO: re-org back to gh after GraphQL + v2 refactor
 const gh = require('./sources/github')
+const ghGraphQL = require('./sources/github/graphql')
+const ghV2 = require('./sources/github/v2')
 const asana = require('./sources/asana')
 const notion = require('./sources/notion')
 const notionTarget = require('./targets/notion')
@@ -20,10 +23,9 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
   const end = stripMS(yst.endOf('day').toUTC())
 
   const [issues, repos, vacays, journals] = await Promise.all([
-    gh.issuesByRange({ start, end })
-      .then((issues) => issues.filter(gh.ignoreProjects))
-      .then((issues) => issues.filter(gh.ignoreBotUsers))
-      .then((issues) => gh.enrichIssues({ issues, start, end, team, skipEnrichPRs: false, skipEnrichComments: false })),
+    ghGraphQL.updatedIssuesByRange({ start, end })
+      .then(ghV2.splitIssuesPRs)
+      .then((data) => ({ ...data, start, end })),
     gh.reposByRange({ start, end })
       .then((issues) => issues.filter(gh.ignoreProjects))
       .then((repos) => gh.enrichRepos({ repos, team })),
@@ -34,12 +36,12 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
   if (raw) {
     return JSON.stringify({ vacays, repos, releases, issues, journals })
   }
-  const post = gh.formatPreviously({ repos, ...issues })
+  const post = ghV2.formatPreviously({ repos, ...issues })
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
   asana.formatVacays({ post, vacays, pre: true }) // mutates post.content with vacations
   notion.formatJournals({ post, journals }) // mutates post.content with journals
   if (dryRun) {
-    return post
+    return post.content
   }
   const page = await notionTarget.uploadMD(post, 'daily')
   return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })

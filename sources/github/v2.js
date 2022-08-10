@@ -1,6 +1,7 @@
 const { DateTime } = require('luxon')
 
 const { isTeamTopic, trimTitle } = require('./util')
+const { formatDates } = require('../util')
 
 
 // issues contain both issues and PRs, through __typename
@@ -76,7 +77,7 @@ const formatIssueType = ({ __typename }) => {
 const formatParticipants = (issue) => {
   let i = issue.author.login // initiator (author)
   let p = i // participants (initially the initiator)
-  if (issue.assignees?.nodes?.length) {
+  if (issue.assignees?.totalCount) {
     const a = issue.assignees.nodes.map(({ login }) => login).filter(n => n !== i).join(', ')
     if (a) {
       p = `Assigned: ${a}, Initiated: ${i}`
@@ -86,22 +87,38 @@ const formatParticipants = (issue) => {
 }
 
 const formatIssueItem = (issue) => {
-  // state icon
-  const prefix = stateIcon(issue)
   // type with number and URL
-  const type = `[${formatIssueType(issue)} #${issue.number}](${issue.url})`
+  const type = `[[${formatIssueType(issue)} #${issue.number}](${issue.url})]`
   // title with URL
   const title = trimTitle(issue)
   // participants
   const participants = formatParticipants(issue)
-  return `${prefix} ${type} ${title} (${participants})`
+  return `${type} ${title} (${participants})`
+}
+
+// discussions is either reviews or comments
+const formatAggDiscussionStats = ({ discussions, start, end }) => {
+  const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
+  const _end = DateTime.fromISO(end, { zone: 'UTC' }).endOf('day')
+  const { totalCount, nodes } = discussions
+  const inRange = nodes.filter(({ updatedAt, author }) => {
+    const d = DateTime.fromISO(updatedAt, { zone: 'UTC' })
+    return d >= _start && d <= _end && author.login
+  })
+  if (!inRange.length) {
+    return ''
+  }
+  const commentors = [...new Set(inRange.map(({ author }) => author.login))]
+  const lastComment = inRange[inRange.length - 1] // since sorted DESC
+  let prefix = `${totalCount} comment${totalCount > 1 ? 's' : ''}`
+  if (inRange.length < totalCount) {
+    prefix = `${inRange.length} of ${totalCount} updated comment${inRange.length > 1 ? 's' : ''}`
+  }
+  return `* [${prefix}](${lastComment.url}) by ${commentors.join(', ')}\n`
 }
 
 // format previously (daily) updates
-module.exports.formatPreviously = ({
-  issues, prs,
-  // start, end, // TODO: include start/end loigc
-}) => {
+module.exports.formatPreviously = ({ issues, prs, start, end }) => {
   // TODO: format lone repos
   let summary = ''
   let content = ''
@@ -120,31 +137,40 @@ module.exports.formatPreviously = ({
   // format content for each repo
   Object.values(byRepo).forEach((repo) => {
     // console.log(repo)
-    content += `\n## [${repo.name}](${repo.url})\n`
+    content += `\n# 🎯\t[${repo.name}](${repo.url})\n`
     // format each PR and issue
     repo.issues.forEach((i) => {
-      content += `\n${formatIssueItem(i)}\n`
+      content += `\n${stateIcon(i)}\t`
       // format projects association
       let projects = getProjectsV2(i)
       if (!projects.length) {
         projects = getProjectTopics(i?.repository?.repositoryTopics)
       }
       if (projects.length) {
-        content += `* Projects: ${projects.map((p) => {
-          if (p.url) {
-            return `[${trimTitle(p)}](${p.url})`
-          }
-          return trimTitle(p)
-        }).join(', ')}\n`
+        content += `[${projects.map((p) => `[${trimTitle(p)}](${p.url || repo.url})`).join(', ')}]`
       }
+      content += ` ${formatIssueItem(i)}\n`
       // format closing issues association
-      if (i.closingIssuesReferences?.nodes?.length) {
-        content += `* Reference issues: ${i.closingIssuesReferences.nodes.map(formatIssueItem).join(', ')}\n`
+      if (i.closingIssuesReferences?.totalCount) {
+        const { totalCount, nodes } = i.closingIssuesReferences
+        content += `* Linked issue${totalCount > 1 ? 's' : ''}: ${nodes.map(formatIssueItem).join(', ')}\n`
+      }
+      // format aggregated comment stats
+      if (i.comments?.totalCount) {
+        content += formatAggDiscussionStats({ discussions: i.comments, start, end })
+      }
+      // format aggregated review stats
+      if (i.reviews?.totalCount) {
+        content += formatAggDiscussionStats({ discussions: i.reviews, start, end })
       }
     })
   })
 
-  return { summary, content }
+  return {
+    title: `Previously - ${formatDates({ start, end }).message}`,
+    summary: [summary], // TODO: add lone repos
+    content,
+  }
 }
 
 const getTeamTopicsCategory = (repositoryTopics) => {
@@ -158,7 +184,7 @@ const getTeamTopicsCategory = (repositoryTopics) => {
 
 module.exports.filterReleasesTeams = ({ team, repos, start, end }) => {
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
-  const _end = DateTime.fromISO(end, { zone: 'UTC' }).startOf('day')
+  const _end = DateTime.fromISO(end, { zone: 'UTC' }).endOf('day')
 
   return repos.map(({ releases, repositoryTopics, ...rest }) => {
     const ttc = getTeamTopicsCategory(repositoryTopics)

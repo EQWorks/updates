@@ -48,7 +48,7 @@ const issueNode = `
       name
     }
   }
-  assignees(first: 100) {
+  assignees(first: 10) {
     nodes {
       login
       name
@@ -62,7 +62,7 @@ const issueNode = `
   repository {
     name
     url
-    repositoryTopics(first: 100) {
+    repositoryTopics(first: 10) {
       nodes {
         topic {
           name
@@ -90,7 +90,7 @@ const issueNode = `
       createdAt
     }
   }
-  projectsV2(first: 100) {
+  projectsV2(first: 10) {
     nodes {
       number
       url
@@ -123,7 +123,7 @@ module.exports.updatedIssuesByRange = searchByRange({
                 name
               }
             }
-            assignees(first: 100) {
+            assignees(first: 10) {
               nodes {
                 login
                 name
@@ -151,7 +151,7 @@ module.exports.updatedIssuesByRange = searchByRange({
             repository {
               name
               url
-              repositoryTopics(first: 100) {
+              repositoryTopics(first: 10) {
                 nodes {
                   topic {
                     name
@@ -187,7 +187,7 @@ module.exports.updatedIssuesByRange = searchByRange({
               totalCount
               nodes {${issueNode}}
             }
-            projectsV2(first: 100) {
+            projectsV2(first: 10) {
               nodes {
                 number
                 url
@@ -222,7 +222,7 @@ module.exports.reposByRange = searchByRange({
                 url
               }
             }
-            repositoryTopics(first: 100) {
+            repositoryTopics(first: 10) {
               nodes {
                 topic {
                   ... on Topic {
