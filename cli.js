@@ -68,14 +68,22 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
   if (raw) {
     return JSON.stringify({ vacays, repos, releases, issues, journals })
   }
-  const post = ghV2.formatPreviously({ repos, ...issues })
+  let prefix = 'Digest'
+  if (team) {
+    prefix = `${team.toUpperCase()} Digest`
+  }
+  const post = ghV2.formatPreviously({ repos, ...issues, prefix })
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
   asana.formatVacays({ post, vacays, pre: true }) // mutates post.content with vacations
   notion.formatJournals({ post, journals }) // mutates post.content with journals
   if (dryRun) {
     return post.content
   }
-  const page = await notionTarget.uploadMD(post, `weekly-${team}`)
+  let tag = 'weekly'
+  if (team) {
+    tag += `-${team}`
+  }
+  const page = await notionTarget.uploadMD(post, tag)
   return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })
 }
 const getRange = async ({ date, scope, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
@@ -96,7 +104,7 @@ const getRange = async ({ date, scope, raw = false, dryRun = false, timeZone = O
   if (raw) {
     return JSON.stringify({ repos, releases, issues })
   }
-  const post = ghV2.formatPreviously({ repos, ...issues })
+  const post = ghV2.formatPreviously({ repos, ...issues, prefix: `${scope.toUpperCase()} Digest` })
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
   if (dryRun) {
     return post.content

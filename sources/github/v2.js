@@ -135,23 +135,21 @@ const formatAggDiscussionStats = ({ discussions, start, end }) => {
 // TODO: adapt to v2 GraphQL sourced repos
 const formatLoneRepos = (loneRepos) => {
   let content = ''
-  const summary = []
   if (loneRepos.length) {
     const grouped = loneRepos.reduce(groupByCat, {})
     content += `\n${loneRepos.length} Lone Repo updates`
     Object.entries(grouped).forEach(([category, items]) => {
       content += `\n* ${category} - ${items.map(({ name, html_url }) => {
-        summary.push(name)
         return `[${name}](${html_url})`
       }).join(', ')}`
     })
     content += '\n'
   }
-  return { content, summary }
+  return content
 }
 
 // format previously (daily) updates
-module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
+module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'Previously' }) => {
   let summary = []
   let content = ''
   // group by repository, maintain natural order of PRs before issues
@@ -167,13 +165,15 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
   // TODO: adapt to v2 GraphQL sourced repos
   // filter out lone repos (no issues or PRs)
   const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
-  const { content: loneReposContent, summary: loneReposSummary } = formatLoneRepos(loneRepos)
-  summary = summary.concat(loneReposSummary)
-  content += loneReposContent
+  if (loneRepos.length) {
+    summary.push(`Lone repo updates:\n${loneRepos.map(({ name }) => `* ${name}`).join('\n')}`)
+    content += formatLoneRepos(loneRepos)
+  }
   // format summary stats for PRs and issues
   let issueSummary = `${issues.length + prs.length} updates (${prs.length} PRs, ${issues.length} issues)`
   issueSummary += formatAggIssuesStates([...prs, ...issues])
   summary.push(issueSummary)
+  content += `\n${issueSummary}`
   // format content for each repo
   Object.values(byRepo).forEach((repo) => {
     // console.log(repo)
@@ -212,7 +212,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
   })
 
   return {
-    title: `Previously - ${formatDates({ start, end }).message}`,
+    title: `${prefix} - ${formatDates({ start, end }).message}`,
     summary,
     content,
   }
