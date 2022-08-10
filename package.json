@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/updates",
-  "version": "0.9.0",
+  "version": "1.0.0-alpha.0",
   "description": "Tool to retrieve work updates from multiple sources.",
   "main": "index.js",
   "source": "index.js",
