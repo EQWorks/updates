@@ -23,11 +23,11 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
   const end = stripMS(yst.endOf('day').toUTC())
 
   const [issues, repos, vacays, journals] = await Promise.all([
-    ghGraphQL.updatedIssuesByRange({ start, end })
+    ghGraphQL.issuesByRange({ start, end })
       .then(ghV2.splitIssuesPRs)
       .then((data) => ({ ...data, start, end })),
     gh.reposByRange({ start, end })
-      .then((issues) => issues.filter(gh.ignoreProjects))
+      .then((repos) => repos.filter(gh.ignoreProjects))
       .then((repos) => gh.enrichRepos({ repos, team })),
     asana.getVacays({ after: day.toISODate(), before: day.endOf('week').toISODate() }),
     notion.getJournals({ start, end, isDaily: true }),
@@ -55,66 +55,51 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
   const end = stripMS(yst.endOf('day').toUTC())
 
   const [issues, repos, vacays, journals] = await Promise.all([
-    gh.issuesByRange({ start, end })
-      .then((issues) => issues.filter(gh.ignoreProjects))
-      .then((issues) => issues.filter(gh.ignoreBotUsers))
-      .then((issues) => gh.enrichIssues({ issues, start, end, team })),
+    ghGraphQL.issuesByRange({ start, end })
+      .then(ghV2.splitIssuesPRs)
+      .then((data) => ({ ...data, start, end })),
     gh.reposByRange({ start, end })
       .then((repos) => repos.filter(gh.ignoreProjects))
       .then((repos) => gh.enrichRepos({ repos, team })),
     asana.getVacays({ after: lastYst.toISODate(), before: day.endOf('week').toISODate() }),
     notion.getJournals({ start, end }),
   ])
-  const [enriched, releases] = await Promise.all([
-    gh.enrichNLP({ repos, ...issues, vacays, journals }),
-    gh.api.getReleases({ repos, start, end }),
-  ])
+  const releases = await gh.api.getReleases({ repos, start, end })
   if (raw) {
-    return JSON.stringify({ ...enriched, releases })
+    return JSON.stringify({ vacays, repos, releases, issues, journals })
   }
-  const post = gh.formatDigest(enriched)
+  const post = ghV2.formatPreviously({ repos, ...issues })
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
   asana.formatVacays({ post, vacays, pre: true }) // mutates post.content with vacations
   notion.formatJournals({ post, journals }) // mutates post.content with journals
   if (dryRun) {
-    return post
+    return post.content
   }
   const page = await notionTarget.uploadMD(post, `weekly-${team}`)
   return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })
 }
-const getRange = async ({ date, scope, team, raw = false, dryRun = false, timeZone = ORG_TZ, labels = [] }) => {
+const getRange = async ({ date, scope, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
   // range in ISO string but drops ms portion
   const day = DateTime.fromISO(date).setZone(timeZone, { keepLocalTime: true })
   const start = stripMS(day.startOf(scope).toUTC())
   const end = stripMS(day.endOf(scope).toUTC())
 
   const [issues, repos] = await Promise.all([
-    gh.issuesByRange({ start, end })
-      .then((issues) => issues.filter(gh.ignoreProjects))
-      .then((issues) => issues.filter(gh.ignoreBotUsers))
-      .then((issues) => gh.enrichIssues({ issues, start, end, team })),
+    ghGraphQL.issuesByRange({ start, end })
+      .then(ghV2.splitIssuesPRs)
+      .then((data) => ({ ...data, start, end })),
     gh.reposByRange({ start, end })
       .then((repos) => repos.filter(gh.ignoreProjects))
       .then((repos) => gh.enrichRepos({ repos })),
   ])
-  const [enriched, releases] = await Promise.all([
-    gh.enrichNLP({ repos, ...issues }),
-    gh.api.getReleases({ repos, start, end }),
-  ])
-  // filter issues and PRs by first labels
-  if (labels.length) {
-    const norm = labels.map((label) => label.toLowerCase()) // normalize labels to all lowercase
-    enriched.issues = enriched.issues.filter(({ labels }) => norm.includes(labels[0].toLowerCase()))
-    enriched.prs = enriched.prs.filter(({ labels }) => norm.includes(labels[0].toLowerCase()))
-  }
+  const releases = await gh.api.getReleases({ repos, start, end })
   if (raw) {
-    return JSON.stringify({ ...enriched, releases })
+    return JSON.stringify({ repos, releases, issues })
   }
-  enriched.onlyClosed = ['year', 'quarter', 'month'].includes(scope)
-  const post = gh.formatDigest(enriched)
+  const post = ghV2.formatPreviously({ repos, ...issues })
   gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
   if (dryRun) {
-    return post
+    return post.content
   }
   const page = await notionTarget.uploadMD(post, 'range')
   return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })

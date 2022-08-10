@@ -1,6 +1,10 @@
 const { DateTime } = require('luxon')
 
-const { isTeamTopic, trimTitle } = require('./util')
+const {
+  isTeamTopic,
+  trimTitle,
+  groupByCat, // TODO: this shouldn't be needed for v2 source
+} = require('./util')
 const { formatDates } = require('../util')
 
 
@@ -117,14 +121,28 @@ const formatAggDiscussionStats = ({ discussions, start, end }) => {
   return `* [${prefix}](${lastComment.url}) by ${commentors.join(', ')}\n`
 }
 
-// format previously (daily) updates
-module.exports.formatPreviously = ({ issues, prs, start, end }) => {
-  // TODO: format lone repos
-  let summary = ''
+// TODO: adapt to v2 GraphQL sourced repos
+const formatLoneRepos = (loneRepos) => {
   let content = ''
-  // format summary stats for PRs and issues
-  summary += `${issues.length + prs.length} updates (${prs.length} PRs, ${issues.length} issues)`
-  summary += formatAggIssuesStates([...prs, ...issues])
+  const summary = []
+  if (loneRepos.length) {
+    const grouped = loneRepos.reduce(groupByCat, {})
+    content += `\n${loneRepos.length} Lone Repo updates`
+    Object.entries(grouped).forEach(([category, items]) => {
+      content += `\n* ${category} - ${items.map(({ name, html_url }) => {
+        summary.push(name)
+        return `[${name}](${html_url})`
+      }).join(', ')}`
+    })
+    content += '\n'
+  }
+  return { content, summary }
+}
+
+// format previously (daily) updates
+module.exports.formatPreviously = ({ repos, issues, prs, start, end }) => {
+  let summary = []
+  let content = ''
   // group by repository, maintain natural order of PRs before issues
   const byRepo = [...prs, ...issues].reduce((acc, issue) => {
     const repo = issue.repository.name
@@ -134,6 +152,17 @@ module.exports.formatPreviously = ({ issues, prs, start, end }) => {
     }
     return acc
   }, {})
+  // format lone repos
+  // TODO: adapt to v2 GraphQL sourced repos
+  // filter out lone repos (no issues or PRs)
+  const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
+  const { content: loneReposContent, summary: loneReposSummary } = formatLoneRepos(loneRepos)
+  summary = summary.concat(loneReposSummary)
+  content += loneReposContent
+  // format summary stats for PRs and issues
+  let issueSummary = `${issues.length + prs.length} updates (${prs.length} PRs, ${issues.length} issues)`
+  issueSummary += formatAggIssuesStates([...prs, ...issues])
+  summary.push(issueSummary)
   // format content for each repo
   Object.values(byRepo).forEach((repo) => {
     // console.log(repo)
@@ -168,7 +197,7 @@ module.exports.formatPreviously = ({ issues, prs, start, end }) => {
 
   return {
     title: `Previously - ${formatDates({ start, end }).message}`,
-    summary: [summary], // TODO: add lone repos
+    summary,
     content,
   }
 }

@@ -100,7 +100,7 @@ const issueNode = `
   }
 `
 
-module.exports.updatedIssuesByRange = searchByRange({
+module.exports.issuesByRange = searchByRange({
   searchQuery: '-author:app/dependabot',
   query: `
     query IssuesQuery($q: String!, $type: SearchType!, $first: Int!, $after: String) {

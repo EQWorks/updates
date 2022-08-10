@@ -238,7 +238,7 @@ module.exports.formatReleases = ({ post, releases, pre = true }) => {
   if (!releases || releases.length === 0) {
     return post
   }
-  let content = `${releases.length} Releases\n`
+  let content = `\n${releases.length} Releases\n`
   const byProjects = releases.reduce(groupByProj, {})
   const summary = []
   Object.entries(byProjects).forEach(([project, items]) => {
