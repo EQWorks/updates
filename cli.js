@@ -57,22 +57,21 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
     ghGraphQL.issuesByRange({ start, end })
       .then(ghV2.splitIssuesPRs)
       .then((data) => ({ ...data, start, end })),
-    gh.reposByRange({ start, end })
-      .then((repos) => repos.filter(gh.ignoreProjects))
-      .then((repos) => gh.enrichRepos({ repos, team })),
+    ghGraphQL.reposByRange({ start, end })
+      .then((repos) => repos.filter(ghV2.ignoreProjects))
+      .then((repos) => ghV2.filterReleasesTeams({ team, repos, start, end })),
     asana.getVacays({ after: lastYst.toISODate(), before: day.endOf('week').toISODate() }),
     notion.getJournals({ start, end }),
   ])
-  const releases = await gh.api.getReleases({ repos, start, end })
   if (raw) {
-    return JSON.stringify({ vacays, repos, releases, issues, journals })
+    return JSON.stringify({ vacays, repos, issues, journals })
   }
   let prefix = 'Digest'
   if (team) {
     prefix = `${team.toUpperCase()} Digest`
   }
   const post = ghV2.formatPreviously({ repos, ...issues, prefix })
-  gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
+  ghV2.formatReleases({ post, repos, pre: true }) // mutates post.content with releases
   asana.formatVacays({ post, vacays, pre: true }) // mutates post.content with vacations
   notion.formatJournals({ post, journals }) // mutates post.content with journals
   if (dryRun) {
@@ -95,16 +94,15 @@ const getRange = async ({ date, scope, raw = false, dryRun = false, timeZone = O
     ghGraphQL.issuesByRange({ start, end })
       .then(ghV2.splitIssuesPRs)
       .then((data) => ({ ...data, start, end })),
-    gh.reposByRange({ start, end })
-      .then((repos) => repos.filter(gh.ignoreProjects))
-      .then((repos) => gh.enrichRepos({ repos })),
+    ghGraphQL.reposByRange({ start, end })
+      .then((repos) => repos.filter(ghV2.ignoreProjects))
+      .then((repos) => ghV2.filterReleasesTeams({ repos, start, end })),
   ])
-  const releases = await gh.api.getReleases({ repos, start, end })
   if (raw) {
-    return JSON.stringify({ repos, releases, issues })
+    return JSON.stringify({ repos, issues })
   }
   const post = ghV2.formatPreviously({ repos, ...issues, prefix: `${scope.toUpperCase()} Digest` })
-  gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
+  ghV2.formatReleases({ post, repos, pre: true }) // mutates post.content with releases
   if (dryRun) {
     return post.content
   }
