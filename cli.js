@@ -26,18 +26,17 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
     ghGraphQL.issuesByRange({ start, end })
       .then(ghV2.splitIssuesPRs)
       .then((data) => ({ ...data, start, end })),
-    gh.reposByRange({ start, end })
-      .then((repos) => repos.filter(gh.ignoreProjects))
-      .then((repos) => gh.enrichRepos({ repos, team })),
+    ghGraphQL.reposByRange({ start, end })
+      .then((repos) => repos.filter(ghV2.ignoreProjects))
+      .then((repos) => ghV2.filterReleasesTeams({ team, repos, start, end })),
     asana.getVacays({ after: day.toISODate(), before: day.endOf('week').toISODate() }),
     notion.getJournals({ start, end, isDaily: true }),
   ])
-  const releases = await gh.api.getReleases({ repos, start, end })
   if (raw) {
-    return JSON.stringify({ vacays, repos, releases, issues, journals })
+    return JSON.stringify({ vacays, repos, issues, journals })
   }
   const post = ghV2.formatPreviously({ repos, ...issues })
-  gh.formatReleases({ post, releases, pre: true }) // mutates post.content with releases
+  ghV2.formatReleases({ post, repos, pre: true }) // mutates post.content with releases
   asana.formatVacays({ post, vacays, pre: true }) // mutates post.content with vacations
   notion.formatJournals({ post, journals }) // mutates post.content with journals
   if (dryRun) {
