@@ -2,7 +2,6 @@
 const { DateTime } = require('luxon')
 
 // TODO: re-org back to gh after GraphQL + v2 refactor
-const gh = require('./sources/github')
 const ghGraphQL = require('./sources/github/graphql')
 const ghV2 = require('./sources/github/v2')
 const asana = require('./sources/asana')

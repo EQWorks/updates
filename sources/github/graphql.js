@@ -243,7 +243,7 @@ module.exports.reposByRange = searchByRange({
                 }
               }
             }
-            releases(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) {
+            releases(first: 20, orderBy: { field: CREATED_AT, direction: DESC }) {
               nodes {
                 name
                 tag {

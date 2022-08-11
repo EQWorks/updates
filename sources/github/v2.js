@@ -134,15 +134,14 @@ const formatAggDiscussionStats = ({ discussions, start, end }) => {
   return `* [${prefix}](${lastComment.url}) by ${commentors.join(', ')}\n`
 }
 
-// TODO: adapt to v2 GraphQL sourced repos
 const formatLoneRepos = (loneRepos) => {
   let content = ''
   if (loneRepos.length) {
     const grouped = loneRepos.reduce(groupByCat, {})
     content += `\n${loneRepos.length} Lone Repo updates`
     Object.entries(grouped).forEach(([category, items]) => {
-      content += `\n* ${category} - ${items.map(({ name, html_url }) => {
-        return `[${name}](${html_url})`
+      content += `\n* ${category} - ${items.map(({ name, url }) => {
+        return `[${name}](${url})`
       }).join(', ')}`
     })
     content += '\n'
@@ -164,7 +163,6 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
     return acc
   }, {})
   // format lone repos
-  // TODO: adapt to v2 GraphQL sourced repos
   // filter out lone repos (no issues or PRs)
   const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
   if (loneRepos.length) {
