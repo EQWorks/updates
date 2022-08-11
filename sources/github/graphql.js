@@ -41,13 +41,14 @@ const searchByRange = ({
 
 const issueNode = `
   id
+  number
   author {
     ... on User {
       login
       name
     }
   }
-  assignees(first: 100) {
+  assignees(first: 10) {
     nodes {
       login
       name
@@ -61,7 +62,7 @@ const issueNode = `
   repository {
     name
     url
-    repositoryTopics(first: 100) {
+    repositoryTopics(first: 10) {
       nodes {
         topic {
           name
@@ -89,7 +90,7 @@ const issueNode = `
       createdAt
     }
   }
-  projectsV2(first: 100) {
+  projectsV2(first: 10) {
     nodes {
       number
       url
@@ -97,9 +98,15 @@ const issueNode = `
     }
     totalCount
   }
+  labels(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+    nodes {
+      name
+    }
+    totalCount
+  }
 `
 
-module.exports.updatedIssuesByRange = searchByRange({
+module.exports.issuesByRange = searchByRange({
   searchQuery: '-author:app/dependabot',
   query: `
     query IssuesQuery($q: String!, $type: SearchType!, $first: Int!, $after: String) {
@@ -115,13 +122,14 @@ module.exports.updatedIssuesByRange = searchByRange({
           ... on Issue {${issueNode}}
           ... on PullRequest {
             id
+            number
             author {
               ... on User {
                 login
                 name
               }
             }
-            assignees(first: 100) {
+            assignees(first: 10) {
               nodes {
                 login
                 name
@@ -149,7 +157,7 @@ module.exports.updatedIssuesByRange = searchByRange({
             repository {
               name
               url
-              repositoryTopics(first: 100) {
+              repositoryTopics(first: 10) {
                 nodes {
                   topic {
                     name
@@ -185,11 +193,17 @@ module.exports.updatedIssuesByRange = searchByRange({
               totalCount
               nodes {${issueNode}}
             }
-            projectsV2(first: 100) {
+            projectsV2(first: 10) {
               nodes {
                 number
                 url
                 title
+              }
+              totalCount
+            }
+            labels(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+              nodes {
+                name
               }
               totalCount
             }
@@ -220,7 +234,7 @@ module.exports.reposByRange = searchByRange({
                 url
               }
             }
-            repositoryTopics(first: 100) {
+            repositoryTopics(first: 10) {
               nodes {
                 topic {
                   ... on Topic {
