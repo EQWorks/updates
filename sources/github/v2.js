@@ -8,6 +8,8 @@ const {
 const { formatDates } = require('../util')
 
 
+const { GITHUB_ORG = 'EQWorks' } = process.env
+
 // issues contain both issues and PRs, through __typename
 module.exports.splitIssuesPRs = (data) => {
   // separate out PRs
@@ -245,4 +247,44 @@ module.exports.filterReleasesTeams = ({ team, repos, start, end }) => {
         .map(({ tag, ...r }) => ({ ...r, tag: tag.name })),
     })
   }).filter(({ team: t }) => !team || !t || (t.toLowerCase() === team.toLowerCase()))
+}
+
+module.exports.ignoreProjects = ({ url }) =>
+  !url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`) // EQ website repo
+  && !url.startsWith(`https://github.com/${GITHUB_ORG}/cs-`) // CS repos
+  && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm-`) // swarm repos
+  && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm2-`) // swarm repos
+
+module.exports.formatReleases = ({ post, repos, pre = true }) => {
+  const hasReleases = repos.find(({ releases }) => releases.length)
+
+  if (!hasReleases) {
+    return post
+  }
+
+  const releasesCount = repos.reduce((acc, { releases }) => acc + releases.length, 0)
+  const summary = []
+  let content = `\n${releasesCount} Releases\n`
+
+  repos
+    .filter(({ releases }) => releases.length)
+    .forEach(({ name, releases }) => {
+      if (releases.length > 1) {
+        content += `\n* ${releases.length} *${name}* releases`
+        summary.push(`${name}: ${releases.length}`)
+      } else {
+        content += `\n* 1 *${name}* release`
+        summary.push(`${name}: 1`)
+      }
+      content += ` - ${releases.map(({ tag, url }) => `[${tag}](${url})`).join(', ')}`
+    })
+
+  if (pre) {
+    post.content = `${content}\n${post.content}`
+  } else {
+    post.content = `${post.content}\n${content}`
+  }
+
+  post.summary.push(`${releasesCount} release(s)\n${summary.join('\n')}`)
+  return post
 }
