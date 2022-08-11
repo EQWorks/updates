@@ -114,7 +114,7 @@ const formatIssueItem = (issue) => {
 }
 
 // discussions is either reviews or comments
-const formatAggDiscussionStats = ({ discussions, start, end }) => {
+const formatAggDiscussionStats = ({ type, discussions, start, end }) => {
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).endOf('day')
   const { totalCount, nodes } = discussions
@@ -127,9 +127,9 @@ const formatAggDiscussionStats = ({ discussions, start, end }) => {
   }
   const commentors = [...new Set(inRange.map(({ author }) => author.login))]
   const lastComment = inRange[inRange.length - 1] // since sorted DESC
-  let prefix = `${totalCount} comment${totalCount > 1 ? 's' : ''}`
+  let prefix = `${totalCount} ${type}${totalCount > 1 ? 's' : ''}`
   if (inRange.length < totalCount) {
-    prefix = `${inRange.length} of ${totalCount} updated comment${inRange.length > 1 ? 's' : ''}`
+    prefix = `${inRange.length} of ${totalCount} updated ${type}${inRange.length > 1 ? 's' : ''}`
   }
   return `* [${prefix}](${lastComment.url}) by ${commentors.join(', ')}\n`
 }
@@ -197,11 +197,11 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
       }
       // format aggregated comment stats
       if (i.comments?.totalCount) {
-        content += formatAggDiscussionStats({ discussions: i.comments, start, end })
+        content += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
       }
       // format aggregated review stats
       if (i.reviews?.totalCount) {
-        content += formatAggDiscussionStats({ discussions: i.reviews, start, end })
+        content += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
       }
       // format labels
       const labels = getLabels(i)
