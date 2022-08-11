@@ -8,6 +8,8 @@ const {
 const { formatDates } = require('../util')
 
 
+const { GITHUB_ORG = 'EQWorks' } = process.env
+
 // issues contain both issues and PRs, through __typename
 module.exports.splitIssuesPRs = (data) => {
   // separate out PRs
@@ -112,7 +114,7 @@ const formatIssueItem = (issue) => {
 }
 
 // discussions is either reviews or comments
-const formatAggDiscussionStats = ({ discussions, start, end }) => {
+const formatAggDiscussionStats = ({ type, discussions, start, end }) => {
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).endOf('day')
   const { totalCount, nodes } = discussions
@@ -125,22 +127,21 @@ const formatAggDiscussionStats = ({ discussions, start, end }) => {
   }
   const commentors = [...new Set(inRange.map(({ author }) => author.login))]
   const lastComment = inRange[inRange.length - 1] // since sorted DESC
-  let prefix = `${totalCount} comment${totalCount > 1 ? 's' : ''}`
+  let prefix = `${totalCount} ${type}${totalCount > 1 ? 's' : ''}`
   if (inRange.length < totalCount) {
-    prefix = `${inRange.length} of ${totalCount} updated comment${inRange.length > 1 ? 's' : ''}`
+    prefix = `${inRange.length} of ${totalCount} updated ${type}${inRange.length > 1 ? 's' : ''}`
   }
   return `* [${prefix}](${lastComment.url}) by ${commentors.join(', ')}\n`
 }
 
-// TODO: adapt to v2 GraphQL sourced repos
 const formatLoneRepos = (loneRepos) => {
   let content = ''
   if (loneRepos.length) {
     const grouped = loneRepos.reduce(groupByCat, {})
     content += `\n${loneRepos.length} Lone Repo updates`
     Object.entries(grouped).forEach(([category, items]) => {
-      content += `\n* ${category} - ${items.map(({ name, html_url }) => {
-        return `[${name}](${html_url})`
+      content += `\n* ${category} - ${items.map(({ name, url }) => {
+        return `[${name}](${url})`
       }).join(', ')}`
     })
     content += '\n'
@@ -162,7 +163,6 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
     return acc
   }, {})
   // format lone repos
-  // TODO: adapt to v2 GraphQL sourced repos
   // filter out lone repos (no issues or PRs)
   const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
   if (loneRepos.length) {
@@ -197,11 +197,11 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
       }
       // format aggregated comment stats
       if (i.comments?.totalCount) {
-        content += formatAggDiscussionStats({ discussions: i.comments, start, end })
+        content += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
       }
       // format aggregated review stats
       if (i.reviews?.totalCount) {
-        content += formatAggDiscussionStats({ discussions: i.reviews, start, end })
+        content += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
       }
       // format labels
       const labels = getLabels(i)
@@ -245,4 +245,44 @@ module.exports.filterReleasesTeams = ({ team, repos, start, end }) => {
         .map(({ tag, ...r }) => ({ ...r, tag: tag.name })),
     })
   }).filter(({ team: t }) => !team || !t || (t.toLowerCase() === team.toLowerCase()))
+}
+
+module.exports.ignoreProjects = ({ url }) =>
+  !url.startsWith(`https://github.com/${GITHUB_ORG}/eqworks.github.io`) // EQ website repo
+  && !url.startsWith(`https://github.com/${GITHUB_ORG}/cs-`) // CS repos
+  && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm-`) // swarm repos
+  && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm2-`) // swarm repos
+
+module.exports.formatReleases = ({ post, repos, pre = true }) => {
+  const hasReleases = repos.find(({ releases }) => releases.length)
+
+  if (!hasReleases) {
+    return post
+  }
+
+  const releasesCount = repos.reduce((acc, { releases }) => acc + releases.length, 0)
+  const summary = []
+  let content = `\n${releasesCount} Releases\n`
+
+  repos
+    .filter(({ releases }) => releases.length)
+    .forEach(({ name, releases }) => {
+      if (releases.length > 1) {
+        content += `\n* ${releases.length} *${name}* releases`
+        summary.push(`${name}: ${releases.length}`)
+      } else {
+        content += `\n* 1 *${name}* release`
+        summary.push(`${name}: 1`)
+      }
+      content += ` - ${releases.map(({ tag, url }) => `[${tag}](${url})`).join(', ')}`
+    })
+
+  if (pre) {
+    post.content = `${content}\n${post.content}`
+  } else {
+    post.content = `${post.content}\n${content}`
+  }
+
+  post.summary.push(`${releasesCount} release(s)\n${summary.join('\n')}`)
+  return post
 }
