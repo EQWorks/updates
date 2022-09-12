@@ -2,7 +2,7 @@ name: Daily (weekday)
 
 on:
   schedule:
-    # At UTC 06:00 every Tuesday
+    # At UTC 06:00 every week day
     - cron: '0 6 * * 1-5'
 
 jobs:
@@ -38,3 +38,9 @@ jobs:
           ASANA_TOKEN: ${{ secrets.ASANA_TOKEN }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           SLACK_CHANNEL: G01G0BPP536 # dev-updates-
+
+      - name: Live long and prosper
+        uses: gautamkrishnar/keepalive-workflow@v1
+        with:
+          commit_message: "devops - auto keepalive before 60 days of inactivity"
+          committer_email: "runzhou.li@gmail.com"
