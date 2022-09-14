@@ -1,5 +1,5 @@
 const { notion } = require('../../sources/notion/api')
-const { mdNotionConverter } = require('./converter')
+const { markdownToBlocks } = require('@tryfabric/martian')
 
 
 const { DATABASE_ID = 'adf0c7124e1e44ff851e254dbe36015c' } = process.env
@@ -16,5 +16,5 @@ module.exports.uploadMD = (post, tag) => notion.pages.create({
     Date: { type: 'date', date: { start: today } },
     Tags: { multi_select: [{ name: tag }] },
   },
-  children: mdNotionConverter(post.content),
+  children: markdownToBlocks(post.content),
 })

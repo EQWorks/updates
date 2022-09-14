@@ -31,6 +31,7 @@
     "@notionhq/client": "^1.0.4",
     "@octokit/core": "^3.2.4",
     "@slack/web-api": "^5.15.0",
+    "@tryfabric/martian": "^1.2.4",
     "asana": "^0.18.5",
     "luxon": "^1.25.0",
     "yargs": "^17.3.0"
