@@ -152,7 +152,7 @@ const formatLoneRepos = (loneRepos) => {
 // format previously (daily) updates
 module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'Previously' }) => {
   let summary = []
-  let content = ''
+  let previously = ''
   // group by repository, maintain natural order of PRs before issues
   const byRepo = [...prs, ...issues].reduce((acc, issue) => {
     const repo = issue.repository.name
@@ -167,46 +167,46 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
   const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
   if (loneRepos.length) {
     summary.push(`Lone repo updates:\n${loneRepos.map(({ name }) => `* ${name}`).join('\n')}`)
-    content += formatLoneRepos(loneRepos)
+    previously += formatLoneRepos(loneRepos)
   }
   // format summary stats for PRs and issues
   let issueSummary = `${issues.length + prs.length} updates (${prs.length} PRs, ${issues.length} issues)`
   issueSummary += formatAggIssuesStates([...prs, ...issues])
   summary.push(issueSummary)
-  content += `\n${issueSummary}`
+  previously += `\n${issueSummary}`
   // format content for each repo
   Object.values(byRepo).forEach((repo) => {
     // console.log(repo)
-    content += `\n# 🎯\t[${repo.name}](${repo.url})\n`
+    previously += `\n# 🎯\t[${repo.name}](${repo.url})\n`
     // format each PR and issue
     repo.issues.forEach((i) => {
-      content += `\n${stateIcon(i)}\t`
+      previously += `\n${stateIcon(i)}\t`
       // format projects association
       let projects = getProjectsV2(i)
       if (!projects.length) {
         projects = getProjectTopics(i?.repository?.repositoryTopics)
       }
       if (projects.length) {
-        content += `[${projects.map((p) => `[${trimTitle(p)}](${p.url || repo.url})`).join(', ')}]`
+        previously += `[${projects.map((p) => `[${trimTitle(p)}](${p.url || repo.url})`).join(', ')}]`
       }
-      content += ` ${formatIssueItem(i)}\n`
+      previously += ` ${formatIssueItem(i)}\n`
       // format closing issues association
       if (i.closingIssuesReferences?.totalCount) {
         const { totalCount, nodes } = i.closingIssuesReferences
-        content += `* Linked issue${totalCount > 1 ? 's' : ''}: ${nodes.map(formatIssueItem).join(', ')}\n`
+        previously += `* Linked issue${totalCount > 1 ? 's' : ''}: ${nodes.map(formatIssueItem).join(', ')}\n`
       }
       // format aggregated comment stats
       if (i.comments?.totalCount) {
-        content += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
+        previously += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
       }
       // format aggregated review stats
       if (i.reviews?.totalCount) {
-        content += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
+        previously += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
       }
       // format labels
       const labels = getLabels(i)
       if (labels.length) {
-        content += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
+        previously += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
       }
     })
   })
@@ -214,7 +214,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
   return {
     title: `${prefix} - ${formatDates({ start, end }).message}`,
     summary,
-    content,
+    content: { previously },
   }
 }
 
@@ -253,7 +253,7 @@ module.exports.ignoreProjects = ({ url }) =>
   && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm-`) // swarm repos
   && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm2-`) // swarm repos
 
-module.exports.formatReleases = ({ post, repos, pre = true }) => {
+module.exports.formatReleases = ({ post, repos }) => {
   const hasReleases = repos.find(({ releases }) => releases.length)
 
   if (!hasReleases) {
@@ -277,12 +277,8 @@ module.exports.formatReleases = ({ post, repos, pre = true }) => {
       content += ` - ${releases.map(({ tag, url }) => `[${tag}](${url})`).join(', ')}`
     })
 
-  if (pre) {
-    post.content = `${content}\n${post.content}`
-  } else {
-    post.content = `${post.content}\n${content}`
-  }
-
+  post.content = post.content || {}
+  post.content.releases = content
   post.summary.push(`${releasesCount} release(s)\n${summary.join('\n')}`)
   return post
 }

@@ -35,8 +35,8 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
     return JSON.stringify({ vacays, repos, issues, journals })
   }
   const post = ghV2.formatPreviously({ repos, ...issues })
-  ghV2.formatReleases({ post, repos, pre: true }) // mutates post.content with releases
-  asana.formatVacays({ post, vacays, pre: true }) // mutates post.content with vacations
+  ghV2.formatReleases({ post, repos }) // mutates post.content with releases
+  asana.formatVacays({ post, vacays }) // mutates post.content with vacations
   notion.formatJournals({ post, journals }) // mutates post.content with journals
   if (dryRun) {
     return post.content

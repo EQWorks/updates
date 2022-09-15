@@ -77,7 +77,7 @@ module.exports.getVacays = async ({
   }, {})
 }
 
-module.exports.formatVacays = ({ post, vacays, pre = true }) => {
+module.exports.formatVacays = ({ post, vacays }) => {
   if (!Object.keys(vacays).length) {
     return post
   }
@@ -94,11 +94,8 @@ module.exports.formatVacays = ({ post, vacays, pre = true }) => {
     s += `\n- ${email} - ${fr}`
     summary.push(`${email.split(/[@.]/)[0]}: ${fr}`)
   })
-  if (pre) {
-    post.content = `${s}\n${post.content}`
-  } else {
-    post.content += `\n${s}`
-  }
+  post.content = post.content || {}
+  post.content.vacays = s
   post.summary.push(`${Object.keys(vacays).length} vacation status\n${summary.join('\n')}`)
   return post
 }
