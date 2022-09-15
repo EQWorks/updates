@@ -100,7 +100,7 @@ module.exports.getJournals = async ({ start, end, isDaily }) => {
 
 module.exports.formatJournals = ({ post, journals }) => {
   const summary = []
-  let lwdJournals = '# JOURNALS\n'
+  let lwdJournals = `## ${Object.keys(journals).length} Journal Updates\n`
 
   Object.entries(journals).map(([name, journals]) => {
     return ({ [name]: {

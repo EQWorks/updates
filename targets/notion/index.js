@@ -36,6 +36,7 @@ module.exports.uploadMD = async (post, tag) => {
       const r = await notion.pages.create(page)
       return r
     } catch(e) {
+      console.warn('Journal updates too long, fall back to its summary...')
       // falls back to using journal summary for shorter body length
       page.children = markdownToBlocks([...children, post.summaries.journals].join('\n\n'))
     }
