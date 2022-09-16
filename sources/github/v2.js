@@ -54,7 +54,8 @@ const getProjectsV2 = (issue) => {
   return projects
 }
 
-const getLabels = (issue) => ([
+//
+const getLabels = (issue) => ([ // eslint-disable-line no-unused-vars
   ...new Set([
     // seek from direct labels association
     ...issue?.labels?.nodes?.map(({ name }) => name),
@@ -103,9 +104,11 @@ const formatParticipants = (issue) => {
   return p
 }
 
+const formatIssueLink = (issue) => `[[${formatIssueType(issue)} #${issue.number}](${issue.url})]`
+
 const formatIssueItem = (issue) => {
   // type with number and URL
-  const type = `[[${formatIssueType(issue)} #${issue.number}](${issue.url})]`
+  const type = formatIssueLink(issue)
   // title with URL
   const title = trimTitle(issue)
   // participants
@@ -114,7 +117,7 @@ const formatIssueItem = (issue) => {
 }
 
 // discussions is either reviews or comments
-const formatAggDiscussionStats = ({ type, discussions, start, end }) => {
+const formatAggDiscussionStats = ({ type, discussions, start, end }) => { // eslint-disable-line no-unused-vars
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).endOf('day')
   const { totalCount, nodes } = discussions
@@ -138,7 +141,7 @@ const formatLoneRepos = (loneRepos) => {
   let content = ''
   if (loneRepos.length) {
     const grouped = loneRepos.reduce(groupByCat, {})
-    content += `\n${loneRepos.length} Lone Repo updates`
+    content += `\n## ${loneRepos.length} Lone Repo updates`
     Object.entries(grouped).forEach(([category, items]) => {
       content += `\n* ${category} - ${items.map(({ name, url }) => {
         return `[${name}](${url})`
@@ -152,7 +155,7 @@ const formatLoneRepos = (loneRepos) => {
 // format previously (daily) updates
 module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'Previously' }) => {
   let summary = []
-  let content = ''
+  let previously = ''
   // group by repository, maintain natural order of PRs before issues
   const byRepo = [...prs, ...issues].reduce((acc, issue) => {
     const repo = issue.repository.name
@@ -167,54 +170,57 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
   const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
   if (loneRepos.length) {
     summary.push(`Lone repo updates:\n${loneRepos.map(({ name }) => `* ${name}`).join('\n')}`)
-    content += formatLoneRepos(loneRepos)
+    previously += formatLoneRepos(loneRepos)
   }
   // format summary stats for PRs and issues
   let issueSummary = `${issues.length + prs.length} updates (${prs.length} PRs, ${issues.length} issues)`
   issueSummary += formatAggIssuesStates([...prs, ...issues])
   summary.push(issueSummary)
-  content += `\n${issueSummary}`
+  previously += `\n## ${issueSummary}`
   // format content for each repo
   Object.values(byRepo).forEach((repo) => {
-    // console.log(repo)
-    content += `\n# 🎯\t[${repo.name}](${repo.url})\n`
+    // temp disable this as it has way too many excessive updates
+    if (repo.name.toLowerCase() === 'paymi-expo') {
+      return
+    }
+    previously += `\n## 🎯\t[${repo.name}](${repo.url})\n`
     // format each PR and issue
     repo.issues.forEach((i) => {
-      content += `\n${stateIcon(i)}\t`
+      previously += `\n${stateIcon(i)}\t`
       // format projects association
       let projects = getProjectsV2(i)
       if (!projects.length) {
         projects = getProjectTopics(i?.repository?.repositoryTopics)
       }
       if (projects.length) {
-        content += `[${projects.map((p) => `[${trimTitle(p)}](${p.url || repo.url})`).join(', ')}]`
+        previously += `[${projects.map((p) => `[${trimTitle(p)}](${p.url || repo.url})`).join(', ')}]`
       }
-      content += ` ${formatIssueItem(i)}\n`
+      previously += ` ${formatIssueItem(i)}\n`
       // format closing issues association
       if (i.closingIssuesReferences?.totalCount) {
         const { totalCount, nodes } = i.closingIssuesReferences
-        content += `* Linked issue${totalCount > 1 ? 's' : ''}: ${nodes.map(formatIssueItem).join(', ')}\n`
+        previously += `* Linked issue${totalCount > 1 ? 's' : ''}: ${nodes.map(formatIssueLink).join(', ')}\n`
       }
-      // format aggregated comment stats
-      if (i.comments?.totalCount) {
-        content += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
-      }
-      // format aggregated review stats
-      if (i.reviews?.totalCount) {
-        content += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
-      }
-      // format labels
-      const labels = getLabels(i)
-      if (labels.length) {
-        content += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
-      }
+      // // format aggregated comment stats
+      // if (i.comments?.totalCount) {
+      //   previously += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
+      // }
+      // // format aggregated review stats
+      // if (i.reviews?.totalCount) {
+      //   previously += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
+      // }
+      // // format labels
+      // const labels = getLabels(i)
+      // if (labels.length) {
+      //   previously += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
+      // }
     })
   })
 
   return {
     title: `${prefix} - ${formatDates({ start, end }).message}`,
     summary,
-    content,
+    content: { previously },
   }
 }
 
@@ -253,7 +259,7 @@ module.exports.ignoreProjects = ({ url }) =>
   && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm-`) // swarm repos
   && !url.startsWith(`https://github.com/${GITHUB_ORG}/swarm2-`) // swarm repos
 
-module.exports.formatReleases = ({ post, repos, pre = true }) => {
+module.exports.formatReleases = ({ post, repos }) => {
   const hasReleases = repos.find(({ releases }) => releases.length)
 
   if (!hasReleases) {
@@ -262,27 +268,23 @@ module.exports.formatReleases = ({ post, repos, pre = true }) => {
 
   const releasesCount = repos.reduce((acc, { releases }) => acc + releases.length, 0)
   const summary = []
-  let content = `\n${releasesCount} Releases\n`
+  let content = `\n## ${releasesCount} Releases\n`
 
   repos
     .filter(({ releases }) => releases.length)
     .forEach(({ name, releases }) => {
       if (releases.length > 1) {
-        content += `\n* ${releases.length} *${name}* releases`
+        content += `\n### ${releases.length} *${name}* releases`
         summary.push(`${name}: ${releases.length}`)
       } else {
-        content += `\n* 1 *${name}* release`
+        content += `\n### 1 *${name}* release`
         summary.push(`${name}: 1`)
       }
-      content += ` - ${releases.map(({ tag, url }) => `[${tag}](${url})`).join(', ')}`
+      content += `\n${releases.map(({ tag, url }) => `* [${tag}](${url})`).join('\n')}`
     })
 
-  if (pre) {
-    post.content = `${content}\n${post.content}`
-  } else {
-    post.content = `${post.content}\n${content}`
-  }
-
+  post.content = post.content || {}
+  post.content.releases = content
   post.summary.push(`${releasesCount} release(s)\n${summary.join('\n')}`)
   return post
 }

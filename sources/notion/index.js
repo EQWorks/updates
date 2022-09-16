@@ -100,7 +100,7 @@ module.exports.getJournals = async ({ start, end, isDaily }) => {
 
 module.exports.formatJournals = ({ post, journals }) => {
   const summary = []
-  let lwdJournals = '# JOURNALS\n'
+  let lwdJournals = `## ${Object.keys(journals).length} Journal Updates\n`
 
   Object.entries(journals).map(([name, journals]) => {
     return ({ [name]: {
@@ -123,8 +123,11 @@ module.exports.formatJournals = ({ post, journals }) => {
       ].join(', ')}`)
     }
   }))
-
-  post.content += `\n\n${lwdJournals}`
-  post.summary.push(`${Object.keys(journals).length} journal updates\n${summary.join('\n')}`)
+  post.content = post.content || {}
+  post.content.journals = lwdJournals
+  const s = `${Object.keys(journals).length} journal updates\n${summary.join('\n')}`
+  post.summary.push(s)
+  post.summaries = post.summaries || {} // v2 object-based summaries
+  post.summaries.journals = s
   return post
 }
