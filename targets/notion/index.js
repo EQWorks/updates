@@ -18,7 +18,7 @@ module.exports.uploadMD = async (post, tag) => {
       Tags: { multi_select: [{ name: tag }] },
     },
   }
-  const children = []
+  let children = []
   if (post.content.vacays) {
     children.push(post.content.vacays)
   }
@@ -28,21 +28,31 @@ module.exports.uploadMD = async (post, tag) => {
   if (post.content.previously) {
     children.push(post.content.previously)
   }
-
   if (post.content.journals) {
-    // first attemp to use normal content assembly
-    page.children = markdownToBlocks([...children, post.content.journals].join('\n\n'))
-    try {
-      const r = await notion.pages.create(page)
-      return r
-    } catch(e) {
-      console.warn('Journal updates too long, fall back to its summary...')
-      // falls back to using journal summary for shorter body length
-      page.children = markdownToBlocks([...children, post.summaries.journals].join('\n\n'))
-    }
-  } else {
-    page.children = markdownToBlocks(children.join('\n\n'))
+    children.push(post.content.journals)
   }
+  children = markdownToBlocks(children.join('\n'))
 
-  return notion.pages.create(page)
+  if (children.length <= 100) {
+    return notion.pages.create({ ...page, children })
+  }
+  // batch children and append to the same page
+  const size = 100 // Notion max allowed per batch of children
+  let batch = 1
+  let p = {}
+  for (let i = 0; i < children.length; i += size) {
+    const chunk = children.slice(i, i + size)
+    console.log(`Notion page children block batch ${batch}, size ${chunk.length}`)
+    if (i === 0) { // first batch to create the page
+      p = await notion.pages.create({ ...page, children: chunk })
+    } else {
+      const { id: block_id } = p // page is a type of block too
+      await notion.blocks.children.append({
+        block_id,
+        children: chunk,
+      })
+    }
+    batch += 1
+  }
+  return p
 }

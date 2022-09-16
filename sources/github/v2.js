@@ -55,7 +55,7 @@ const getProjectsV2 = (issue) => {
 }
 
 //
-const getLabels = (issue) => ([ // eslint-disable-line no-unused-vars
+const getLabels = (issue) => ([
   ...new Set([
     // seek from direct labels association
     ...issue?.labels?.nodes?.map(({ name }) => name),
@@ -104,12 +104,18 @@ const formatParticipants = (issue) => {
   return p
 }
 
-const formatIssueLink = (issue) => `[[${formatIssueType(issue)} #${issue.number}](${issue.url})]`
+const formatIssueLink = (issue) => `[${formatIssueType(issue)} #${issue.number}](${issue.url})`
 
 const formatIssueItem = (issue) => {
   // type with number and URL
-  const type = formatIssueLink(issue)
-  // title with URL
+  let type = `[${formatIssueLink(issue)}`
+  // format closing issues association
+  if (issue.closingIssuesReferences?.totalCount) {
+    const { nodes } = issue.closingIssuesReferences
+    type += ` 🔗 ${nodes.map(formatIssueLink).join(', ')}]`
+  } else {
+    type += ']'
+  }
   const title = trimTitle(issue)
   // participants
   const participants = formatParticipants(issue)
@@ -117,7 +123,7 @@ const formatIssueItem = (issue) => {
 }
 
 // discussions is either reviews or comments
-const formatAggDiscussionStats = ({ type, discussions, start, end }) => { // eslint-disable-line no-unused-vars
+const formatAggDiscussionStats = ({ type, discussions, start, end }) => {
   const _start = DateTime.fromISO(start, { zone: 'UTC' }).startOf('day')
   const _end = DateTime.fromISO(end, { zone: 'UTC' }).endOf('day')
   const { totalCount, nodes } = discussions
@@ -196,24 +202,19 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
         previously += `[${projects.map((p) => `[${trimTitle(p)}](${p.url || repo.url})`).join(', ')}]`
       }
       previously += ` ${formatIssueItem(i)}\n`
-      // format closing issues association
-      if (i.closingIssuesReferences?.totalCount) {
-        const { totalCount, nodes } = i.closingIssuesReferences
-        previously += `* Linked issue${totalCount > 1 ? 's' : ''}: ${nodes.map(formatIssueLink).join(', ')}\n`
+      // format aggregated comment stats
+      if (i.comments?.totalCount) {
+        previously += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
       }
-      // // format aggregated comment stats
-      // if (i.comments?.totalCount) {
-      //   previously += formatAggDiscussionStats({ type:'comment', discussions: i.comments, start, end })
-      // }
-      // // format aggregated review stats
-      // if (i.reviews?.totalCount) {
-      //   previously += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
-      // }
-      // // format labels
-      // const labels = getLabels(i)
-      // if (labels.length) {
-      //   previously += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
-      // }
+      // format aggregated review stats
+      if (i.reviews?.totalCount) {
+        previously += formatAggDiscussionStats({ type: 'review', discussions: i.reviews, start, end })
+      }
+      // format labels
+      const labels = getLabels(i)
+      if (labels.length) {
+        previously += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
+      }
     })
   })
 
