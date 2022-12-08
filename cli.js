@@ -13,7 +13,7 @@ const { ORG_TZ = 'America/Toronto' } = process.env
 const stripMS = (dt) => `${dt.toISO().split('.')[0]}Z`
 
 // TODO: a lot of getX functions are similar, refactor
-const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
+const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = ORG_TZ, sred = false }) => {
   // last work day in ISO string - ms portion
   const day = DateTime.fromISO(date).startOf('day').setZone(timeZone, { keepLocalTime: true })
   const lastYst = day.minus({ days: day.weekday === 1 ? 3 : 1 })
@@ -34,17 +34,19 @@ const getDaily = async ({ date, team, raw = false, dryRun = false, timeZone = OR
   if (raw) {
     return JSON.stringify({ vacays, repos, issues, journals })
   }
-  const post = ghV2.formatPreviously({ repos, ...issues })
-  ghV2.formatReleases({ post, repos }) // mutates post.content with releases
-  asana.formatVacays({ post, vacays }) // mutates post.content with vacations
-  notion.formatJournals({ post, journals }) // mutates post.content with journals
+  const post = ghV2.formatPreviously({ repos, ...issues, sred })
+  if (!sred) {
+    ghV2.formatReleases({ post, repos }) // mutates post.content with releases
+    asana.formatVacays({ post, vacays }) // mutates post.content with vacations
+    notion.formatJournals({ post, journals }) // mutates post.content with journals
+  }
   if (dryRun) {
     return Object.values(post.content).join('\n')
   }
   const page = await notionTarget.uploadMD(post, 'daily')
   return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })
 }
-const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
+const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = ORG_TZ, sred = false }) => {
   // weekly range in ISO string but drops ms portion
   const day = DateTime.fromISO(date).startOf('day').setZone(timeZone, { keepLocalTime: true })
   const yst = DateTime.utc().minus({ day: 1 }).setZone(ORG_TZ, { keepLocalTime: true })
@@ -69,10 +71,12 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
   if (team) {
     prefix = `${team.toUpperCase()} Digest`
   }
-  const post = ghV2.formatPreviously({ repos, ...issues, prefix })
-  ghV2.formatReleases({ post, repos }) // mutates post.content with releases
-  asana.formatVacays({ post, vacays }) // mutates post.content with vacations
-  notion.formatJournals({ post, journals }) // mutates post.content with journals
+  const post = ghV2.formatPreviously({ repos, ...issues, prefix, sred })
+  if (!sred) {
+    ghV2.formatReleases({ post, repos }) // mutates post.content with releases
+    asana.formatVacays({ post, vacays }) // mutates post.content with vacations
+    notion.formatJournals({ post, journals }) // mutates post.content with journals
+  }
   if (dryRun) {
     return Object.values(post.content).join('\n')
   }
@@ -83,7 +87,7 @@ const getWeekly = async ({ date, team, raw = false, dryRun = false, timeZone = O
   const page = await notionTarget.uploadMD(post, tag)
   return slack.postSummary({ url: page.url, title: post.title, summary: post.summary })
 }
-const getRange = async ({ date, scope, raw = false, dryRun = false, timeZone = ORG_TZ }) => {
+const getRange = async ({ date, scope, raw = false, dryRun = false, timeZone = ORG_TZ, sred = false }) => {
   // range in ISO string but drops ms portion
   const day = DateTime.fromISO(date).setZone(timeZone, { keepLocalTime: true })
   const start = stripMS(day.startOf(scope).toUTC())
@@ -100,8 +104,10 @@ const getRange = async ({ date, scope, raw = false, dryRun = false, timeZone = O
   if (raw) {
     return JSON.stringify({ repos, issues })
   }
-  const post = ghV2.formatPreviously({ repos, ...issues, prefix: `${scope.toUpperCase()} Digest` })
-  ghV2.formatReleases({ post, repos }) // mutates post.content with releases
+  const post = ghV2.formatPreviously({ repos, ...issues, prefix: `${scope.toUpperCase()} Digest`, sred })
+  if (!sred) {
+    ghV2.formatReleases({ post, repos }) // mutates post.content with releases
+  }
   if (dryRun) {
     return Object.values(post.content).join('\n')
   }
@@ -134,6 +140,11 @@ const sharedOptions = {
   'time-zone': {
     type: 'string',
     default: ORG_TZ,
+  },
+  sred: {
+    type: 'boolean',
+    default: false,
+    description: 'SR&ED mode, output only Done items from GitHub and include descriptions in formatting',
   },
 }
 
