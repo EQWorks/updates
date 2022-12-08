@@ -10,18 +10,16 @@ const {
   ORG_TZ: zone = 'America/Toronto',
 } = process.env
 
-const VACAY_SECTIONS = '1152701043959236'
 const client = asana.Client.create().useAccessToken(ASANA_TOKEN)
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 // https://developers.asana.com/docs/search-tasks-in-a-workspace
 const searchTasks = (params) => client.tasks.searchInWorkspace(ASANA_WORKSPACE, {
-  completed: false,
   is_subtask: false,
   sort_by: 'created_at',
   sort_ascending: true,
-  opt_fields: 'assignee.email,start_on,due_on,due_at,created_at',
+  opt_fields: 'name,assignee.email,start_on,due_on,due_at,created_at',
   limit: 100,
   ...params,
 }).then(({ data }) => data)
@@ -30,14 +28,10 @@ module.exports.getVacays = async ({
   after,
   before,
   projects = ASANA_PROJECT,
-  sections = VACAY_SECTIONS,
 }) => {
   const common = { 'due_on.after': after }
   if (projects) {
     common['projects.all'] = projects
-  }
-  if (sections) {
-    common['sections.any'] = sections
   }
   // get tasks
   let data = []
