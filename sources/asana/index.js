@@ -60,7 +60,6 @@ module.exports.getVacays = async ({
       await sleep(60 * 1000)
     }
   }
-  console.log(data)
   return data.reduce((acc, { name, gid, created_by, assignee, start_on: start, due_on, due_at }) => {
     let identity = (assignee || created_by || {}).email
     if (!identity) { // this should almost never happen, except when the user is not in the Asana project anymore
