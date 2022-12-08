@@ -82,7 +82,7 @@ module.exports.formatVacays = ({ post, vacays }) => {
     return post
   }
   const summary = []
-  let s = `## ${Object.keys(vacays).length} Vacation Status\n`
+  let s = `## ${Object.keys(vacays).length} Unavailability Status\n`
   Object.entries(vacays).forEach(([identity, ranges]) => {
     const fr = ranges.map(formatLocalDates(zone)).map(({ message, status }) => {
       let m = `${message} (${status})`
@@ -96,7 +96,7 @@ module.exports.formatVacays = ({ post, vacays }) => {
   })
   post.content = post.content || {}
   post.content.vacays = s
-  post.summary.push(`${Object.keys(vacays).length} vacation status\n${summary.join('\n')}`)
+  post.summary.push(`${Object.keys(vacays).length} Unavailability status\n${summary.join('\n')}`)
   return post
 }
 
