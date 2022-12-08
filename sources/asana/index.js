@@ -19,7 +19,7 @@ const searchTasks = (params) => client.tasks.searchInWorkspace(ASANA_WORKSPACE, 
   is_subtask: false,
   sort_by: 'created_at',
   sort_ascending: true,
-  opt_fields: 'name,assignee.email,start_on,due_on,due_at,created_at',
+  opt_fields: 'name,created_by.email,assignee.email,start_on,due_on,due_at,created_at',
   limit: 100,
   ...params,
 }).then(({ data }) => data)
@@ -54,19 +54,25 @@ module.exports.getVacays = async ({
     created_at = last.created_at
     gid = last.gid
     data = data.concat(tasks)
-    // comply to 60 reqs/min ASANA search API constraint
+    // comply to 60 reqs/min Asana search API constraint
     it += 1
     if (it >= 59) {
       await sleep(60 * 1000)
     }
   }
-  return data.reduce((acc, { gid, assignee, start_on: start, due_on, due_at }) => {
-    if (!acc.some((t) => t.gid === gid) && assignee && assignee.email && (start || due_on) <= before) {
-      acc.push({ email: assignee.email.toLowerCase(), start: start || due_at || due_on, end: due_at || due_on })
+  console.log(data)
+  return data.reduce((acc, { name, gid, created_by, assignee, start_on: start, due_on, due_at }) => {
+    let identity = (assignee || created_by || {}).email
+    if (!identity) { // this should almost never happen, except when the user is not in the Asana project anymore
+      const parts = name.split(':').map(v => v.trim()).filter(v => v)
+      identity = parts[1] || parts[0]
+    }
+    if (!acc.some((t) => t.gid === gid) && identity && (start || due_on) <= before) {
+      acc.push({ identity: identity.toLowerCase(), start: start || due_at || due_on, end: due_at || due_on })
     }
     return acc
-  }, []).reduce((acc, { email, start, end }) => {
-    acc[email] = [...(acc[email] || []), { start, end }]
+  }, []).reduce((acc, { identity, start, end }) => {
+    acc[identity] = [...(acc[identity] || []), { start, end }]
     return acc
   }, {})
 }
@@ -77,7 +83,7 @@ module.exports.formatVacays = ({ post, vacays }) => {
   }
   const summary = []
   let s = `## ${Object.keys(vacays).length} Vacation Status\n`
-  Object.entries(vacays).forEach(([email, ranges]) => {
+  Object.entries(vacays).forEach(([identity, ranges]) => {
     const fr = ranges.map(formatLocalDates(zone)).map(({ message, status }) => {
       let m = `${message} (${status})`
       if (status === 'ongoing') {
@@ -85,8 +91,8 @@ module.exports.formatVacays = ({ post, vacays }) => {
       }
       return m
     }).join(', ')
-    s += `\n- ${email} - ${fr}`
-    summary.push(`${email.split(/[@.]/)[0]}: ${fr}`)
+    s += `\n- ${identity} - ${fr}`
+    summary.push(`${identity.split(/[@.]/)[0]}: ${fr}`)
   })
   post.content = post.content || {}
   post.content.vacays = s
