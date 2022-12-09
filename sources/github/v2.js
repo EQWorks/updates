@@ -221,9 +221,7 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
         previously += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
       }
       if (sred && i.body) {
-        previously += '-- Body Start\n'
         previously += `${i.body}\n`
-        previously += '-- Body End\n'
       }
     })
   })
