@@ -159,7 +159,7 @@ const formatLoneRepos = (loneRepos) => {
 }
 
 // format previously (daily) updates
-module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'Previously' }) => {
+module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'Previously', sred = false }) => {
   let summary = []
   let previously = ''
   // group by repository, maintain natural order of PRs before issues
@@ -171,12 +171,14 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
     }
     return acc
   }, {})
-  // format lone repos
-  // filter out lone repos (no issues or PRs)
-  const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
-  if (loneRepos.length) {
-    summary.push(`Lone repo updates:\n${loneRepos.map(({ name }) => `* ${name}`).join('\n')}`)
-    previously += formatLoneRepos(loneRepos)
+  if (!sred) {
+    // format lone repos
+    // filter out lone repos (no issues or PRs)
+    const loneRepos = repos.filter(({ name }) => !Object.keys(byRepo).includes(name))
+    if (loneRepos.length) {
+      summary.push(`Lone repo updates:\n${loneRepos.map(({ name }) => `* ${name}`).join('\n')}`)
+      previously += formatLoneRepos(loneRepos)
+    }
   }
   // format summary stats for PRs and issues
   let issueSummary = `${issues.length + prs.length} updates (${prs.length} PRs, ${issues.length} issues)`
@@ -186,12 +188,15 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
   // format content for each repo
   Object.values(byRepo).forEach((repo) => {
     // temp disable this as it has way too many excessive updates
-    if (repo.name.toLowerCase() === 'paymi-expo') {
+    if (['paymi-expo', 'ops-locus'].includes(repo.name.toLowerCase())) {
       return
     }
     previously += `\n## 🎯\t[${repo.name}](${repo.url})\n`
     // format each PR and issue
     repo.issues.forEach((i) => {
+      if (sred && !i.closed) {
+        return // skip non-closed issues/PRs in SRED mode
+      }
       previously += `\n${stateIcon(i)}\t`
       // format projects association
       let projects = getProjectsV2(i)
@@ -215,14 +220,17 @@ module.exports.formatPreviously = ({ repos, issues, prs, start, end, prefix = 'P
       if (labels.length) {
         previously += `* Label${labels.length > 1 ? 's' : ''}: ${labels.map((l) => `\`${l}\``).join(', ')}\n`
       }
+      if (sred && i.body) {
+        previously += `${i.body}\n`
+      }
     })
   })
-
-  return {
-    title: `${prefix} - ${formatDates({ start, end }).message}`,
-    summary,
-    content: { previously },
+  let title = `${prefix} - ${formatDates({ start, end }).message}`
+  if (sred) {
+    title += ' (SR&ED mode)'
   }
+
+  return { title, summary, content: { previously } }
 }
 
 const getTeamTopicsCategory = (repositoryTopics) => {

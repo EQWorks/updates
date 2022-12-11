@@ -5,6 +5,17 @@ const { markdownToBlocks } = require('@tryfabric/martian')
 const { DATABASE_ID = 'adf0c7124e1e44ff851e254dbe36015c' } = process.env
 const today = `${new Date().toISOString().split('T')[0]}`
 
+// TODO: this is a patch work, probably best if addressed in @tryfabric/martian
+const seekFixFalseURLs = (blocks) => { // mutates blocks
+  blocks.forEach((block) => {
+    ((block[block.type] || {}).rich_text || []).forEach((rt) => {
+      if ((rt[rt.type].link || {}).url === 'url') {
+        rt[rt.type].link.url = rt[rt.type].content
+      }
+    })
+  })
+}
+
 module.exports.uploadMD = async (post, tag) => {
   const page = {
     parent: { type: 'database_id', database_id: DATABASE_ID },
@@ -32,6 +43,7 @@ module.exports.uploadMD = async (post, tag) => {
     children.push(post.content.journals)
   }
   children = markdownToBlocks(children.join('\n'))
+  seekFixFalseURLs(children) // mutates children/blocks, TODO: patch work
 
   if (children.length <= 100) {
     return notion.pages.create({ ...page, children })
