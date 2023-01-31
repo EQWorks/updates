@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fasttext = "*"
+gensim = "*"
+pyemd = "*"
+python-levenshtein = "*"
+
+[dev-packages]
+jupyter = "*"
+pandas = "*"
+
+[requires]
+python_version = "3.9"
