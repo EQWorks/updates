@@ -24,7 +24,7 @@
   "author": "dev@eqworks.com",
   "license": "MIT",
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "dependencies": {
     "@notionhq/client": "^1.0.4",
